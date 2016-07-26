@@ -247,6 +247,7 @@
         "hideMethod": "fadeOut"
     }
     $(document).ready(function () {
+
         var oTable = $('#admin-table');
         var url = prefix + "/activities/query";
         var keyword = "keyword=" + " ";
@@ -303,6 +304,7 @@
                     });
         });
 
+        //提供时间
         function renderDate(time) {
             var date = new Date(time);
             return date.getFullYear() + "-" + (date.getMonth() + 1) + "-"
@@ -330,32 +332,17 @@
                 "sDom": "<'row'<'col-sm-6'l><'col-sm-6'f>r><'row't><'row'<'col-sm-6'i><'col-sm-6'p>>",
                 "bScrollCollapse": true,
                 "aoColumns": [
+
                     {
-                        "mDataProp": "storeId",
-                        "bVisible": false
-                    },
-                    {
-                        "mDataProp": "nickname",
+                        "mDataProp": "code",
                         "bSortable": false
                     },
                     {
-                        "mDataProp": "position",
+                        "mDataProp": "title",
                         "bSortable": false
                     },
                     {
-                        "mDataProp": "name",
-                        "bSortable": false
-                    },
-                    {
-                        "mDataProp": "intro",
-                        "bSortable": false
-                    },
-                    {
-                        "mDataProp": "view",
-                        "bSortable": false
-                    },
-                    {
-                        "mDataProp": "consult",
+                        "mDataProp": "des",
                         "bSortable": false
                     },
                     {
@@ -366,12 +353,13 @@
                         }
                     },
                     {
-                        "mDataProp": "deleted",
+                        "mDataProp": "updated",
                         "bSortable": false,
-                        "mRender": function (status) {
-                            return renderStatus(status);
+                        "mRender": function (time) {
+                            return renderDate(time);
                         }
                     },
+
                     {
                         "mDataProp": "storeId",
                         "bSortable": false,

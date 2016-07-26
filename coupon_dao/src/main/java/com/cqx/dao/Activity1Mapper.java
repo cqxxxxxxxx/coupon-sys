@@ -22,4 +22,6 @@ public interface Activity1Mapper {
     int updateByPrimaryKey(Activity1 record);
 
     List<Activity1> listAll();
+
+    List<Activity1> exist(String code);
 }

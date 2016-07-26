@@ -12,6 +12,12 @@
     <result column="des" property="des" jdbcType="LONGVARCHAR" />
   </resultMap>
 
+  <!--查询code是否已经有了-->
+  <select id="exist" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT * FROM coupon_activity
+    WHERE code = #{code,jdbcType=VARCHAR}
+
+  </select>
 
   <!--获取活动列表-->
   <select id="listAll" resultMap="ResultMapWithBLOBs">

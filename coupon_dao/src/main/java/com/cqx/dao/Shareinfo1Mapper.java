@@ -26,5 +26,5 @@ public interface Shareinfo1Mapper {
     List<Shareinfo1> ListO(String code);
 
     //检测手机号是否已经领取过
-    List<Shareinfo1> ifExist(String phone);
+    List<Shareinfo1> exist(String phone);
 }

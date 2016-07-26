@@ -27,7 +27,7 @@
   </select>
 
   <!--查询是否已经领取了  检测手机号是否存在-->
-  <select id="ifExist" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="exist" parameterType="java.lang.String" resultMap="BaseResultMap">
     SELECT * FROM share
     WHERE phone = #{phone,jdbcType=VARCHAR}
 
