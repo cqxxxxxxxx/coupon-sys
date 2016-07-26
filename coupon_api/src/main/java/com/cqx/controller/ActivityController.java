@@ -17,7 +17,7 @@ import java.util.List;
  * Created by cqxxxxx on 2016/7/21.
  */
 @Controller
-@RequestMapping("/activityList")
+@RequestMapping("/activities")
 public class ActivityController {
 
     @Resource(name = "ActivityList")
