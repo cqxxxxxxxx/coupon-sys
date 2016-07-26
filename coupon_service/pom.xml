@@ -20,7 +20,7 @@
 
   <parent>
     <artifactId>coupon_activity</artifactId>
-    <groupId>com.cqx</groupId>
+    <groupId>cn.xiaohuodui</groupId>
     <version>1.0-SNAPSHOT</version>
   </parent>
 
