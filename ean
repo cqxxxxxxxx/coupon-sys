@@ -1,0 +1,59 @@
+[INFO] Scanning for projects...
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for cn.xiaohuodui:coupon_api:war:1.0-SNAPSHOT
+[WARNING] 'dependencies.dependency.(groupId:artifactId:type:classifier)' must be unique: javax.servlet:servlet-api:jar -> duplicate declaration of version 2.5 @ cn.xiaohuodui:coupon_activity:1.0-SNAPSHOT, D:\cqxgit\coupon_activity\pom.xml, line 165, column 21
+[WARNING] 'dependencies.dependency.(groupId:artifactId:type:classifier)' must be unique: javax.servlet.jsp:jsp-api:jar -> duplicate declaration of version 2.1 @ cn.xiaohuodui:coupon_activity:1.0-SNAPSHOT, D:\cqxgit\coupon_activity\pom.xml, line 173, column 21
+[WARNING] 'parent.relativePath' of POM cn.xiaohuodui:coupon_api:1.0-SNAPSHOT (D:\cqxgit\coupon_activity\coupon_api\pom.xml) points at cn.xiaohuodui:coupon_activity instead of com.cqx:coupon_activity, please verify your project structure @ line 11, column 11
+[WARNING] 'dependencies.dependency.(groupId:artifactId:type:classifier)' must be unique: javax.servlet:servlet-api:jar -> duplicate declaration of version 2.5 @ com.cqx:coupon_activity:1.0-SNAPSHOT, C:\Users\cqxxxxx\.m2\repository\com\cqx\coupon_activity\1.0-SNAPSHOT\coupon_activity-1.0-SNAPSHOT.pom, line 146, column 21
+[WARNING] 'dependencies.dependency.(groupId:artifactId:type:classifier)' must be unique: javax.servlet.jsp:jsp-api:jar -> duplicate declaration of version 2.1 @ com.cqx:coupon_activity:1.0-SNAPSHOT, C:\Users\cqxxxxx\.m2\repository\com\cqx\coupon_activity\1.0-SNAPSHOT\coupon_activity-1.0-SNAPSHOT.pom, line 154, column 21
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for cn.xiaohuoduimv:coupon_service:jar:1.0-SNAPSHOT
+[WARNING] 'dependencies.dependency.(groupId:artifactId:type:classifier)' must be unique: javax.servlet:servlet-api:jar -> duplicate declaration of version 2.5 @ cn.xiaohuodui:coupon_activity:1.0-SNAPSHOT, D:\cqxgit\coupon_activity\pom.xml, line 165, column 21
+[WARNING] 'dependencies.dependency.(groupId:artifactId:type:classifier)' must be unique: javax.servlet.jsp:jsp-api:jar -> duplicate declaration of version 2.1 @ cn.xiaohuodui:coupon_activity:1.0-SNAPSHOT, D:\cqxgit\coupon_activity\pom.xml, line 173, column 21
+[WARNING] 'parent.relativePath' of POM cn.xiaohuoduimv:coupon_service:1.0-SNAPSHOT (D:\cqxgit\coupon_activity\coupon_service\pom.xml) points at cn.xiaohuodui:coupon_activity instead of com.cqx:coupon_activity, please verify your project structure @ line 21, column 11
+[WARNING] 'dependencies.dependency.(groupId:artifactId:type:classifier)' must be unique: javax.servlet:servlet-api:jar -> duplicate declaration of version 2.5 @ com.cqx:coupon_activity:1.0-SNAPSHOT, C:\Users\cqxxxxx\.m2\repository\com\cqx\coupon_activity\1.0-SNAPSHOT\coupon_activity-1.0-SNAPSHOT.pom, line 146, column 21
+[WARNING] 'dependencies.dependency.(groupId:artifactId:type:classifier)' must be unique: javax.servlet.jsp:jsp-api:jar -> duplicate declaration of version 2.1 @ com.cqx:coupon_activity:1.0-SNAPSHOT, C:\Users\cqxxxxx\.m2\repository\com\cqx\coupon_activity\1.0-SNAPSHOT\coupon_activity-1.0-SNAPSHOT.pom, line 154, column 21
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for cn.xiaohuodui:coupon_dao:jar:1.0-SNAPSHOT
+[WARNING] 'dependencies.dependency.(groupId:artifactId:type:classifier)' must be unique: javax.servlet:servlet-api:jar -> duplicate declaration of version 2.5 @ cn.xiaohuodui:coupon_activity:1.0-SNAPSHOT, D:\cqxgit\coupon_activity\pom.xml, line 165, column 21
+[WARNING] 'dependencies.dependency.(groupId:artifactId:type:classifier)' must be unique: javax.servlet.jsp:jsp-api:jar -> duplicate declaration of version 2.1 @ cn.xiaohuodui:coupon_activity:1.0-SNAPSHOT, D:\cqxgit\coupon_activity\pom.xml, line 173, column 21
+[WARNING] 'parent.relativePath' of POM cn.xiaohuodui:coupon_dao:1.0-SNAPSHOT (D:\cqxgit\coupon_activity\coupon_dao\pom.xml) points at cn.xiaohuodui:coupon_activity instead of com.cqx:coupon_activity, please verify your project structure @ line 13, column 11
+[WARNING] 'dependencies.dependency.(groupId:artifactId:type:classifier)' must be unique: javax.servlet:servlet-api:jar -> duplicate declaration of version 2.5 @ com.cqx:coupon_activity:1.0-SNAPSHOT, C:\Users\cqxxxxx\.m2\repository\com\cqx\coupon_activity\1.0-SNAPSHOT\coupon_activity-1.0-SNAPSHOT.pom, line 146, column 21
+[WARNING] 'dependencies.dependency.(groupId:artifactId:type:classifier)' must be unique: javax.servlet.jsp:jsp-api:jar -> duplicate declaration of version 2.1 @ com.cqx:coupon_activity:1.0-SNAPSHOT, C:\Users\cqxxxxx\.m2\repository\com\cqx\coupon_activity\1.0-SNAPSHOT\coupon_activity-1.0-SNAPSHOT.pom, line 154, column 21
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for cn.xiaohuodui:coupon_activity:pom:1.0-SNAPSHOT
+[WARNING] 'dependencies.dependency.(groupId:artifactId:type:classifier)' must be unique: javax.servlet:servlet-api:jar -> duplicate declaration of version 2.5 @ line 165, column 21
+[WARNING] 'dependencies.dependency.(groupId:artifactId:type:classifier)' must be unique: javax.servlet.jsp:jsp-api:jar -> duplicate declaration of version 2.1 @ line 173, column 21
+[WARNING] 
+[WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
+[WARNING] 
+[WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
+[WARNING] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] coupon_dao
+[INFO] coupon_service
+[INFO] coupon_api Maven Webapp
+[INFO] coupon_activity Maven Webapp
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary:
+[INFO] 
+[INFO] coupon_dao ......................................... SKIPPED
+[INFO] coupon_service ..................................... SKIPPED
+[INFO] coupon_api Maven Webapp ............................ SKIPPED
+[INFO] coupon_activity Maven Webapp ....................... SKIPPED
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 1.446 s
+[INFO] Finished at: 2016-07-23T14:48:59+08:00
+[INFO] Final Memory: 5M/60M
+[INFO] ------------------------------------------------------------------------
+[ERROR] No goals have been specified for this build. You must specify a valid lifecycle phase or a goal in the format <plugin-prefix>:<goal> or <plugin-group-id>:<plugin-artifact-id>[:<plugin-version>]:<goal>. Available lifecycle phases are: validate, initialize, generate-sources, process-sources, generate-resources, process-resources, compile, process-classes, generate-test-sources, process-test-sources, generate-test-resources, process-test-resources, test-compile, process-test-classes, test, prepare-package, package, pre-integration-test, integration-test, post-integration-test, verify, install, deploy, pre-clean, clean, post-clean, pre-site, site, post-site, site-deploy. -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/NoGoalSpecifiedException
