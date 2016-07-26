@@ -5,6 +5,7 @@
   <groupId>cn.xiaohuodui</groupId>
   <artifactId>coupon_service</artifactId>
   <version>1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
 
   <dependencies>
     <dependency>
@@ -13,7 +14,7 @@
       <version>1.0-SNAPSHOT</version>
     </dependency>
   </dependencies>
-  <packaging>jar</packaging>
+
 
   <name>coupon_service</name>
   <url>http://maven.apache.org</url>

@@ -3,7 +3,6 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>cn.xiaohuodui</groupId>
     <artifactId>coupon_activity</artifactId>
-
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <name>coupon_activity Maven Webapp</name>
@@ -174,4 +173,4 @@
 <finalName>coupon_activity</finalName>
 </build>
 
-        </project>
+</project>
