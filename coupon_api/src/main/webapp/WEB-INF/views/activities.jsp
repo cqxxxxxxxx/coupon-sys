@@ -155,8 +155,10 @@
                                             </th>
                                         </tr>
                                         </thead>
+
                                         <tbody>
                                         </tbody>
+
                                     </table>
                                 </div>
                             </div>
@@ -249,7 +251,7 @@
         var url = prefix + "/activities/query";
         var keyword = "keyword=" + " ";
         loadData();
-
+        console.log("prefix:"+prefix);
         oTable.find('tbody').on('click', ' tr button.op', function (e) {
             var storeId = $(this).attr("id");
             var thisTr = $(this).closest("tr");

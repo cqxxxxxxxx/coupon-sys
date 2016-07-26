@@ -29,7 +29,20 @@ public class ActivityController {
     public String activityList(Model model) {
         list = activityList.getActivitys();
         model.addAttribute("list", list);
-        return "activitylist";
+        return "activities";
+    }
+
+
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    public String addActivity(){
+
+        return "addActivity";
+    }
+
+    @RequestMapping(value = "/update", method = RequestMethod.GET)
+    public String updateActivity(){
+
+        return "updateActivity";
     }
 
 }
