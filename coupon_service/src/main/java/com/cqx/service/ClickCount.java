@@ -19,5 +19,6 @@ public interface ClickCount {
 
     public List<Clickinfo1> getClickInfo(String code);   //通过官方分享的点击者信息（官方 type默认0）
 
+    public List<Clickinfo1> getClickInfoFenYe(String code, String type, String keyword, int limit, int offset);
 
 }

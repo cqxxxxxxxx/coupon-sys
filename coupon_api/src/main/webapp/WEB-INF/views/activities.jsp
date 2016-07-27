@@ -107,8 +107,7 @@
         }
     </style>
 </head>
-<body>
-<div class="fixed-navbar fixed-sidebar">
+<body class="fixed-navbar fixed-sidebar">
     <%--header--%>
     <jsp:include page="comp/header.jsp"/>
     
@@ -176,57 +175,9 @@
 </div>
 </div>
 
-<%--    自己写的垃圾的界面
-<div class="container">
-    <ul class="nav nav-tabs">
-        <li role="presentation" class="active"><a href="index.jsp">主页</a></li>
-        <li role="presentation"><a href="/activityList">活动列表</a></li>
-        <li role="presentation"><a href="/clickinfo.jsp">信息查询</a></li>
-
-    </ul>
-
-</div>
-<div class="container" >
-
-    <div class="list-group">
-        <a href="#" class="list-group-item active">
-            活动信息
-        </a>
-        <c:forEach items="${list}" var="item">
-            <a href="#" class="list-group-item active">活动名:${item.title}</a>
-            <p class="list-group-item-text">${item.des}
-                <span class="label label-info"><a href="/clickinfo/${item.code}/offical">官方链接</a> </span>
-                <span class="label label-success"><a href="/clickinfo/${item.code}/cqx100">个人链接</a></span></p>
-        </c:forEach>
-
-
-        <nav>
-            <ul class="pagination">
-                <li>
-                    <a href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li>
-                    <a href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </div>
-
-</div>
---%>
-
 <script src="<c:url value="/resources/js/jquery.dataTables.js"/>"></script>
 <script type="text/javascript">
-    var path = location.pathname.split('/');    //获取URL中部分路径
+    var path = location.pathname.split('/');
     var app = path[1];
     var prefix = "/" + app;
 
@@ -248,13 +199,12 @@
         "hideMethod": "fadeOut"
     }
     $(document).ready(function () {
-
         var oTable = $('#admin-table');
         var url = prefix + "/list";
         var keyword = "keyword=" + " ";
         loadData();
-        console.log("prefix:"+prefix);
-/*        oTable.find('tbody').on('click', ' tr button.op', function (e) {
+
+        oTable.find('tbody').on('click', ' tr button.op', function (e) {
             var storeId = $(this).attr("id");
             var thisTr = $(this).closest("tr");
             var nRow = thisTr.find('td:nth-child(8)');
@@ -303,9 +253,8 @@
                             });
                         }
                     });
-        });*/
+        });
 
-        //提供时间
         function renderDate(time) {
             var date = new Date(time);
             return date.getFullYear() + "-" + (date.getMonth() + 1) + "-"
@@ -337,10 +286,9 @@
                         "mDataProp": "id",
                         "bVisible": false
                     },
-
                     {
                         "mDataProp": "code",
-                        "bSortable": true
+                        "bSortable": false
                     },
                     {
                         "mDataProp": "title",
@@ -352,31 +300,23 @@
                     },
                     {
                         "mDataProp": "created",
-                        "bSortable": true,
-                        "mRender": function (time) {
-                            return renderDate(time);
-                        }
-                    },
-                    {
-                        "mDataProp": "updated",
-                        "bSortable": true,
-                        "mRender": function (time) {
+                        "bSortable": false,
+                        "mRender": function (time) {    //  转下格式显示出来
                             return renderDate(time);
                         }
                     },
 
-                    /*{
-                        "mDataProp": "storeId",
+                    {
+                        "mDataProp": "id",
                         "bSortable": false,
                         "mRender": function (data, type, full) {
                             return generateOp(data);
                         }
-                    }*/
+                    }
                 ],
                 "bFilter": true,
                 "bServerSide": true,
                 "sAjaxSource": url,
-                "sAjaxDataProp": "",
                 "sServerMethod": "GET",
                 "bRetrieve": true,
                 "oLanguage": {

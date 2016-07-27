@@ -3,6 +3,7 @@ package com.cqx.dao;
 
 
 import com.cqx.model.Clickinfo1;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -25,4 +26,7 @@ public interface Clickinfo1Mapper {
 
     //官方分享的连接的点击者信息
     List<Clickinfo1> ListO(String code);
+
+    //分享信息的分页版本
+    List<Clickinfo1> listFenYe(@Param("code") String code, @Param("type") String type,@Param("keyword") String keyword, @Param("limit") int limit, @Param("offset") int offset);
 }

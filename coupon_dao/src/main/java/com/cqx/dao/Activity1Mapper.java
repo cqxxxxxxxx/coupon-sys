@@ -3,8 +3,10 @@ package com.cqx.dao;
 
 
 import com.cqx.model.Activity1;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface Activity1Mapper {
     int deleteByPrimaryKey(Integer id);
@@ -24,4 +26,8 @@ public interface Activity1Mapper {
     List<Activity1> listAll();
 
     List<Activity1> exist(String code);
+
+    List<Activity1> listFenYe(@Param("keyword") String keyword, @Param("limit") int limit, @Param("offset") int offset);
+
+    int updateActivity(Activity1 record);
 }

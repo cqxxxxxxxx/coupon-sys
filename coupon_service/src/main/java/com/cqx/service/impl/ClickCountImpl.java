@@ -95,4 +95,16 @@ public class ClickCountImpl implements ClickCount {
         }
     }
 
+    //分页版本  需要code type offset limit   keyword可选
+    public List<Clickinfo1> getClickInfoFenYe(String code, String type, String keyword, int limit, int offset) {
+        List<Clickinfo1> list = clickinfo1Mapper.listFenYe(code, type, keyword, limit, offset);
+        if (list==null){
+            System.out.println("获取失败");
+            return null;
+        }else{
+            System.out.println("获取成功");
+            return list;
+        }
+    }
+
 }

@@ -3,6 +3,8 @@ package com.cqx.dao;
 
 
 import com.cqx.model.Shareinfo1;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 import java.util.Map;
 
@@ -27,4 +29,7 @@ public interface Shareinfo1Mapper {
 
     //检测手机号是否已经领取过
     List<Shareinfo1> exist(String phone);
+
+    //分页版本 信息查询
+    List<Shareinfo1> listFenYe(@Param("code") String code, @Param("type") String type, @Param("keyword") String keyword, @Param("limit") int limit, @Param("offset") int offset);
 }

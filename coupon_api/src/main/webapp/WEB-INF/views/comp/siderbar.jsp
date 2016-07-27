@@ -48,13 +48,13 @@
                             href="<c:url value="/activities/update"/>">修改活动</a></li>
                 </ul>
             </li>
-            <li class="<c:if test="${param.index eq 'service'}">active</c:if>">
+            <li class="<c:if test="${param.index eq 'info'}">active</c:if>">
                 <a href="#"><span class="nav-label">查询管理</span><span class="fa arrow"></span> </a>
                 <ul class="nav nav-second-level collapse">
-                    <li class="<c:if test="${param.index1 eq 'services'}">active</c:if>"><a
-                            href="<c:url value="/services"/> ">官方分享查询</a></li>
-                    <li class="<c:if test="${param.index1 eq 'addService'}">active</c:if>"><a
-                            href="<c:url value="/services/add"/> ">个人分享查询</a></li>
+                    <li class="<c:if test="${param.index1 eq 'clickinfo'}">active</c:if>"><a
+                            href="<c:url value="/clickinfo"/> ">活动点击量信息查询</a></li>
+                    <li class="<c:if test="${param.index1 eq 'shareinfo'}">active</c:if>"><a
+                            href="<c:url value="/shareinfo"/> ">已参加动用户信息查询</a></li>
                 </ul>
             </li>
             <li class="<c:if test="${param.index eq 'advice'}">active</c:if>">

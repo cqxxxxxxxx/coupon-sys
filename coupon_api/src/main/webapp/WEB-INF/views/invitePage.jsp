@@ -1,65 +1,173 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: cqxxxxx
-  Date: 2016/7/21
-  Time: 15:22
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
+<%@ page isELIgnored="false" %>
+<!DOCTYPE html>
 <html>
 <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Page title -->
     <title>邀请页面</title>
-    <script type="text/javascript" src="/resources/js/jquery.js"></script>
-    <script type="text/javascript" src="/resources/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/resources/js/jquery.form.js"></script>
-    <link href="/resources/css/bootstrap.css" rel="stylesheet"/>
+    <jsp:include page="/WEB-INF/views/comp/header.include.jsp"/>
 </head>
-<body>
+<body class="fixed-navbar fixed-sidebar">
 
-    邀请页面
-    code:${code}
-    type:${type}
-<%--    <%=request.getAttribute("code")%>
-    <form action="/shareinfo/${code}/${type}" method="post">
-        <input type="number" name="phone">
-       &lt;%&ndash; <input type="text" name="code" value="${code}" style="visibility: hidden">
-        <input type="text" name="type" value="${type}" style="visibility: hidden">
-     &ndash;%&gt;
-        <input type="submit" value="提交">
-    </form>--%>
+<!-- Header -->
+<jsp:include page="/WEB-INF/views/comp/header.jsp"/>
 
+<!--Aside Menu -->
+<jsp:include page="/WEB-INF/views/comp/siderbar.jsp">
+    <jsp:param name="index" value="invite"/>
+    <jsp:param name="index1" value="invite"/>
+</jsp:include>
 
-    <div class="container">
-        <form id="form" action="/shareinfo/${code}/${type}" method="post">
-            <div class="input-group">
-                <span class="input-group-addon" id="basic-addon1">phone</span>
-                <input name="phone" type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
+<!-- Main Wrapper -->
+<div id="wrapper">
+    <div class="content animate-panel">
+        <div class="transition animated fadeIn">
+            <div class="hpanel">
+                <div class="panel-body">
+                    <h2 class="font-light m-b-xs">
+                        领取页面
+                    </h2>
+                    <small>
+                        <ol class="hbreadcrumb breadcrumb">
+                            <li><a href="index.html">领取页面</a></li>
+                            <li>
+                                <span>领取页面</span>
+                            </li>
+                        </ol>
+                    </small>
+                </div>
             </div>
-            <button type="submit" class="btn-default">
-        </form>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 animated-panel zoomIn" style="animation-delay: 0.3s;">
+                <div class="hpanel">
+                    <div class="panel-heading">
+                        信息
+                    </div>
+                    <div class="panel-body">
+                        <form class="form-horizontal">
+                            <div class="form-group"><label class="col-sm-2 control-label">活动编号</label>
 
+                                <div class="col-sm-10">
+                                    <input id="code" type="text" class="form-control m-b" value="${code}" readonly="true">
+                                </div>
+                            </div>
+                            <div class="form-group"><label class="col-sm-2 control-label">邀请人编号</label>
 
+                                <div class="col-sm-10">
+                                    <input id="type" type="text" class="form-control m-b" value="${type}" readonly="true">
+                                </div>
+                            </div>
+                            <div class="form-group"><label class="col-sm-2 control-label">手机号码/label>
 
+                                <div class="col-sm-10">
+                                    <input id="phone" type="number" width="" class="form-control m-b" required="true">
+                                </div>
+                            </div>
+                            <%--                          <div class="form-group"><label class="col-sm-2 control-label">站长名称</label>
+
+                                                          <div class="col-sm-10">
+                                                              <input id="name" type="text" class="form-control m-b"
+                                                                     placeholder="请输入例如:kison" required="">
+                                                          </div>
+                                                      </div>
+                                                      <div class="form-group"><label class="col-sm-2 control-label">角色</label>
+
+                                                          <div class="col-sm-10">
+                                                              <input id="position" type="text" class="form-control m-b" required=""
+                                                                     placeholder="请输入例如:全栈工程师">
+                                                          </div>
+                                                      </div>--%>
+                            <div class="form-group">
+                                <div class="col-sm-8 col-sm-offset-2">
+                                    <button id="submit" class="btn btn-primary">领取优惠</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+    <!-- Footer-->
+    <jsp:include page="/WEB-INF/views/comp/footer.jsp"/>
+</div>
+</div>
+</body>
+<script type="text/javascript">
+    var path = location.pathname.split('/');
+    var app = path[1];
+    var prefix = "/" + app;
 
+    toastr.options = {      //这个是个通知的插件
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-top-center",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",      //出现多久
+        "hideDuration": "1000",     //
+        "timeOut": "5000",          //
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+    $(document).ready(function () {
 
-
-    <script type="text/javascript">
-        $(function () {
-            var options = {
-                type:"POST",
-                dataType:"json",
-                success:function () {
-                    alert("success");
-                }
-            };
-
-            $('#form').ajaxForm(options);
-
+        console.log("prefix"+prefix);
+        $('#submit').click(function (e) {
+            e.preventDefault();
+            var code = $('#code').val();
+            var type = $('#type').val();
+            var phone = $('#phone').val();
+            if (validForm()) {
+                $.ajax({
+                    url: prefix,
+                    type: 'POST',
+                   // data: 'code=' + code + '&title=' + title + '&des=' + des,
+                    success: function (data) {
+                        console.log(data);
+                        alert(data);
+                        var success = "\"success\"";
+                        alert(data == "failed");
+                        if (data == success) {
+                            console.log("success");
+                            cleanForm();
+                            toastr.success('领取成功');
+                        } else {
+                            console.log("failed");
+                            toastr.error('领取失败，已经领取过了');
+                        }
+                    }
+                });
+            } else {
+                toastr.error('code不能为空');
+            }
         });
 
-    </script>
+        function cleanForm() {
+            $('#title').val('');
+            $('#des').val('');
+        }
 
-</body>
+        function validForm() {
+            if ($('#code').val().trim() == "") {
+                return false;
+            }
+            return true;
+        }
+    });
+</script>
 </html>
