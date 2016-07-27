@@ -1,4 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>cn.xiaohuodui</groupId>
@@ -12,7 +12,6 @@
         <module>coupon_api</module>
         <module>coupon_service</module>
         <module>coupon_dao</module>
-
     </modules>
 
     <properties>
@@ -24,11 +23,7 @@
     </properties>
 
 
-
-
     <dependencies>
-
-
         <dependency>
             <!--       spring配置       -->
             <groupId>org.springframework</groupId>
@@ -71,8 +66,6 @@
             <artifactId>spring-web</artifactId>
             <version>${spring.framework.version}</version>
         </dependency>
-
-
 
         <!-- commons-->
         <dependency>
@@ -143,34 +136,34 @@
         </dependency>
 
 
-    <!--junit-->
-    <dependency>
-        <groupId>junit</groupId>
-        <artifactId>junit</artifactId>
-        <version>4.11</version>
-        <scope>test</scope>
-    </dependency>
+        <!--junit-->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
 
 
-</dependencies>
+    </dependencies>
 
 
-<build>
-<plugins>
-    <plugin>
-        <groupId>org.mybatis.generator</groupId>
-        <artifactId>mybatis-generator-maven-plugin</artifactId>
-        <version>1.3.2</version>
-        <dependencies>
-            <dependency>
-                <groupId>mysql</groupId>
-                <artifactId>mysql-connector-java</artifactId>
-                <version>5.1.30</version>
-            </dependency>
-        </dependencies>
-    </plugin>
-</plugins>
-<finalName>coupon_activity</finalName>
-</build>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-maven-plugin</artifactId>
+                <version>1.3.2</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>5.1.30</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+        <finalName>coupon_activity</finalName>
+    </build>
 
 </project>

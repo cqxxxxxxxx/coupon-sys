@@ -66,7 +66,7 @@
             <%--class="nav-label">有礼兑换管理</span></a>--%>
             <%--</li>--%>
             <li class="<c:if test="${param.index eq 'about'}">active</c:if>">
-                <a href="<c:url value="/about"/> "> <span class="nav-label">关于优惠券系统</span></a>
+                <a href="<c:url value="/datatable.jsp"/> "> <span class="nav-label">DataTable</span></a>
             </li>
         </ul>
     </div>

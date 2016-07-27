@@ -139,7 +139,8 @@
                     data: 'code=' + code + '&title=' + title + '&des=' + des,
                     success: function (data) {
                         console.log(data);
-                        var success = "success"
+                        alert(data);
+                        var success = "\"success\"";
                         alert(data == "failed");
                         if (data == success) {
                             console.log("success");

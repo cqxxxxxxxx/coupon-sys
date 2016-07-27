@@ -18,6 +18,7 @@
     <!--page title-->
     <title>活动列表</title>
     <jsp:include page="/WEB-INF/views/comp/header.include.jsp"/>
+
     <style type="text/css">
 
         .contact-panel img {
@@ -223,7 +224,7 @@
 </div>
 --%>
 
-
+<script src="<c:url value="/resources/js/jquery.dataTables.js"/>"></script>
 <script type="text/javascript">
     var path = location.pathname.split('/');    //获取URL中部分路径
     var app = path[1];
@@ -249,11 +250,11 @@
     $(document).ready(function () {
 
         var oTable = $('#admin-table');
-        var url = prefix + "/activities/query";
+        var url = prefix + "/list";
         var keyword = "keyword=" + " ";
         loadData();
         console.log("prefix:"+prefix);
-        oTable.find('tbody').on('click', ' tr button.op', function (e) {
+/*        oTable.find('tbody').on('click', ' tr button.op', function (e) {
             var storeId = $(this).attr("id");
             var thisTr = $(this).closest("tr");
             var nRow = thisTr.find('td:nth-child(8)');
@@ -302,7 +303,7 @@
                             });
                         }
                     });
-        });
+        });*/
 
         //提供时间
         function renderDate(time) {
@@ -332,10 +333,14 @@
                 "sDom": "<'row'<'col-sm-6'l><'col-sm-6'f>r><'row't><'row'<'col-sm-6'i><'col-sm-6'p>>",
                 "bScrollCollapse": true,
                 "aoColumns": [
+                    {
+                        "mDataProp": "id",
+                        "bVisible": false
+                    },
 
                     {
                         "mDataProp": "code",
-                        "bSortable": false
+                        "bSortable": true
                     },
                     {
                         "mDataProp": "title",
@@ -347,30 +352,31 @@
                     },
                     {
                         "mDataProp": "created",
-                        "bSortable": false,
+                        "bSortable": true,
                         "mRender": function (time) {
                             return renderDate(time);
                         }
                     },
                     {
                         "mDataProp": "updated",
-                        "bSortable": false,
+                        "bSortable": true,
                         "mRender": function (time) {
                             return renderDate(time);
                         }
                     },
 
-                    {
+                    /*{
                         "mDataProp": "storeId",
                         "bSortable": false,
                         "mRender": function (data, type, full) {
                             return generateOp(data);
                         }
-                    }
+                    }*/
                 ],
                 "bFilter": true,
                 "bServerSide": true,
                 "sAjaxSource": url,
+                "sAjaxDataProp": "",
                 "sServerMethod": "GET",
                 "bRetrieve": true,
                 "oLanguage": {
