@@ -263,12 +263,12 @@
                     "sProcessing": "正在加载.....",
                     "sSearch": "结果过滤:",
                     "sZeroRecords": "找不到相关的记录",
-/*                    "oPaginate": {
+                    "oPaginate": {
                         "sNext": "下一页",
                         "sPrevious": "上一页",
                         "sLast": "最后一页",
                         "sFirst": "第一页"
-                    },*/
+                    },
                     "sInfo": "共 <code>_TOTAL_</code> 结果 当前显示 (<code>_START_</code> - <code>_END_</code>)",
                     "sEmptyTable": "表中无可用记录",
                     "sLengthMenu": "显示 _MENU_ 记录",

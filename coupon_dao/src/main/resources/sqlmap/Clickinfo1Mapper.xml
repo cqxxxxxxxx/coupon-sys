@@ -11,7 +11,7 @@
     </resultMap>
 
     <!--分页的查询SQL语句-->
-    <select id="listFenYe" resultMap="BaseResultMap" parameterType="java.util.Map">
+  <!--  <select id="listFenYe" resultMap="BaseResultMap" parameterType="java.util.Map">
         SELECT
         <include refid="Base_Column_List"/>
         FROM click_info
@@ -32,7 +32,7 @@
         </if>
         ORDER BY created DESC
         LIMIT #{offset},#{limit}
-    </select>
+    </select>-->
 
 
     <!--分页的SQL语句-->
