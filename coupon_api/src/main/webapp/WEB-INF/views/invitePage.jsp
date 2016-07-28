@@ -66,26 +66,11 @@
                                     <input id="type" type="text" class="form-control m-b" value="${type}" readonly="true">
                                 </div>
                             </div>
-                            <div class="form-group"><label class="col-sm-2 control-label">手机号码/label>
-
+                            <div class="form-group"><label class="col-sm-2 control-label">手机号码</label>
                                 <div class="col-sm-10">
-                                    <input id="phone" type="number" width="" class="form-control m-b" required="true">
+                                    <input id="phone" type="text"  class="form-control m-b" required="true">
                                 </div>
                             </div>
-                            <%--                          <div class="form-group"><label class="col-sm-2 control-label">站长名称</label>
-
-                                                          <div class="col-sm-10">
-                                                              <input id="name" type="text" class="form-control m-b"
-                                                                     placeholder="请输入例如:kison" required="">
-                                                          </div>
-                                                      </div>
-                                                      <div class="form-group"><label class="col-sm-2 control-label">角色</label>
-
-                                                          <div class="col-sm-10">
-                                                              <input id="position" type="text" class="form-control m-b" required=""
-                                                                     placeholder="请输入例如:全栈工程师">
-                                                          </div>
-                                                      </div>--%>
                             <div class="form-group">
                                 <div class="col-sm-8 col-sm-offset-2">
                                     <button id="submit" class="btn btn-primary">领取优惠</button>
@@ -103,9 +88,7 @@
 </div>
 </body>
 <script type="text/javascript">
-    var path = location.pathname.split('/');
-    var app = path[1];
-    var prefix = "/" + app;
+
 
     toastr.options = {      //这个是个通知的插件
         "closeButton": true,
@@ -126,7 +109,7 @@
     }
     $(document).ready(function () {
 
-        console.log("prefix"+prefix);
+        console.log("locationname:"+location.pathname);
         $('#submit').click(function (e) {
             e.preventDefault();
             var code = $('#code').val();
@@ -134,15 +117,13 @@
             var phone = $('#phone').val();
             if (validForm()) {
                 $.ajax({
-                    url: prefix,
+                    url: "/shareinfo/add",
                     type: 'POST',
-                   // data: 'code=' + code + '&title=' + title + '&des=' + des,
+                    data: 'code=' + code + '&type=' + type + '&phone=' + phone,
+                    dataTyp: 'html',
                     success: function (data) {
                         console.log(data);
-                        alert(data);
-                        var success = "\"success\"";
-                        alert(data == "failed");
-                        if (data == success) {
+                        if (data == "success") {
                             console.log("success");
                             cleanForm();
                             toastr.success('领取成功');
@@ -153,7 +134,7 @@
                     }
                 });
             } else {
-                toastr.error('code不能为空');
+                toastr.error('phone不能为空');
             }
         });
 
@@ -163,7 +144,7 @@
         }
 
         function validForm() {
-            if ($('#code').val().trim() == "") {
+            if ($('#phone').val().trim() == "") {
                 return false;
             }
             return true;

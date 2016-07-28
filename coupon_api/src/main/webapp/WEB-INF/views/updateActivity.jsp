@@ -139,15 +139,10 @@
                     data: 'code=' + code + '&title=' + title + '&des=' + des,
                     success: function (data) {
                         console.log(data);
-                        alert(data);
-                        var success = "\"success\"";
-                        alert(data == "failed");
-                        if (data == success) {
-                            console.log("success");
+                        if (data == "success") {
                             cleanForm();
                             toastr.success('修改成功');
                         } else {
-                            console.log("failed");
                             toastr.error('修改失败,活动编号错误');
                         }
                     }

@@ -1,7 +1,7 @@
 package com.cqx.controller;
 
 
-import com.alibaba.fastjson.JSON;
+
 import com.cqx.model.Activity1;
 import com.cqx.service.ActivityList;
 import org.springframework.stereotype.Controller;
@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import utils.ApplicationConstants;
+import utils.JsonUtil;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -47,8 +48,8 @@ public class ActivityController {
         activity1.setTitle(title);
         activity1.setDes(des);
         if (activityList.updateActivity(activity1))
-            return "success";
-        return "failed";
+            return ApplicationConstants.RESPONSE_SUCCESS;
+        return ApplicationConstants.RESPONSE_FAIL;
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
@@ -63,15 +64,20 @@ public class ActivityController {
         String offsetStr = request.getParameter("iDisplayStart");
         int offset = offsetStr == null ? 0 : Integer.parseInt(offsetStr);
 
+        System.out.println("offset:"+request.getParameter("iDisplayStart"));
+        System.out.println("limit:"+request.getParameter("iDisplayLength"));
+        System.out.println("keyword:"+keyword+"--limit:"+limit+"--offset:"+offset);
+
+
         List<Activity1> list = activityList.getActivitys1(keyword, limit, offset);
         Map<String, Object> results = new HashMap<String, Object>();
         results.put("sEcho", sEcho);
         results.put("iTotalDisplayRecords", list.size());
         results.put("aaData", list);
         results.put("iTotalRecords", list.size());
-        System.out.println(results.toString());
+        System.out.println(JsonUtil.writeObjectAsString(results));
 
-        return JSON.toJSONString(results);
+        return JsonUtil.writeObjectAsString(results);
     }
 
 
@@ -85,9 +91,9 @@ public class ActivityController {
     @ResponseBody
     String addActivity(String code, String title, String des) {
         if (activityList.createActivity(code, title, des))
-            return "success";
+            return ApplicationConstants.RESPONSE_SUCCESS;
         else
-            return "failed";
+            return ApplicationConstants.RESPONSE_FAIL;
     }
 
 

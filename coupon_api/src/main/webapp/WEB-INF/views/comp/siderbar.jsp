@@ -58,7 +58,7 @@
                 </ul>
             </li>
             <li class="<c:if test="${param.index eq 'advice'}">active</c:if>">
-                <a href="<c:url value="/advice"/> "><span class="nav-label">分享链接</span></a>
+                <a href="<c:url value="/clickinfo/100/cqx100/火狐/192.1.1"/> "><span class="nav-label">个人分享链接</span></a>
             </li>
 
             <%--<li>--%>

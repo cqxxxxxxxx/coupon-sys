@@ -2,10 +2,10 @@ package com.cqx.service.impl;
 
 
 import com.cqx.dao.Clickinfo1Mapper;
+import com.cqx.form.ClickQueryForm;
 import com.cqx.model.Clickinfo1;
 import com.cqx.service.ClickCount;
 import org.springframework.stereotype.Service;
-
 
 import javax.annotation.Resource;
 import java.sql.Timestamp;
@@ -38,9 +38,9 @@ public class ClickCountImpl implements ClickCount {
         clickinfo1.setType(type);
         clickinfo1.setIp(ip);
 
-        if(clickinfo1Mapper.insert(clickinfo1)!=0){
+        if (clickinfo1Mapper.insert(clickinfo1) != 0) {
             System.out.println("插入成功");
-        }else
+        } else
             System.out.println("插入失败");
 
 
@@ -60,9 +60,9 @@ public class ClickCountImpl implements ClickCount {
         clickinfo1.setType("0");
 
 
-        if(clickinfo1Mapper.insert(clickinfo1)!=0){
+        if (clickinfo1Mapper.insert(clickinfo1) != 0) {
             System.out.println("插入成功");
-        }else
+        } else
             System.out.println("插入失败");
 
 
@@ -72,10 +72,10 @@ public class ClickCountImpl implements ClickCount {
     public List<Clickinfo1> getClickInfo(Map map) {
 
         List<Clickinfo1> list = clickinfo1Mapper.ListP(map);
-        if (list==null){
+        if (list == null) {
             System.out.println("获取失败");
             return null;
-        }else{
+        } else {
             System.out.println("获取成功");
             return list;
         }
@@ -86,22 +86,22 @@ public class ClickCountImpl implements ClickCount {
     public List<Clickinfo1> getClickInfo(String code) {
 
         List<Clickinfo1> list = clickinfo1Mapper.ListO(code);
-        if (list==null){
+        if (list == null) {
             System.out.println("获取失败");
             return null;
-        }else{
+        } else {
             System.out.println("获取成功");
             return list;
         }
     }
 
     //分页版本  需要code type offset limit   keyword可选
-    public List<Clickinfo1> getClickInfoFenYe(String code, String type, String keyword, int limit, int offset) {
-        List<Clickinfo1> list = clickinfo1Mapper.listFenYe(code, type, keyword, limit, offset);
-        if (list==null){
+    public List<Clickinfo1> getClickInfoFenYe(ClickQueryForm form) {
+        List<Clickinfo1> list = clickinfo1Mapper.listFenYe(form.getCode(), form.getType(), form.getKeyword(), form.getLimit(), form.getOffset(), form.getBrowser(), form.getStarttime(), form.getEndtime());
+        if (list == null) {
             System.out.println("获取失败");
             return null;
-        }else{
+        } else {
             System.out.println("获取成功");
             return list;
         }

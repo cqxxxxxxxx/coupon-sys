@@ -57,7 +57,8 @@
                             <div class="form-group"><label class="col-sm-2 control-label">活动编号</label>
 
                                 <div class="col-sm-10">
-                                    <input id="code" type="text" class="form-control m-b" required="true" placeholder="三位字母或者数字">
+                                    <input id="code" type="text" class="form-control m-b" required="true"
+                                           placeholder="三位字母或者数字">
                                 </div>
                             </div>
                             <div class="form-group"><label class="col-sm-2 control-label">活动主题</label>
@@ -72,20 +73,6 @@
                                     <input id="des" type="text" class="form-control m-b" required="">
                                 </div>
                             </div>
-  <%--                          <div class="form-group"><label class="col-sm-2 control-label">站长名称</label>
-
-                                <div class="col-sm-10">
-                                    <input id="name" type="text" class="form-control m-b"
-                                           placeholder="请输入例如:kison" required="">
-                                </div>
-                            </div>
-                            <div class="form-group"><label class="col-sm-2 control-label">角色</label>
-
-                                <div class="col-sm-10">
-                                    <input id="position" type="text" class="form-control m-b" required=""
-                                           placeholder="请输入例如:全栈工程师">
-                                </div>
-                            </div>--%>
                             <div class="form-group">
                                 <div class="col-sm-8 col-sm-offset-2">
                                     <button id="submit" class="btn btn-primary">添加活动</button>
@@ -126,7 +113,7 @@
     }
     $(document).ready(function () {
 
-        console.log("prefix"+prefix);
+        console.log("prefix" + prefix);
         $('#submit').click(function (e) {
             e.preventDefault();
             var title = $('#title').val();
@@ -137,12 +124,10 @@
                     url: prefix + "/add",
                     type: 'POST',
                     data: 'code=' + code + '&title=' + title + '&des=' + des,
+                    dataType: 'html',
                     success: function (data) {
                         console.log(data);
-                        alert(data);
-                        var success = "\"success\"";
-                        alert(data == "failed");
-                        if (data == success) {
+                        if (data == "success") {
                             console.log("success");
                             cleanForm();
                             toastr.success('添加成功');

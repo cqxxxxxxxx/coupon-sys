@@ -5,4 +5,6 @@ package utils;
  */
 public class ApplicationConstants {
     public static final int CRM_PAGE_SIZE = 10;
+    public static final String RESPONSE_SUCCESS = "success";
+    public static final String RESPONSE_FAIL = "fail";
 }

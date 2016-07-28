@@ -2,6 +2,7 @@ package com.cqx.service.impl;
 
 
 import com.cqx.dao.Shareinfo1Mapper;
+import com.cqx.form.ShareQueryForm;
 import com.cqx.model.Shareinfo1;
 import com.cqx.service.SharedCount;
 import org.springframework.stereotype.Service;
@@ -30,7 +31,6 @@ public class ShareCountImpl implements SharedCount {
 
         ts = new Timestamp(System.currentTimeMillis());
         shareinfo1.setCreated(ts);
-
         shareinfo1.setCode(code);
         shareinfo1.setType(type);
         shareinfo1.setPhone(phone);
@@ -45,7 +45,7 @@ public class ShareCountImpl implements SharedCount {
 
     }
 
-    public boolean setInfo(String code, String phone) {
+/*    public boolean setInfo(String code, String phone) {
 
         shareinfo1 = new Shareinfo1();
 
@@ -64,7 +64,7 @@ public class ShareCountImpl implements SharedCount {
             return false;
         }
 
-    }
+    }*/
 
     public List<Shareinfo1> getShareInfo(Map map) {
         List<Shareinfo1> list = shareinfo1Mapper.ListP(map);
@@ -88,8 +88,8 @@ public class ShareCountImpl implements SharedCount {
         }
     }
 
-    public List<Shareinfo1> getShareInfoFenYe(String code, String type, String keyword, int limit, int offset) {
-        List<Shareinfo1> list = shareinfo1Mapper.listFenYe(code, type, keyword, limit, offset);
+    public List<Shareinfo1> getShareInfoFenYe(ShareQueryForm form) {
+        List<Shareinfo1> list = shareinfo1Mapper.listFenYe(form.getCode(), form.getType(), form.getKeyword(), form.getLimit(), form.getOffset());
         if (list == null) {
             System.out.println("获取失败");
             return null;

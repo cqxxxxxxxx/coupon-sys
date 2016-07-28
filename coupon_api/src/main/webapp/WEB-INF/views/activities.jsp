@@ -151,14 +151,12 @@
                                             </th>
                                             <th>新建时间
                                             </th>
-                                            <th>修改事件
+                                            <th>分享链接
                                             </th>
                                         </tr>
                                         </thead>
-
                                         <tbody>
                                         </tbody>
-
                                     </table>
                                 </div>
                             </div>
@@ -166,12 +164,10 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
     <!-- Footer-->
     <jsp:include page="/WEB-INF/views/comp/footer.jsp"/>
-
 </div>
 </div>
 
@@ -204,56 +200,6 @@
         var keyword = "keyword=" + " ";
         loadData();
 
-        oTable.find('tbody').on('click', ' tr button.op', function (e) {
-            var storeId = $(this).attr("id");
-            var thisTr = $(this).closest("tr");
-            var nRow = thisTr.find('td:nth-child(8)');
-            e.preventDefault();
-            swal({
-                        title: "上下线小站",
-                        text: "",
-                        type: "warning",
-                        showCancelButton: true,
-                        confirmButtonColor: "#5ECD1E",
-                        confirmButtonText: "Yes, 上线",
-                        cancelButtonText: "No, 下线",
-                        closeOnConfirm: true,
-                        closeOnCancel: true
-                    },
-                    function (isConfirm) {
-                        if (isConfirm) {
-                            $.ajax({
-                                url: prefix + '/stores/on',
-                                type: 'POST',
-                                dataType: 'html',
-                                data: "storeId=" + storeId,
-                                success: function (data) {
-                                    if (data == "success") {
-                                        nRow.html(renderStatus(0));
-                                        toastr.success('小站上线成功')
-                                    } else {
-                                        toastr.warning('小站操作失败');
-                                    }
-                                }
-                            });
-                        } else {
-                            $.ajax({
-                                url: prefix + '/stores/off',
-                                type: 'POST',
-                                dataType: 'html',
-                                data: "storeId=" + storeId,
-                                success: function (data) {
-                                    if (data == "success") {
-                                        nRow.html(renderStatus(1));
-                                        toastr.error('小站下线成功')
-                                    } else {
-                                        toastr.warning('小站操作失败');
-                                    }
-                                }
-                            });
-                        }
-                    });
-        });
 
         function renderDate(time) {
             var date = new Date(time);
@@ -261,21 +207,13 @@
                     + date.getDate() + "  " + date.getHours() + ":" + date.getMinutes();
         }
 
-        function renderStatus(status) {
-            if (status == 0) {
-                return '<span class="label label-xs label-success"> 已上线</span>'
-            } else if (status == 1) {
-                return '<span class="label label-xs label-danger"> 已下线</span>'
-            }
+        function generateOp(id) {   //button的ID就是对应的code
+            var browser = Navigator.name+":"+Navigator.version;
+            var code = id;
+            var ip = "111111";
+            var url = "/clickinfo/"+code+"/offical"+"/"+browser+"/"+ip;
+            return '<a href="'+url+'">官方分享链接</a>'
         }
-
-        function generateOp(id) {
-            return ' <div class="btn-group">' +
-//                    '<button id=' + id + 'class="detail btn btn-xs btn-default"> 查看详情</button> ' +
-                    '<button id=' + id + ' class="op btn btn-xs btn-default">上下线</button>' +
-                    '</div>'
-        }
-
 
         function loadData() {
             oTable.dataTable({
@@ -307,10 +245,10 @@
                     },
 
                     {
-                        "mDataProp": "id",
+                        "mDataProp": "code",  //利用code再新建一列
                         "bSortable": false,
                         "mRender": function (data, type, full) {
-                            return generateOp(data);
+                            return generateOp(data);     //把code的值传进去
                         }
                     }
                 ],
@@ -319,15 +257,18 @@
                 "sAjaxSource": url,
                 "sServerMethod": "GET",
                 "bRetrieve": true,
+                "pagingType": "full_numbers",
+                "bProcessing": true,
                 "oLanguage": {
+                    "sProcessing": "正在加载.....",
                     "sSearch": "结果过滤:",
                     "sZeroRecords": "找不到相关的记录",
-                    "oPaginate": {
+/*                    "oPaginate": {
                         "sNext": "下一页",
                         "sPrevious": "上一页",
                         "sLast": "最后一页",
                         "sFirst": "第一页"
-                    },
+                    },*/
                     "sInfo": "共 <code>_TOTAL_</code> 结果 当前显示 (<code>_START_</code> - <code>_END_</code>)",
                     "sEmptyTable": "表中无可用记录",
                     "sLengthMenu": "显示 _MENU_ 记录",
