@@ -89,7 +89,7 @@ public class ShareCountImpl implements SharedCount {
     }
 
     public List<Shareinfo1> getShareInfoFenYe(ShareQueryForm form) {
-        List<Shareinfo1> list = shareinfo1Mapper.listFenYe(form.getCode(), form.getType(), form.getKeyword(), form.getLimit(), form.getOffset());
+        List<Shareinfo1> list = shareinfo1Mapper.listFenYe(form.getCode(), form.getType(), form.getKeyword(), form.getLimit(), form.getOffset(), form.getStarttime(), form.getEndtime());
         if (list == null) {
             System.out.println("获取失败");
             return null;
@@ -97,5 +97,9 @@ public class ShareCountImpl implements SharedCount {
             System.out.println("获取成功");
             return list;
         }
+    }
+
+    public int countAll(ShareQueryForm form) {
+        return shareinfo1Mapper.countAll(form.getKeyword(), form.getCode(), form.getType(), form.getStarttime(), form.getEndtime());
     }
 }

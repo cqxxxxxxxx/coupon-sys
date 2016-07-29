@@ -32,10 +32,10 @@
         </div>
 
         <ul class="nav" id="side-menu">
-            <li class="<c:if test="${param.index eq 'dashboard'}">active</c:if>">
+<%--            <li class="<c:if test="${param.index eq 'dashboard'}">active</c:if>">
                 <a href="<c:url value="/"/>"> <span class="nav-label">控制面板</span>
                 </a>
-            </li>
+            </li>--%>
             <li class="<c:if test="${param.index eq 'activity'}">active</c:if>">
                 <a href="#"><span class="nav-label">活动管理</span><span class="fa arrow"></span> </a>
                 <ul class="nav nav-second-level collapse">
@@ -65,9 +65,9 @@
             <%--<a href="../html/gift1.html"> <span--%>
             <%--class="nav-label">有礼兑换管理</span></a>--%>
             <%--</li>--%>
-            <li class="<c:if test="${param.index eq 'about'}">active</c:if>">
+<%--            <li class="<c:if test="${param.index eq 'about'}">active</c:if>">
                 <a href="<c:url value="/datatable.jsp"/> "> <span class="nav-label">DataTable</span></a>
-            </li>
+            </li>--%>
         </ul>
     </div>
 </aside>

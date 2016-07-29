@@ -11,13 +11,15 @@
     </resultMap>
 
     <!--分页的查询SQL语句-->
-  <!--  <select id="listFenYe" resultMap="BaseResultMap" parameterType="java.util.Map">
+    <select id="listFenYe" resultMap="BaseResultMap" parameterType="java.util.Map">
         SELECT
         <include refid="Base_Column_List"/>
         FROM click_info
         WHERE
         code = #{code,jdbcType=VARCHAR}
-        AND type = #{type,jdbcType=VARCHAR}
+        <if test="type!=null">
+            AND type = #{type,jdbcType=VARCHAR}
+        </if>
         <if test="keyword!=null">
             AND code LIKE #{keyword}"%"
         </if>
@@ -32,20 +34,33 @@
         </if>
         ORDER BY created DESC
         LIMIT #{offset},#{limit}
-    </select>-->
+    </select>
 
 
-    <!--分页的SQL语句-->
-    <select id="listFenYe" resultMap="BaseResultMap" parameterType="java.util.Map">
-        SELECT
-        <include refid="Base_Column_List"/>
-        FROM click_info
+    <!--获取查询得到的数据总数-->
+    <select id="countAll" parameterType="map" resultType="java.lang.Integer">
+        select
+        COUNT(id)
+        from click_info
         WHERE
         code = #{code,jdbcType=VARCHAR}
-        AND type = #{type,jdbcType=VARCHAR}
-        ORDER BY created DESC
-        LIMIT #{offset},#{limit}
+        <if test="type!=null">
+            AND type = #{type,jdbcType=VARCHAR}
+        </if>
+        <if test="keyword!=null">
+            AND code LIKE #{keyword}"%"
+        </if>
+        <if test="browser!=null">
+            AND browser = #{browser,jdbcType=VARCHAR}
+        </if>
+        <if test="endtime!=null">
+            AND created &lt;  #{endtime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="starttime!=null">
+            AND created &gt; #{starttime,jdbcType=TIMESTAMP}
+        </if>
     </select>
+
 
     <!--得到个人分享连接的点击者信息列表-->
     <select id="ListP" resultMap="BaseResultMap" parameterType="java.util.Map">

@@ -29,5 +29,7 @@ public interface Activity1Mapper {
 
     List<Activity1> listFenYe(@Param("keyword") String keyword, @Param("limit") int limit, @Param("offset") int offset);
 
+    int countAll(@Param("keyword") String keyword);
+
     int updateActivity(Activity1 record);
 }

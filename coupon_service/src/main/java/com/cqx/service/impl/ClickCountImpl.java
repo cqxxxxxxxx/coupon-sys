@@ -97,6 +97,7 @@ public class ClickCountImpl implements ClickCount {
 
     //分页版本  需要code type offset limit   keyword可选
     public List<Clickinfo1> getClickInfoFenYe(ClickQueryForm form) {
+        System.out.println("-----ClickCountImpl endtime:"+form.getEndtime());
         List<Clickinfo1> list = clickinfo1Mapper.listFenYe(form.getCode(), form.getType(), form.getKeyword(), form.getLimit(), form.getOffset(), form.getBrowser(), form.getStarttime(), form.getEndtime());
         if (list == null) {
             System.out.println("获取失败");
@@ -105,6 +106,10 @@ public class ClickCountImpl implements ClickCount {
             System.out.println("获取成功");
             return list;
         }
+    }
+
+    public int countAll(ClickQueryForm form) {
+        return clickinfo1Mapper.countAll(form.getKeyword(), form.getCode(), form.getType(), form.getBrowser(), form.getStarttime(), form.getEndtime());
     }
 
 }

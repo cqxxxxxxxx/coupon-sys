@@ -1,7 +1,6 @@
 package com.cqx.dao;
 
 
-
 import com.cqx.model.Shareinfo1;
 import org.apache.ibatis.annotations.Param;
 
@@ -31,5 +30,7 @@ public interface Shareinfo1Mapper {
     List<Shareinfo1> exist(String phone);
 
     //分页版本 信息查询
-    List<Shareinfo1> listFenYe(@Param("code") String code, @Param("type") String type, @Param("keyword") String keyword, @Param("limit") int limit, @Param("offset") int offset);
+    List<Shareinfo1> listFenYe(@Param("code") String code, @Param("type") String type, @Param("keyword") String keyword, @Param("limit") int limit, @Param("offset") int offset, @Param("starttime") String starttime, @Param("endtime") String endtime);
+
+    int countAll(@Param("keyword") String keyword, @Param("code") String code, @Param("type") String type, @Param("starttime") String starttime, @Param("endtime") String endtime);
 }

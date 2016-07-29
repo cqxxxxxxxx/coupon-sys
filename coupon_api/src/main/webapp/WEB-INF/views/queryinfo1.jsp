@@ -446,159 +446,7 @@
             var table = oTable.dataTable();
             table.fnDraw();
         });
-        /*        $("#refresh").click(function (e) {
-         $('#keyword').val("");
-         var table = oTable.dataTable();
-         table.fnDraw();
-         });*/
-        /*        $("#addBtn").click(function (e) {
-         e.preventDefault();
-         resetForm();
-         $('#modal-title').html("新增信息");
-         $('#saveBtn').html("添加");
 
-         $('#studentModal').modal('show');
-         });*/
-        /*        $('#studentForm').validate({ // initialize the plugin
-         rules: {
-         phone: {
-         required: true,
-         minlength: 11,
-         maxlength: 11,
-         }
-         }
-         });*/
-        /*        var finished = true;
-         $('#insName').typeahead({
-         source: function (query, process) {
-         if (!finished) {
-         return;
-         }
-         finished = false;
-         var url = prefix + "/institutions/typeahead?keyword=" + query;
-         $.getJSON(url, {}, function (response) {
-         var data = [];
-         var json = eval(response);
-         for (var i in json) {
-         data.push(json[i].id + '_' + json[i].name);
-         }
-         process(data);
-         finished = true;
-         });
-         },
-         highlighter: function (item) {
-         var parts = item.split('_');
-         parts.shift();
-         return parts.join('_');
-         },
-         updater: function (item) {
-         var parts = item.split('_');
-         $('#insId').val(parts.shift());
-         return parts.join('_');
-         },
-         minLength: 0
-         });
-
-         var fi = true;
-         $('#coachName').typeahead({
-         source: function (query, process) {
-         if (!fi) {
-         return;
-         }
-         fi = false;
-         var url = prefix + "/coaches/typeahead?keyword=" + query + "&insId=" + $('#insId').val();
-         $.getJSON(url, {}, function (response) {
-         var data = [];
-         var json = eval(response);
-         for (var i in json) {
-         data.push(json[i].id + '_' + json[i].name);
-         }
-         process(data);
-         fi = true;
-         });
-         },
-         highlighter: function (item) {
-         var parts = item.split('_');
-         parts.shift();
-         return parts.join('_');
-         },
-         updater: function (item) {
-         var parts = item.split('_');
-         $('#coachId').val(parts.shift());
-         return parts.join('_');
-         },
-         minLength: 0
-         });
-
-         function resetForm() {
-         $('#studentForm').resetForm();
-         $('#id').val("0");
-         $('#idcardFace').attr("src", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNcvHh+PQAGPAJmNT5JDwAAAABJRU5ErkJggg==");
-         $('#idcardBack').attr("src", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNcvHh+PQAGPAJmNT5JDwAAAABJRU5ErkJggg==");
-         $('#fingerprint').attr("src", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNcvHh+PQAGPAJmNT5JDwAAAABJRU5ErkJggg==");
-         $('#photoUrl').attr("src", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNcvHh+PQAGPAJmNT5JDwAAAABJRU5ErkJggg==");
-         }*/
-
-        /****表单提交(add/modify)**/
-        /*
-         function beforeSubmit(formData, jqForm, options) {
-         var size = formData.length;
-         formData[size] = {"name": "cardFace", "value": skipBlankImage($('#idcardFace').attr("src"))};
-         formData[size + 1] = {"name": "cardBack", "value": skipBlankImage($('#idcardBack').attr("src"))};
-         formData[size + 2] = {"name": "fingerprintUrl", "value": skipBlankImage($('#fingerprint').attr("src"))};
-         formData[size + 3] = {"name": "photoUrl", "value": skipBlankImage($('#photoUrl').attr("src"))};
-         return true;
-         }
-         */
-
-        /*        $("#saveBtn").click(function (e) {
-         e.preventDefault();
-         var valid = $('#studentForm').valid();
-         var $btn = $(this);
-         var url = prefix + "/students";
-         var successMsg = "添加成功";
-         if ($("#insId").val() == 0) {
-         alert("所属的驾校不能为空");
-         return;
-         }
-         if ($("#coachId").val() == 0) {
-         alert("教练不能为空");
-         return;
-         }
-         if (valid) {
-         //如果表单合法 则提交表单
-         $btn.button("loading")
-         var id = $('#id').val();
-         if (id != 0) {
-         url = prefix + "/students/" + id;
-         successMsg = "修改成功";
-         }
-         $('#studentForm').ajaxSubmit({
-         url: url,
-         type: 'POST',
-         dataType: "text",
-         clearForm: false,
-         beforeSubmit: beforeSubmit,  // pre-submit callback
-         success: function (data, status) {
-         if (data == "success") {
-         toastr.success(successMsg);
-         $('#studentModal').modal('hide');
-         var table = oTable.dataTable();
-         table.fnDraw();
-         } else {
-         toastr.error("学员的手机号已存在");
-         }
-         $btn.button('reset');
-         },
-         error: function () {
-         $btn.button('reset');
-         toastr.error("系统错误,请联系管理员");
-         }
-         });
-         }
-         });*/
-
-        /****结束表单提交**/
 
         /****查询--start********/
 
@@ -620,12 +468,7 @@
                     + date.getDate() + "  " + date.getHours() + ":" + date.getMinutes();
         }
 
-        /*        function generateOp(id) {
-         return ' <div class="btn-group">' +
-         '<button id=' + id + ' class="modify btn btn-xs btn-default"> 修改</button> ' +
-         '<button id=' + id + ' class="delete btn btn-xs btn-danger">删除</button>' +
-         '</div>'
-         }*/
+
 
         function loadData() {
             oTable.dataTable({
@@ -676,8 +519,8 @@
                     aoData.push(        //Ajax 把数据穿给后台
                             {"name": "code", "value": $('#code').val().trim()},
                             {"name": "type", "value": $('#type').val().trim()},
-                            {"name": "starttime", "value": $('#Starttime').val()},
-                            {"name": "endtime", "value": $('#Endtime').val()})
+                            {"name": "starttime", "value": $('#Starttime').val().replace("年","-").replace("月","-").replace("日","")},
+                            {"name": "endtime", "value":$('#Endtime').val().replace("年","-").replace("月","-").replace("日","")})
                 },
                 "oClasses": {
                     "sFilter": "dataTables_filter"
@@ -687,89 +530,7 @@
         }
 
         /****查询--end********/
-        /****删除--start********/
-        $('#admin-table').find('tbody').on('click', ' tr button.delete', function (e) {
-            e.preventDefault();
-            var tr = $(this).parents("tr");
-            var data = oTable.fnGetData(tr[0]);
-            e.preventDefault();
-            url = prefix + "/students/" + data['id'] + '/delete';
-            swal({
-                        title: "删除学员-" + data['name'],
-                        text: "",
-                        type: "warning",
-                        showCancelButton: true,
-                        confirmButtonColor: "#5ECD1E",
-                        confirmButtonText: "Yes, 确定",
-                        cancelButtonText: "No, 取消",
-                        closeOnConfirm: true,
-                        closeOnCancel: true
-                    },
-                    function (isConfirm) {
-                        if (isConfirm) {
-                            $.ajax({
-                                url: url,
-                                type: 'POST',
-                                dataType: 'html',
-                                success: function (data) {
-                                    if (data == "success") {
-                                        toastr.success("删除成功");
-                                        tr.remove();
-                                    } else {
-                                        toastr.error("操作失败");
-                                    }
-                                }
-                            });
-                        }
-                    });
-        });
-        /****删除--end********/
-        /****修改--start********/
-        $('#admin-table').find('tbody').on('click', ' tr button.modify', function (e) {
-            e.preventDefault();
-            var tr = $(this).parents("tr");
-            var data = oTable.fnGetData(tr[0]);
-            //fill form
-            resetForm();
-            var $inputs = $('#studentForm input');
-            $.each(data, function (key, value) {
-                $inputs.filter(function () {
-                    return key == this.name;
-                }).val(value);
-            });
-            var $select = $('#studentForm select');
-            $.each(data, function (key, value) {
-                $select.filter(function () {
-                    return key == this.name;
-                }).val(value);
-            });
 
-            if (data['cardFace'] != "") {
-                $('#idcardFace').attr("src", data['cardFace']);
-            }
-            if (data['cardBack'] != "") {
-                $('#idcardBack').attr("src", data['cardBack']);
-            }
-            if (data['fingerprintUrl'] != "") {
-                $('#fingerprint').attr("src", data['fingerprintUrl']);
-            }
-            if (data['photoUrl'] != "") {
-                $('#photoUrl').attr("src", data['photoUrl']);
-            }
-
-
-            $('#modal-title').html("修改学员信息");
-            $('#saveBtn').html("保存");
-
-            $('#studentModal').modal('show');
-        });
-        /****修改--end********/
-        /****qiniu upload start****/
-        connectQiniuAndImage('${uptoken_url}', '${domain}', 'addFace', 'idcardFace', 'idcardFace');
-        connectQiniuAndImage('${uptoken_url}', '${domain}', 'addBack', 'idcardBack', 'idcardBack');
-        connectQiniuAndImage('${uptoken_url}', '${domain}', 'addFingerprint', 'fingerprint', 'fingerprint');
-        connectQiniuAndImage('${uptoken_url}', '${domain}', 'addPhoto', 'photoUrl', 'stuPhoto');
-        /****qiniu upload end****/
 
     })
 </script>

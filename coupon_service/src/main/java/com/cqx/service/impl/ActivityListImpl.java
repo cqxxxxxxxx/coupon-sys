@@ -59,6 +59,10 @@ public class ActivityListImpl implements ActivityList {
         return false;
     }
 
+    public int countAll(String keyword) {
+        return activity1Mapper.countAll(keyword);
+    }
+
 
     //util
     public boolean checkCode(String code) {

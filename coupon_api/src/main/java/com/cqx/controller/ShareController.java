@@ -52,7 +52,7 @@ public class ShareController {
     @RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
     public
     @ResponseBody
-    String shareInfoQuery(HttpServletRequest request, String code, String type, String keyword, String starttime, String endtime) {
+    String shareInfoQuery(HttpServletRequest request, String code, String type, String starttime, String endtime) {
 
         String sEchoStr = request.getParameter("sEcho");
         int sEcho = sEchoStr == null ? 0 : Integer.parseInt(sEchoStr);
@@ -60,22 +60,32 @@ public class ShareController {
         int limit = limitStr == null ? ApplicationConstants.CRM_PAGE_SIZE : Integer.parseInt(limitStr);
         String offsetStr = request.getParameter("iDisplayStart");
         int offset = offsetStr == null ? 0 : Integer.parseInt(offsetStr);
+        String keyword = request.getParameter("sSearch");
 
         ShareQueryForm form = new ShareQueryForm();
+        if (!starttime.equals("")) {
+            form.setStarttime(starttime);
+        }
+        if (!endtime.equals("")) {
+            form.setEndtime(endtime);
+        }
+        if (!type.equals("")) {
+            form.setType(type);
+        }
+        if (keyword != null && !keyword.equals("")) {
+            form.setKeyword(keyword);
+        }
         form.setCode(code);
-        form.setType(type);
         form.setLimit(limit);
         form.setOffset(offset);
-        form.setKeyword(keyword);
-        form.setStarttime(starttime);
-        form.setEndtime(endtime);
+
 
         List<Shareinfo1> list = sharedCount.getShareInfoFenYe(form);
         Map<String, Object> results = new HashMap<String, Object>();
         results.put("sEcho", sEcho);
-        results.put("iTotalDisplayRecords", list.size());
+        results.put("iTotalDisplayRecords", sharedCount.countAll(form));
         results.put("aaData", list);
-        results.put("iTotalRecords", list.size());
+        results.put("iTotalRecords", sharedCount.countAll(form));
 
         return JsonUtil.writeObjectAsString(results);
 

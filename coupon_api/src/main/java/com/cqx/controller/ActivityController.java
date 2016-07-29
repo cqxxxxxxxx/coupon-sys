@@ -72,9 +72,9 @@ public class ActivityController {
         List<Activity1> list = activityList.getActivitys1(keyword, limit, offset);
         Map<String, Object> results = new HashMap<String, Object>();
         results.put("sEcho", sEcho);
-        results.put("iTotalDisplayRecords", list.size());
+        results.put("iTotalDisplayRecords", activityList.countAll(keyword));
         results.put("aaData", list);
-        results.put("iTotalRecords", list.size());
+        results.put("iTotalRecords", activityList.countAll(keyword));
         System.out.println(JsonUtil.writeObjectAsString(results));
 
         return JsonUtil.writeObjectAsString(results);

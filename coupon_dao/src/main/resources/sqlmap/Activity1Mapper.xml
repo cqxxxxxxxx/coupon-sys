@@ -19,6 +19,16 @@
         WHERE code = #{code}
     </update>
 
+    <!--获取数据总数-->
+    <select id="countAll" parameterType="map" resultType="java.lang.Integer">
+        select
+        COUNT(id)
+        from coupon_activity
+        <if test="keyword!=null">
+            WHERE des LIKE #{keyword}"%"
+        </if>
+    </select>
+
 
     <!--分页的SQL语句-->
     <select id="listFenYe" resultMap="BaseResultMap" parameterType="java.util.Map">

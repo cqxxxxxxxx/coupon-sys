@@ -22,4 +22,6 @@ public interface ClickCount {
 
     public List<Clickinfo1> getClickInfoFenYe(ClickQueryForm form);
 
+    public int countAll(ClickQueryForm form);
+
 }

@@ -15,6 +15,8 @@ import utils.JsonUtil;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,18 +51,18 @@ public class ClickController {
     @RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
     public
     @ResponseBody
-    String clickInfoQuery(HttpServletRequest request,String code, String type ,String browser, String starttime, String endtime) {
+    String clickInfoQuery(HttpServletRequest request, String code, String type,String starttime, String endtime) {
 
-        System.out.println("code:"+request.getParameter("code"));
-        System.out.println("type:"+request.getParameter("type"));
-        System.out.println("browser:"+request.getParameter("browser"));
-        System.out.println("starttime:"+request.getParameter("starttime"));
-        System.out.println("endtime:"+request.getParameter("endtime"));
-        System.out.println("offset:"+request.getParameter("iDisplayStart"));
-        System.out.println("limit:"+request.getParameter("iDisplayLength"));
+        System.out.println("code:" + request.getParameter("code"));
+        System.out.println("type:" + request.getParameter("type"));
+        System.out.println("starttime:" + request.getParameter("starttime"));
+        System.out.println("endtime:" + request.getParameter("endtime"));
+        System.out.println("offset:" + request.getParameter("iDisplayStart"));
+        System.out.println("limit:" + request.getParameter("iDisplayLength"));
+        System.out.println("keyword:" + request.getParameter("sSearch"));
 
+         String keyword = request.getParameter("sSearch");
 
-        String keyword = request.getParameter("sSearch");
         String sEchoStr = request.getParameter("sEcho");
         int sEcho = sEchoStr == null ? 0 : Integer.parseInt(sEchoStr);
         String limitStr = request.getParameter("iDisplayLength");
@@ -69,25 +71,39 @@ public class ClickController {
         int offset = offsetStr == null ? 0 : Integer.parseInt(offsetStr);
 
         ClickQueryForm form = new ClickQueryForm();
+        try {
+            String browser1 = URLDecoder.decode(request.getParameter("browser"),"UTF-8");
+            System.out.println("browser"+browser1);
+            if (!browser1.equals("")) {
+                form.setBrowser(browser1);
+            }
+        }catch (Exception e){}
+        if (!starttime.equals("")) {
+            form.setStarttime(starttime);
+        }
+        if (!endtime.equals("")) {
+            form.setEndtime(endtime);
+        }
+        if (!type.equals("")) {
+            form.setType(type);
+        }
+        if (!keyword.equals("")) {
+            form.setKeyword(keyword);
+        }
         form.setCode(code);
-        form.setBrowser(browser);
-        form.setType(type);
-        form.setKeyword(keyword);
         form.setLimit(limit);
         form.setOffset(offset);
-        form.setStarttime(starttime);
-        form.setEndtime(endtime);
+
 
         List<Clickinfo1> list = clickCount.getClickInfoFenYe(form);
         Map<String, Object> results = new HashMap<String, Object>();
         results.put("sEcho", sEcho);
-        results.put("iTotalDisplayRecords", list.size());
+        results.put("iTotalDisplayRecords", clickCount.countAll(form));
         results.put("aaData", list);
-        results.put("iTotalRecords", list.size());
+        results.put("iTotalRecords", clickCount.countAll(form));
 
         return JsonUtil.writeObjectAsString(results);
 
-        /*String  infos = JSON.toJSONString(list);
-        return infos;*/
+
     }
 }

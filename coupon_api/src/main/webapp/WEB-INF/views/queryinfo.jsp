@@ -1,4 +1,4 @@
-
+<%@ page pageEncoding="UTF-8"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
@@ -128,293 +128,7 @@
     </div>
     <!-- Footer-->
     <jsp:include page="/WEB-INF/views/comp/footer.jsp"/>
-    <%--<div class="modal fade in" id="studentModal" tabindex="-1" role="dialog" aria-hidden="false">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 id="modal-title" class="modal-title">新增学员</h4>
-                </div>
-                <div class="modal-body">
-                    <form id="studentForm" method="get" class="form-horizontal">
-                        <input id="id" type="hidden" name="id" value="0">
-                        <input id="coachId" type="hidden" name="coachId" value="0">
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">机构编号<span class="needed">*</span></label>
-                            <input id="insId" type="hidden" name="insId"
-                            <c:choose>
-                            <c:when test="${signin_user.root == 0}">
-                                   value="${signin_user.insId}"
-                            </c:when>
-                            <c:otherwise>
-                                   value="0"
-                            </c:otherwise>
-                            </c:choose>>
-                            <div class="col-sm-4">
-                                <input id="insName" name="insName" data-provide="typeahead"
-                                       autocomplete="off"
-                                       type="text" placeholder="所属驾校" class="form-control typeahead"
-                                       required
-                                <c:if
-                                        test="${signin_user.root == 0}">
-                                       disabled value="${signin_user.insName}"
-                                </c:if>>
-                            </div>
-                            &lt;%&ndash;<label class="col-sm-2 control-label">学员名称<span class="needed">*</span></label>&ndash;%&gt;
 
-                            &lt;%&ndash;<div class="col-md-4">&ndash;%&gt;
-                            &lt;%&ndash;<input name="stunum" id="stunum"&ndash;%&gt;
-                            &lt;%&ndash;type="text" placeholder="学员名称" class="form-control"&ndash;%&gt;
-                            &lt;%&ndash;required>&ndash;%&gt;
-                            &lt;%&ndash;</div>&ndash;%&gt;
-                            <label class="col-sm-2 control-label">所属教练<span class="needed">*</span></label>
-                            <div id="scrollable-dropdown-menu1" class="col-md-4">
-                                <input name="coachName" id="coachName" data-provide="typeahead"
-                                       autocomplete="off"
-                                       type="text" placeholder="所属教练" class="form-control typeahead"
-                                       required>
-                            </div>
-                        </div>
-                        &lt;%&ndash;<div class="form-group">&ndash;%&gt;
-
-                        &lt;%&ndash;</div>&ndash;%&gt;
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">学员姓名<span class="needed">*</span></label>
-
-                            <div class="col-sm-4">
-                                <input id="name" type="text" name="name"
-                                       placeholder="学员姓名" class="form-control m-b"
-                                       required>
-                            </div>
-                            <label class="col-sm-2 control-label">学员性别<span class="needed">*</span></label>
-
-                            <div class="col-sm-4">
-                                <select id="sex" class="form-control m-b" name="sex">
-                                    <option value="1">男</option>
-                                    <option value="2">女</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">费用支付方式<span class="needed">*</span></label>
-
-                            <div class="col-sm-4">
-                                <select id="payType" class="form-control m-b" name="payType">
-                                    <option value="1" selected>按时付费</option>
-                                    <option value="2">一次性交费</option>
-                                </select>
-                            </div>
-                            <label class="col-sm-2 control-label">是否允许短信签到<span class="needed">*</span></label>
-
-                            <div class="col-sm-4">
-                                <select id="allowSms" class="form-control m-b" name="allowSms">
-                                    <option value="0">不允许(默认)</option>
-                                    <option value="1">允许</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">证件类型<span class="needed">*</span></label>
-
-                            <div class="col-sm-4">
-                                <select id="cardtype" class="form-control m-b" name="cardtype">
-                                    <option value="身份证">身份证</option>
-                                    <option value="护照">护照</option>
-                                    <option value="军官证">军官证</option>
-                                    <option value="其它">其它</option>
-                                </select>
-                            </div>
-                            <label class="col-sm-2 control-label">证件号<span class="needed">*</span></label>
-
-                            <div class="col-sm-4">
-                                <input id="cardnum" type="text" name="cardnum" placeholder="证件号"
-                                       class="form-control m-b"
-                                       required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">手机号码<span class="needed">*</span></label>
-
-                            <div class="col-md-4"><input id="phone" name="phone"
-                                                         type="text" placeholder="手机号码" class="form-control"
-                                                         required></div>
-                            <label class="col-sm-2 control-label">国籍</label>
-
-                            <div class="col-sm-4">
-                                <input id="nationality" name="nationality"
-                                       type="text" placeholder="国籍 " class="form-control"
-                                ></div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">联系地址</label>
-
-                            <div class="col-md-4"><input id="address" name="address"
-                                                         type="text" placeholder="联系地址" class="form-control"
-                            ></div>
-                            &lt;%&ndash;<label class="col-sm-2 control-label">暂住证</label>&ndash;%&gt;
-
-                            &lt;%&ndash;<div class="col-md-4"><input id="tempcardno" name="tempcardno"&ndash;%&gt;
-                            &lt;%&ndash;type="text" placeholder="暂住证号" class="form-control"&ndash;%&gt;
-                            &lt;%&ndash;></div>&ndash;%&gt;
-
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">业务类型<span class="needed">*</span></label>
-
-                            <div class="col-sm-4">
-                                <select id="busitype" class="form-control m-b" name="busitype">
-                                    <option value="初领">初领</option>
-                                    <option value="护照">增领</option>
-                                </select>
-                            </div>
-                            <label class="col-sm-2 control-label">驾驶证号</label>
-
-                            <div class="col-sm-4">
-                                <input id="drilicnum" type="text" name="drilicnum" placeholder="驾驶证号"
-                                       class="form-control m-b"
-                                >
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">准驾车型</label>
-
-                            <div class="col-sm-4">
-                                <select id="perdritype" class="form-control m-b" name="perdritype">
-                                    <option value="C1">C1(手动挡小型汽车)</option>
-                                    <option value="C2">C2(小型自动挡汽车)</option>
-                                    <option value="C3">C3(低速载货汽车)</option>
-                                    <option value="C4">C4(三轮汽车)</option>
-                                    <option value="C5">C5(小型自动挡残疾汽车)</option>
-                                    <option value="A1">A1(大型客车)</option>
-                                    <option value="A2">A2(牵引车)</option>
-                                    <option value="A3">A3(城市公交车)</option>
-                                    <option value="B1">B1(中型客车)</option>
-                                    <option value="B2">B2(大型货车)</option>
-                                    <option value="D">D(普通三轮摩托车)</option>
-                                    <option value="E">E(普通二轮摩托车)</option>
-                                    <option value="F">F(轻便摩托车)</option>
-                                    <option value="M">M(轮式自行机械车)</option>
-                                    <option value="N">N(无轨电车)</option>
-                                    <option value="P">P(有轨电车)</option>
-                                </select>
-                            </div>
-                            <label class="col-sm-2 control-label">培训车型<span class="needed">*</span></label>
-
-                            <div class="col-md-4">
-                                <select id="traintype" class="form-control m-b" name="traintype">
-                                    <option value="C1">C1(手动挡小型汽车)</option>
-                                    <option value="C2">C2(小型自动挡汽车)</option>
-                                    <option value="C3">C3(低速载货汽车)</option>
-                                    <option value="C4">C4(三轮汽车)</option>
-                                    <option value="C5">C5(小型自动挡残疾汽车)</option>
-                                    <option value="A1">A1(大型客车)</option>
-                                    <option value="A2">A2(牵引车)</option>
-                                    <option value="A3">A3(城市公交车)</option>
-                                    <option value="B1">B1(中型客车)</option>
-                                    <option value="B2">B2(大型货车)</option>
-                                    <option value="D">D(普通三轮摩托车)</option>
-                                    <option value="E">E(普通二轮摩托车)</option>
-                                    <option value="F">F(轻便摩托车)</option>
-                                    <option value="M">M(轮式自行机械车)</option>
-                                    <option value="N">N(无轨电车)</option>
-                                    <option value="P">P(有轨电车)</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">驾驶证初领日期</label>
-
-                            <div class="col-sm-4">
-                                <div class="input-group date">
-                                    <input id="fstdrilicdate" name="fstdrilicdate" type="text"
-                                           class="form-control"><span
-                                        class="input-group-addon"><i
-                                        class="fa fa-clock-o"></i></span>
-                                </div>
-
-                            </div>
-                            <label class="col-sm-2 control-label">报名时间<span class="needed">*</span></label>
-
-                            <div class="col-sm-4">
-                                <div class="input-group date">
-                                    <input id="applydate" name="applydate" type="text"
-                                           class="form-control" required><span
-                                        class="input-group-addon"><i
-                                        class="fa fa-clock-o"></i></span>
-                                </div>
-
-                            </div>
-
-                        </div>
-                        <div class="form-group">
-                            <span class="col-sm-2 control-label">学员头像:</span>
-
-                            <div class="col-sm-6">
-                                <button id="addPhoto" class="btn btn-default" type="button">上传学员头像</button>
-                                <span class="error-tip" style="display: block;padding-top: 5px;">&nbsp;&nbsp;(仅支持jpg,jpeg,png格式,分辨率至少320px,图片大小限1M)</span>
-                            </div>
-
-                            <div style="margin-top: 10px" class="col-sm-8 col-sm-offset-2 inline">
-                                <div class="col-sm-8" style="padding-left: 0px"><a data-lightbox="gallery" class=""
-                                                                                   href="#">
-                                    <img style="height: 100px;width: 160px;"
-                                         class="img form-control"
-                                         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNcvHh+PQAGPAJmNT5JDwAAAABJRU5ErkJggg=="
-                                         id="photoUrl"> </a></div>
-                            </div>
-                        </div>
-                        <div class="form-group" id="idCardContainer">
-                            <span class="col-sm-2 control-label">身份证照片:</span>
-
-                            <div class="col-sm-5">
-                                <button id="addFace" class="btn btn-default" type="button">上传正面照片</button>
-                                <span class="error-tip" style="display: block;padding-top: 5px;">&nbsp;&nbsp;(仅支持jpg,jpeg,png格式,分辨率至少320px,图片大小限1M)</span>
-                            </div>
-                            <div class="col-sm-4">
-                                <button id="addBack" class="btn btn-default" type="button">上传背面照片</button>
-                                <span class="error-tip" style="display: block;padding-top: 5px;">&nbsp;&nbsp;(仅支持jpg,jpeg,png格式,分辨率至少320px,图片大小限1M)</span>
-                            </div>
-                            <div style="margin-top: 10px" class="col-sm-8 col-sm-offset-2 inline">
-                                <div class="col-sm-8" style="padding-left: 0px"><a data-lightbox="gallery" class=""
-                                                                                   href="#">
-                                    <img style="height: 100px;width: 160px;"
-                                         class="img form-control"
-                                         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNcvHh+PQAGPAJmNT5JDwAAAABJRU5ErkJggg=="
-                                         id="idcardFace"> </a></div>
-                                <div class="col-sm-4" style="margin-left: -20px"><a data-lightbox="gallery" class=""
-                                                                                    href="#">
-                                    <img style="height: 100px;width: 160px;"
-                                         class="img form-control"
-                                         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNcvHh+PQAGPAJmNT5JDwAAAABJRU5ErkJggg=="
-                                         id="idcardBack"> </a></div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <span class="col-sm-2 control-label">指纹照片:</span>
-
-                            <div class="col-sm-6">
-                                <button id="addFingerprint" class="btn btn-default" type="button">上传指纹照片</button>
-                                <span class="error-tip" style="display: block;padding-top: 5px;">&nbsp;&nbsp;(仅支持jpg,jpeg,png格式,分辨率至少320px,图片大小限1M)</span>
-                            </div>
-
-                            <div style="margin-top: 10px" class="col-sm-8 col-sm-offset-2 inline">
-                                <div class="col-sm-8" style="padding-left: 0px"><a data-lightbox="gallery" class=""
-                                                                                   href="#">
-                                    <img style="height: 100px;width: 160px;"
-                                         class="img form-control"
-                                         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNcvHh+PQAGPAJmNT5JDwAAAABJRU5ErkJggg=="
-                                         id="fingerprint"> </a></div>
-                            </div>
-                        </div>
-
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                    <button id="saveBtn" type="button" class="btn btn-primary">提交</button>
-                </div>
-            </div>
-        </div>
-    </div>--%>
 </div>
 <script src="<c:url value="/resources/js/jquery.dataTables.js"/>"></script>
 <script src="<c:url value="/resources/js/jquery.form.js"/>"></script>
@@ -456,199 +170,30 @@
             var table = oTable.dataTable();
             table.fnDraw();
         });
-/*        $("#refresh").click(function (e) {
-            $('#keyword').val("");
-            var table = oTable.dataTable();
-            table.fnDraw();
-        });*/
-/*        $("#addBtn").click(function (e) {
-            e.preventDefault();
-            resetForm();
-            $('#modal-title').html("新增信息");
-            $('#saveBtn').html("添加");
 
-            $('#studentModal').modal('show');
-        });*/
-/*        $('#studentForm').validate({ // initialize the plugin
-            rules: {
-                phone: {
-                    required: true,
-                    minlength: 11,
-                    maxlength: 11,
-                }
-            }
-        });*/
-/*        var finished = true;
-        $('#insName').typeahead({
-            source: function (query, process) {
-                if (!finished) {
-                    return;
-                }
-                finished = false;
-                var url = prefix + "/institutions/typeahead?keyword=" + query;
-                $.getJSON(url, {}, function (response) {
-                    var data = [];
-                    var json = eval(response);
-                    for (var i in json) {
-                        data.push(json[i].id + '_' + json[i].name);
-                    }
-                    process(data);
-                    finished = true;
-                });
-            },
-            highlighter: function (item) {
-                var parts = item.split('_');
-                parts.shift();
-                return parts.join('_');
-            },
-            updater: function (item) {
-                var parts = item.split('_');
-                $('#insId').val(parts.shift());
-                return parts.join('_');
-            },
-            minLength: 0
-        });
-
-        var fi = true;
-        $('#coachName').typeahead({
-            source: function (query, process) {
-                if (!fi) {
-                    return;
-                }
-                fi = false;
-                var url = prefix + "/coaches/typeahead?keyword=" + query + "&insId=" + $('#insId').val();
-                $.getJSON(url, {}, function (response) {
-                    var data = [];
-                    var json = eval(response);
-                    for (var i in json) {
-                        data.push(json[i].id + '_' + json[i].name);
-                    }
-                    process(data);
-                    fi = true;
-                });
-            },
-            highlighter: function (item) {
-                var parts = item.split('_');
-                parts.shift();
-                return parts.join('_');
-            },
-            updater: function (item) {
-                var parts = item.split('_');
-                $('#coachId').val(parts.shift());
-                return parts.join('_');
-            },
-            minLength: 0
-        });
-
-        function resetForm() {
-            $('#studentForm').resetForm();
-            $('#id').val("0");
-            $('#idcardFace').attr("src", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNcvHh+PQAGPAJmNT5JDwAAAABJRU5ErkJggg==");
-            $('#idcardBack').attr("src", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNcvHh+PQAGPAJmNT5JDwAAAABJRU5ErkJggg==");
-            $('#fingerprint').attr("src", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNcvHh+PQAGPAJmNT5JDwAAAABJRU5ErkJggg==");
-            $('#photoUrl').attr("src", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNcvHh+PQAGPAJmNT5JDwAAAABJRU5ErkJggg==");
-        }*/
-
-        /****表单提交(add/modify)**/
-/*
-        function beforeSubmit(formData, jqForm, options) {
-            var size = formData.length;
-            formData[size] = {"name": "cardFace", "value": skipBlankImage($('#idcardFace').attr("src"))};
-            formData[size + 1] = {"name": "cardBack", "value": skipBlankImage($('#idcardBack').attr("src"))};
-            formData[size + 2] = {"name": "fingerprintUrl", "value": skipBlankImage($('#fingerprint').attr("src"))};
-            formData[size + 3] = {"name": "photoUrl", "value": skipBlankImage($('#photoUrl').attr("src"))};
-            return true;
-        }
-*/
-
-/*        $("#saveBtn").click(function (e) {
-            e.preventDefault();
-            var valid = $('#studentForm').valid();
-            var $btn = $(this);
-            var url = prefix + "/students";
-            var successMsg = "添加成功";
-            if ($("#insId").val() == 0) {
-                alert("所属的驾校不能为空");
-                return;
-            }
-            if ($("#coachId").val() == 0) {
-                alert("教练不能为空");
-                return;
-            }
-            if (valid) {
-                //如果表单合法 则提交表单
-                $btn.button("loading")
-                var id = $('#id').val();
-                if (id != 0) {
-                    url = prefix + "/students/" + id;
-                    successMsg = "修改成功";
-                }
-                $('#studentForm').ajaxSubmit({
-                    url: url,
-                    type: 'POST',
-                    dataType: "text",
-                    clearForm: false,
-                    beforeSubmit: beforeSubmit,  // pre-submit callback
-                    success: function (data, status) {
-                        if (data == "success") {
-                            toastr.success(successMsg);
-                            $('#studentModal').modal('hide');
-                            var table = oTable.dataTable();
-                            table.fnDraw();
-                        } else {
-                            toastr.error("学员的手机号已存在");
-                        }
-                        $btn.button('reset');
-                    },
-                    error: function () {
-                        $btn.button('reset');
-                        toastr.error("系统错误,请联系管理员");
-                    }
-                });
-            }
-        });*/
-
-        /****结束表单提交**/
 
         /****查询--start********/
 
-        function dataFomat(){
-            $('#starttime').datepicker({
-                dateFormat: "yyyy-mm-dd"
-            });
-            $('#endtime').datetimepicker({
-                dateFormat: "yyyy-mm-dd"
-            });
-        }
-
         function resetSearchForm() {
-            $('#searchForm').resetForm();
+            $('#searchForm').resetForm();   //jquery.form.js 里的清空表单
         }
 
         $("#clearBtn").click(function (e) {
-            e.preventDefault();
-            resetSearchForm();
+            e.preventDefault();     //组织元素发生的默认行为
+            resetSearchForm();         //调用上面的方法，清空form
             var table = oTable.dataTable();
-            table.fnDestroy();
-            loadData();
+            table.fnDestroy();  //初始化datatable
         });
 
-        function renderDate(time) {
+        function renderDate(time) {     //改变下格式
             var date = new Date(time);
             return date.getFullYear() + "-" + (date.getMonth() + 1) + "-"
                     + date.getDate() + "  " + date.getHours() + ":" + date.getMinutes();
         }
 
-/*        function generateOp(id) {
-            return ' <div class="btn-group">' +
-                    '<button id=' + id + ' class="modify btn btn-xs btn-default"> 修改</button> ' +
-                    '<button id=' + id + ' class="delete btn btn-xs btn-danger">删除</button>' +
-                    '</div>'
-        }*/
 
         function loadData() {
-            var a = $('#starttime').val();
-            console.log(renderDate(a));
+
             oTable.dataTable({
                 "sDom": "<'row'<'col-sm-6'l><'col-sm-6'f>r><'row'<'col-sm-12't>><'row'<'col-sm-6'i><'col-sm-6'p>>",
                 "bScrollCollapse": true,
@@ -702,9 +247,9 @@
                     aoData.push(        //Ajax 把数据穿给后台
                             {"name": "code", "value": $('#code').val().trim()},
                             {"name": "type", "value": $('#type').val().trim()},
-                            {"name": "browser", "value": $('#browser').val().trim()},
-                            {"name": "starttime", "value": $('#Starttime').val()},
-                            {"name": "endtime", "value": $('#Endtime').val()})
+                            {"name": "browser", "value": encodeURIComponent($('#browser').val().trim())},
+                            {"name": "starttime", "value": $('#Starttime').val().replace("年","-").replace("月","-").replace("日","")},
+                            {"name": "endtime", "value": $('#Endtime').val().replace("年","-").replace("月","-").replace("日","")})
                 },
                 "oClasses": {
                     "sFilter": "dataTables_filter"
@@ -714,89 +259,6 @@
         }
 
         /****查询--end********/
-        /****删除--start********/
-        $('#admin-table').find('tbody').on('click', ' tr button.delete', function (e) {
-            e.preventDefault();
-            var tr = $(this).parents("tr");
-            var data = oTable.fnGetData(tr[0]);
-            e.preventDefault();
-            url = prefix + "/students/" + data['id'] + '/delete';
-            swal({
-                        title: "删除学员-" + data['name'],
-                        text: "",
-                        type: "warning",
-                        showCancelButton: true,
-                        confirmButtonColor: "#5ECD1E",
-                        confirmButtonText: "Yes, 确定",
-                        cancelButtonText: "No, 取消",
-                        closeOnConfirm: true,
-                        closeOnCancel: true
-                    },
-                    function (isConfirm) {
-                        if (isConfirm) {
-                            $.ajax({
-                                url: url,
-                                type: 'POST',
-                                dataType: 'html',
-                                success: function (data) {
-                                    if (data == "success") {
-                                        toastr.success("删除成功");
-                                        tr.remove();
-                                    } else {
-                                        toastr.error("操作失败");
-                                    }
-                                }
-                            });
-                        }
-                    });
-        });
-        /****删除--end********/
-        /****修改--start********/
-        $('#admin-table').find('tbody').on('click', ' tr button.modify', function (e) {
-            e.preventDefault();
-            var tr = $(this).parents("tr");
-            var data = oTable.fnGetData(tr[0]);
-            //fill form
-            resetForm();
-            var $inputs = $('#studentForm input');
-            $.each(data, function (key, value) {
-                $inputs.filter(function () {
-                    return key == this.name;
-                }).val(value);
-            });
-            var $select = $('#studentForm select');
-            $.each(data, function (key, value) {
-                $select.filter(function () {
-                    return key == this.name;
-                }).val(value);
-            });
-
-            if (data['cardFace'] != "") {
-                $('#idcardFace').attr("src", data['cardFace']);
-            }
-            if (data['cardBack'] != "") {
-                $('#idcardBack').attr("src", data['cardBack']);
-            }
-            if (data['fingerprintUrl'] != "") {
-                $('#fingerprint').attr("src", data['fingerprintUrl']);
-            }
-            if (data['photoUrl'] != "") {
-                $('#photoUrl').attr("src", data['photoUrl']);
-            }
-
-
-            $('#modal-title').html("修改学员信息");
-            $('#saveBtn').html("保存");
-
-            $('#studentModal').modal('show');
-        });
-        /****修改--end********/
-        /****qiniu upload start****/
-        connectQiniuAndImage('${uptoken_url}', '${domain}', 'addFace', 'idcardFace', 'idcardFace');
-        connectQiniuAndImage('${uptoken_url}', '${domain}', 'addBack', 'idcardBack', 'idcardBack');
-        connectQiniuAndImage('${uptoken_url}', '${domain}', 'addFingerprint', 'fingerprint', 'fingerprint');
-        connectQiniuAndImage('${uptoken_url}', '${domain}', 'addPhoto', 'photoUrl', 'stuPhoto');
-        /****qiniu upload end****/
 
     })
 </script>

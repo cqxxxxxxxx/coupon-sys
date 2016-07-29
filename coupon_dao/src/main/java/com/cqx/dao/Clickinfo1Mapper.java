@@ -29,4 +29,6 @@ public interface Clickinfo1Mapper {
 
     //分享信息的分页版本
     List<Clickinfo1> listFenYe(@Param("code") String code, @Param("type") String type,@Param("keyword") String keyword, @Param("limit") int limit, @Param("offset") int offset, @Param("browser") String browser, @Param("starttime") String starttime, @Param("endtime") String endtime);
+
+    int countAll(@Param("keyword") String keyword, @Param("code") String code, @Param("type") String type, @Param("browser") String browser, @Param("starttime") String starttime, @Param("endtime") String endtime);
 }

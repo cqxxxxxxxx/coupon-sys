@@ -23,4 +23,6 @@ public interface SharedCount {
     public List<Shareinfo1> getShareInfo(String code);   //通过官方分享得到优惠的点击者信息（官方 type默认0）
 
     public List<Shareinfo1> getShareInfoFenYe(ShareQueryForm form); //分页版本
+
+    public int countAll(ShareQueryForm form);
 }

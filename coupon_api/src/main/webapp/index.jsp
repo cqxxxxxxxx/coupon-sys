@@ -102,7 +102,6 @@
 <!--Aside Menu -->
 <jsp:include page="/WEB-INF/views/comp/siderbar.jsp">
     <jsp:param name="index" value="dashboard"/>
-
 </jsp:include>
 
 <%--<div class="container">
