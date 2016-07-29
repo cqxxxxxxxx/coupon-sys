@@ -46,8 +46,8 @@ public class IPUtil {
     public static String getBrowser(HttpServletRequest request){
         String agent = request.getHeader("User-Agent");
         //agent形式是  Mozilla/5.0 (Windows NT 10.0; WOW64; rv:47.0) Gecko/20100101 Firefox/47.0
-        StringTokenizer st = new StringTokenizer(agent,"(");
-        String browser = st.nextToken();
+        String[] a = agent.split(" ");
+        String browser = a[a.length-1];
         return browser;
 
 
