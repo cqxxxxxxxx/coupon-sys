@@ -12,10 +12,24 @@
         <result column="des" property="des" jdbcType="LONGVARCHAR"/>
     </resultMap>
 
+    <!--搜索code对应的信息-->
+    <select id="selectByCode" parameterType="java.lang.String" resultType="Activity1">
+        SELECT *
+        FROM coupon_activity
+        WHERE code = #{code,jdbcType=VARCHAR}
+    </select>
+
     <!--更新活动信息-->
     <update id="updateActivity" parameterType="com.cqx.model.Activity1">
         UPDATE coupon_activity
-        SET title = #{title}, des = #{des}, updated = #{updated}
+        SET
+        <if test="title!=null">
+            title = #{title},
+        </if>
+        <if test="des!=null">
+            des = #{des},
+        </if>
+          updated = #{updated}
         WHERE code = #{code}
     </update>
 

@@ -27,7 +27,7 @@ public interface Shareinfo1Mapper {
     List<Shareinfo1> ListO(String code);
 
     //检测手机号是否已经领取过
-    List<Shareinfo1> exist(String phone);
+    List<Shareinfo1> exist(Shareinfo1 shareinfo1);
 
     //分页版本 信息查询
     List<Shareinfo1> listFenYe(@Param("code") String code, @Param("type") String type, @Param("keyword") String keyword, @Param("limit") int limit, @Param("offset") int offset, @Param("starttime") String starttime, @Param("endtime") String endtime);

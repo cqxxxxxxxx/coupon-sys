@@ -34,7 +34,7 @@ public class ShareCountImpl implements SharedCount {
         shareinfo1.setCode(code);
         shareinfo1.setType(type);
         shareinfo1.setPhone(phone);
-        List<Shareinfo1> list = shareinfo1Mapper.exist(phone);
+        List<Shareinfo1> list = shareinfo1Mapper.exist(shareinfo1);
         if (list.isEmpty()) {
             shareinfo1Mapper.insert(shareinfo1);
             return true;

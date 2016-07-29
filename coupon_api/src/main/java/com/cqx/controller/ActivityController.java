@@ -1,10 +1,11 @@
 package com.cqx.controller;
 
 
-
 import com.cqx.model.Activity1;
 import com.cqx.service.ActivityList;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,6 +30,15 @@ public class ActivityController {
     ActivityList activityList;
 
 
+    @RequestMapping(value = "/info/{code}/{type}", method = RequestMethod.GET)
+    public String activityInfo(@PathVariable("code") String code, @PathVariable("type") String type, Model model) {
+        Activity1 activity1 = activityList.getinfo(code);
+        model.addAttribute("code", code);
+        model.addAttribute("type", type);
+        model.addAttribute("activity", activity1);
+        return "url";
+    }
+
     @RequestMapping(method = RequestMethod.GET)
     public String activities() {
         return "activities";
@@ -44,9 +54,13 @@ public class ActivityController {
     @ResponseBody
     String updateActivity(String code, String title, String des) {
         Activity1 activity1 = new Activity1();
+        if(!title.equals("")){
+            activity1.setTitle(title);
+        }
+        if (!des.equals("")){
+            activity1.setDes(des);
+        }
         activity1.setCode(code);
-        activity1.setTitle(title);
-        activity1.setDes(des);
         if (activityList.updateActivity(activity1))
             return ApplicationConstants.RESPONSE_SUCCESS;
         return ApplicationConstants.RESPONSE_FAIL;
@@ -64,9 +78,9 @@ public class ActivityController {
         String offsetStr = request.getParameter("iDisplayStart");
         int offset = offsetStr == null ? 0 : Integer.parseInt(offsetStr);
 
-        System.out.println("offset:"+request.getParameter("iDisplayStart"));
-        System.out.println("limit:"+request.getParameter("iDisplayLength"));
-        System.out.println("keyword:"+keyword+"--limit:"+limit+"--offset:"+offset);
+        System.out.println("offset:" + request.getParameter("iDisplayStart"));
+        System.out.println("limit:" + request.getParameter("iDisplayLength"));
+        System.out.println("keyword:" + keyword + "--limit:" + limit + "--offset:" + offset);
 
 
         List<Activity1> list = activityList.getActivitys1(keyword, limit, offset);

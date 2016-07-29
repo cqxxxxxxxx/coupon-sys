@@ -91,6 +91,7 @@
 </body>
 <script type="text/javascript">
     var path = location.pathname.split('/');
+    console.log(location.pathname);
     var app = path[1];
     var prefix = "/" + app;
 

@@ -211,8 +211,8 @@
             var browser = Navigator.name+":"+Navigator.version;
             var code = id;
             var ip = "111111";
-            var url = "/clickinfo/"+code+"/offical"+"/"+browser+"/"+ip;
-            return '<a href="'+url+'">官方分享链接</a>'
+            var url = "/activities/info/"+code+"/offical";
+            return '<a href="'+url+'">官方活动页面</a>'
         }
 
         function loadData() {

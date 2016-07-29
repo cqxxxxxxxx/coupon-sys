@@ -63,6 +63,11 @@ public class ActivityListImpl implements ActivityList {
         return activity1Mapper.countAll(keyword);
     }
 
+    public Activity1 getinfo(String code) {
+        Activity1 activity1 = activity1Mapper.selectByCode(code);
+        return activity1;
+    }
+
 
     //util
     public boolean checkCode(String code) {

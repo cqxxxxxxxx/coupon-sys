@@ -15,23 +15,26 @@
         SELECT
         <include refid="Base_Column_List"/>
         FROM click_info
-        WHERE
-        code = #{code,jdbcType=VARCHAR}
-        <if test="type!=null">
-            AND type = #{type,jdbcType=VARCHAR}
-        </if>
-        <if test="keyword!=null">
-            AND code LIKE #{keyword}"%"
-        </if>
-        <if test="browser!=null">
-            AND browser = #{browser,jdbcType=VARCHAR}
-        </if>
-        <if test="endtime!=null">
-            AND created &lt;  #{endtime,jdbcType=TIMESTAMP}
-        </if>
-        <if test="starttime!=null">
-            AND created &gt; #{starttime,jdbcType=TIMESTAMP}
-        </if>
+        <where>
+            <if test="code!=null">
+                code = #{code,jdbcType=VARCHAR}
+            </if>
+            <if test="type!=null">
+                AND type = #{type,jdbcType=VARCHAR}
+            </if>
+            <if test="keyword!=null">
+                AND code LIKE #{keyword}"%"
+            </if>
+            <if test="browser!=null">
+                AND browser = #{browser,jdbcType=VARCHAR}
+            </if>
+            <if test="endtime!=null">
+                AND created &lt;  #{endtime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="starttime!=null">
+                AND created &gt; #{starttime,jdbcType=TIMESTAMP}
+            </if>
+        </where>
         ORDER BY created DESC
         LIMIT #{offset},#{limit}
     </select>
@@ -42,23 +45,26 @@
         select
         COUNT(id)
         from click_info
-        WHERE
-        code = #{code,jdbcType=VARCHAR}
-        <if test="type!=null">
-            AND type = #{type,jdbcType=VARCHAR}
-        </if>
-        <if test="keyword!=null">
-            AND code LIKE #{keyword}"%"
-        </if>
-        <if test="browser!=null">
-            AND browser = #{browser,jdbcType=VARCHAR}
-        </if>
-        <if test="endtime!=null">
-            AND created &lt;  #{endtime,jdbcType=TIMESTAMP}
-        </if>
-        <if test="starttime!=null">
-            AND created &gt; #{starttime,jdbcType=TIMESTAMP}
-        </if>
+        <where>
+            <if test="code!=null">
+                code = #{code,jdbcType=VARCHAR}
+            </if>
+            <if test="type!=null">
+                AND type = #{type,jdbcType=VARCHAR}
+            </if>
+            <if test="keyword!=null">
+                AND code LIKE #{keyword}"%"
+            </if>
+            <if test="browser!=null">
+                AND browser = #{browser,jdbcType=VARCHAR}
+            </if>
+            <if test="endtime!=null">
+                AND created &lt;  #{endtime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="starttime!=null">
+                AND created &gt; #{starttime,jdbcType=TIMESTAMP}
+            </if>
+        </where>
     </select>
 
 

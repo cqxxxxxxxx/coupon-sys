@@ -63,6 +63,9 @@ public class ShareController {
         String keyword = request.getParameter("sSearch");
 
         ShareQueryForm form = new ShareQueryForm();
+        if (!code.equals("")){
+            form.setCode(code);
+        }
         if (!starttime.equals("")) {
             form.setStarttime(starttime);
         }
@@ -75,7 +78,6 @@ public class ShareController {
         if (keyword != null && !keyword.equals("")) {
             form.setKeyword(keyword);
         }
-        form.setCode(code);
         form.setLimit(limit);
         form.setOffset(offset);
 

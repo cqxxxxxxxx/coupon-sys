@@ -14,20 +14,23 @@
         SELECT
         <include refid="Base_Column_List"/>
         FROM share
-        WHERE
-        code = #{code,jdbcType=VARCHAR}
-        <if test="type!=null">
-            AND type = #{type,jdbcType=VARCHAR}
-        </if>
-        <if test="keyword!=null">
-            AND type LIKE #{keyword}"%"
-        </if>
-        <if test="endtime!=null">
-            AND created &lt;  #{endtime,jdbcType=TIMESTAMP}
-        </if>
-        <if test="starttime!=null">
-            AND created &gt; #{starttime,jdbcType=TIMESTAMP}
-        </if>
+        <where>
+            <if test="code!=null">
+                code = #{code,jdbcType=VARCHAR}
+            </if>
+            <if test="type!=null">
+                AND type = #{type,jdbcType=VARCHAR}
+            </if>
+            <if test="keyword!=null">
+                AND code LIKE #{keyword}"%"
+            </if>
+            <if test="endtime!=null">
+                AND created &lt;  #{endtime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="starttime!=null">
+                AND created &gt; #{starttime,jdbcType=TIMESTAMP}
+            </if>
+        </where>
         ORDER BY created DESC
         LIMIT #{offset},#{limit}
     </select>
@@ -37,20 +40,23 @@
         select
         COUNT(id)
         from share
-        WHERE
-        code = #{code,jdbcType=VARCHAR}
-        <if test="type!=null">
-            AND type = #{type,jdbcType=VARCHAR}
-        </if>
-        <if test="keyword!=null">
-            AND type LIKE #{keyword}"%"
-        </if>
-        <if test="endtime!=null">
-            AND created &lt;  #{endtime,jdbcType=TIMESTAMP}
-        </if>
-        <if test="starttime!=null">
-            AND created &gt; #{starttime,jdbcType=TIMESTAMP}
-        </if>
+        <where>
+            <if test="code!=null">
+                code = #{code,jdbcType=VARCHAR}
+            </if>
+            <if test="type!=null">
+                AND type = #{type,jdbcType=VARCHAR}
+            </if>
+            <if test="keyword!=null">
+                AND code LIKE #{keyword}"%"
+            </if>
+            <if test="endtime!=null">
+                AND created &lt;  #{endtime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="starttime!=null">
+                AND created &gt; #{starttime,jdbcType=TIMESTAMP}
+            </if>
+        </where>
     </select>
 
     <!--个人分享连接所分发出的优惠信息-->
@@ -70,9 +76,9 @@
   </select>
 
     <!--查询是否已经领取了  检测手机号是否存在-->
-    <select id="exist" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <select id="exist" parameterType="com.cqx.model.Shareinfo1" resultMap="BaseResultMap">
     SELECT * FROM share
-    WHERE phone = #{phone,jdbcType=VARCHAR}
+    WHERE phone = #{phone,jdbcType=VARCHAR} AND code = #{code,jdbcType=VARCHAR}
 
   </select>
 

@@ -2,7 +2,9 @@ package com.cqx.controller;
 
 
 import com.cqx.form.ClickQueryForm;
+import com.cqx.model.Activity1;
 import com.cqx.model.Clickinfo1;
+import com.cqx.service.ActivityList;
 import com.cqx.service.ClickCount;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import utils.ApplicationConstants;
+import utils.IPUtil;
 import utils.JsonUtil;
 
 import javax.annotation.Resource;
@@ -28,20 +31,31 @@ import java.util.Map;
 @RequestMapping(value = "/clickinfo")
 public class ClickController {
 
+    @Resource(name = "ActivityList")
+    ActivityList activityList;
+
     @Resource(name = "ClickCount")
     ClickCount clickCount;
 
     private Map<String, String> map;
 
-    @RequestMapping(value = "/{code}/{type}/{browser}/{ip}", method = RequestMethod.GET)
-    public String clickHandler(@PathVariable("code") String code, @PathVariable("type") String type, @PathVariable("browser") String browser, @PathVariable("ip") String ip, Model model) {
-
+    @RequestMapping(value = "/{code}/{type}", method = RequestMethod.GET)
+    public String clickHandler(HttpServletRequest request, @PathVariable("code") String code, @PathVariable("type") String type, Model model) {
+        System.out.print("sadfasdfasfdasasdfsdafasfsfdsadfasfdafasdfasfa");
+        Activity1 activity1 = activityList.getinfo(code);
+        String ip = IPUtil.getIpAddr(request);
+        String browser = IPUtil.getBrowser(request);
+        System.out.println(ip+"---"+browser);
         model.addAttribute("code", code);
         model.addAttribute("type", type);
+        model.addAttribute("activity", activity1);
         clickCount.setInfo(code, type, ip, browser);
         System.out.println(browser);
-        return "invitePage";
+        return "invite";
     }
+
+
+
 
     @RequestMapping(method = RequestMethod.GET)
     public String jump() {
@@ -52,7 +66,7 @@ public class ClickController {
     public
     @ResponseBody
     String clickInfoQuery(HttpServletRequest request, String code, String type,String starttime, String endtime) {
-
+        System.out.println(request.getHeader("User-Agent"));
         System.out.println("code:" + request.getParameter("code"));
         System.out.println("type:" + request.getParameter("type"));
         System.out.println("starttime:" + request.getParameter("starttime"));
@@ -78,6 +92,9 @@ public class ClickController {
                 form.setBrowser(browser1);
             }
         }catch (Exception e){}
+        if (!code.equals("")){
+            form.setCode(code);
+        }
         if (!starttime.equals("")) {
             form.setStarttime(starttime);
         }
@@ -90,7 +107,7 @@ public class ClickController {
         if (!keyword.equals("")) {
             form.setKeyword(keyword);
         }
-        form.setCode(code);
+
         form.setLimit(limit);
         form.setOffset(offset);
 

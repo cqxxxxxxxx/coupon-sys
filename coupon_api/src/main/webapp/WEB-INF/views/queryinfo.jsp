@@ -85,9 +85,7 @@
                         </div>
                         <div class="col-sm-12">
                             <div class="row text-center">
-                                <button id="addBtn" class="btn  btn-danger">
-                                    <i class="fa fa-plus"></i>&nbsp;&nbsp;新增
-                                </button>
+
                                 <button id="search" class="btn  btn-primary"><i class="fa fa-search"></i>&nbsp;&nbsp;查询
                                 </button>
                                 <button id="clearBtn" class="btn  btn-default"><i class="fa fa-trash"></i>&nbsp;&nbsp;清空

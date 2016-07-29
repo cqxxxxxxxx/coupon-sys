@@ -16,4 +16,5 @@ public interface ActivityList {
     public List<Activity1> getActivitys1(String keyword, int limit, int offset); //分页版本
     public boolean updateActivity(Activity1 activity1);     //update
     public int countAll(String keyword);
+    public Activity1 getinfo(String code);
 }

@@ -23,6 +23,8 @@ public interface Activity1Mapper {
 
     int updateByPrimaryKey(Activity1 record);
 
+    Activity1 selectByCode(String code);
+
     List<Activity1> listAll();
 
     List<Activity1> exist(String code);

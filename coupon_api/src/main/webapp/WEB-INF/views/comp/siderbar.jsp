@@ -58,16 +58,9 @@
                 </ul>
             </li>
             <li class="<c:if test="${param.index eq 'advice'}">active</c:if>">
-                <a href="<c:url value="/clickinfo/100/cqx100/火狐/192.1.1"/> "><span class="nav-label">个人分享链接</span></a>
+                <a href="<c:url value="/clickinfo/100/cqx100"/> "><span class="nav-label">个人分享链接</span></a>
             </li>
 
-            <%--<li>--%>
-            <%--<a href="../html/gift1.html"> <span--%>
-            <%--class="nav-label">有礼兑换管理</span></a>--%>
-            <%--</li>--%>
-<%--            <li class="<c:if test="${param.index eq 'about'}">active</c:if>">
-                <a href="<c:url value="/datatable.jsp"/> "> <span class="nav-label">DataTable</span></a>
-            </li>--%>
         </ul>
     </div>
 </aside>
