@@ -166,8 +166,12 @@
         活动内容:${activity.getDes()}
     </div>
     <div>
+    <div class="row">
     <input type="tel" maxlength="11" placeholder="请输入您领取优惠券的手机号" class="tel" id="phone"/>
+    </div>
+    <div class="row" style="margin-left: auto">
     <button class="receive-button" id="submit">领取优惠券</button>
+    </div>
     </div>
 </div>
 
