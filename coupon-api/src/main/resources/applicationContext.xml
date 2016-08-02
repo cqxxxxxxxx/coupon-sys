@@ -18,7 +18,6 @@
         <property name="suffix" value=".jsp"/>
     </bean>
     <context:component-scan base-package="cn.xiaohuodui.controller"/>
+    <context:component-scan base-package="cn.xiaohuodui.rest"/>
     <mvc:annotation-driven/>
-
-
 </beans>

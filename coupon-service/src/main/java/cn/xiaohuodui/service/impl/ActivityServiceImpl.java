@@ -3,7 +3,6 @@ package cn.xiaohuodui.service.impl;
 
 import cn.xiaohuodui.dao.ActivityMapper;
 import cn.xiaohuodui.model.Activity;
-
 import cn.xiaohuodui.service.ActivityService;
 import org.springframework.stereotype.Service;
 
@@ -23,8 +22,8 @@ public class ActivityServiceImpl implements ActivityService {
     private ActivityMapper activityMapper;
 
     public List<Activity> getActivitys() {
-        List<Activity> list = activityMapper.listAll();
-        return list;
+        List<Activity> activities = activityMapper.listAll();
+        return activities;
     }
 
     //分页版本 map中需要 offset limit  keyword可选
@@ -36,13 +35,13 @@ public class ActivityServiceImpl implements ActivityService {
 
     public boolean createActivity(String code, String title, String des) {
         Timestamp ts = new Timestamp(System.currentTimeMillis());
-        Activity a = new Activity();
-        a.setCode(code);
-        a.setTitle(title);
-        a.setDes(des);
-        a.setCreated(ts);
+        Activity activity = new Activity();
+        activity.setCode(code);
+        activity.setTitle(title);
+        activity.setDes(des);
+        activity.setCreated(ts);
         if (this.checkCode(code)) {
-            activityMapper.insert(a);
+            activityMapper.insert(activity);
             return true;        //注册成功
         } else {
             System.out.println("code重复");

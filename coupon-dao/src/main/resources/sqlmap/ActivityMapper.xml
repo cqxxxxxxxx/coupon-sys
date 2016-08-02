@@ -13,7 +13,7 @@
     </resultMap>
 
     <!--搜索code对应的信息-->
-    <select id="selectByCode" parameterType="java.lang.String" resultType="Activity">
+    <select id="selectByCode" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
         SELECT *
         FROM coupon_activity
         WHERE code = #{code,jdbcType=VARCHAR}

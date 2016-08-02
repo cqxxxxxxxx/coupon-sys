@@ -11,7 +11,7 @@
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url" value="#{dbConfig['jdbc.url']}"/>
         <property name="username" value="#{dbConfig['jdbc.username']}"/>
-        <property name="password" value=""/>
+        <property name="password" value="123456"/>
     </bean>
 
     <!--mybatis的sqlSessionFactory-->

@@ -27,6 +27,12 @@ public interface ClickinfoMapper {
     List<Clickinfo> ListP(Map map);
 
     //官方分享的连接的点击者信息
+
+    /**
+     *
+     * @param code
+     * @return
+     */
     List<Clickinfo> ListO(String code);
 
     //分享信息的分页版本

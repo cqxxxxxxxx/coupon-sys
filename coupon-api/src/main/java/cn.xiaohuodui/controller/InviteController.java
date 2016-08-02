@@ -6,7 +6,6 @@ import cn.xiaohuodui.service.ClickService;
 import cn.xiaohuodui.service.ShareService;
 import cn.xiaohuodui.utils.ApplicationConstants;
 import cn.xiaohuodui.utils.IPUtil;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;

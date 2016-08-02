@@ -9,6 +9,10 @@
         <result column="created" property="created" jdbcType="TIMESTAMP"/>
     </resultMap>
 
+    <sql id="Base_Column_List">
+        id, code, type, phone, created
+    </sql>
+
     <!--分页的SQL语句-->
     <select id="listFenYe" resultMap="BaseResultMap" parameterType="java.util.Map">
         SELECT
@@ -25,7 +29,7 @@
                 AND code LIKE #{keyword}"%"
             </if>
             <if test="endtime!=null">
-                AND created &lt;  #{endtime,jdbcType=TIMESTAMP}
+                AND created &lt; #{endtime,jdbcType=TIMESTAMP}
             </if>
             <if test="starttime!=null">
                 AND created &gt; #{starttime,jdbcType=TIMESTAMP}
@@ -51,7 +55,7 @@
                 AND code LIKE #{keyword}"%"
             </if>
             <if test="endtime!=null">
-                AND created &lt;  #{endtime,jdbcType=TIMESTAMP}
+                AND created &lt; #{endtime,jdbcType=TIMESTAMP}
             </if>
             <if test="starttime!=null">
                 AND created &gt; #{starttime,jdbcType=TIMESTAMP}
@@ -82,16 +86,19 @@
 
   </select>
 
-
-    <sql id="Base_Column_List">
-    id, code, type, phone, created
-  </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
         from share
         where id = #{id,jdbcType=INTEGER}
     </select>
+    <select id="selectByPhone" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        from share
+        where phone = #{phone,jdbcType=INTEGER}
+    </select>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from share
     where id = #{id,jdbcType=INTEGER}

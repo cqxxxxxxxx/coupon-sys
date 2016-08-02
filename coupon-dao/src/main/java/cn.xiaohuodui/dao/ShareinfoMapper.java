@@ -17,6 +17,8 @@ public interface ShareinfoMapper {
 
     Shareinfo selectByPrimaryKey(Integer id);
 
+    Shareinfo selectByPhone(@Param("phone") String phone);
+
     int updateByPrimaryKeySelective(Shareinfo record);
 
     int updateByPrimaryKey(Shareinfo record);
