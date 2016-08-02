@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+
+    <util:properties id="dbConfig" location="classpath:dbconfig.properties"/>
+
+    <!--数据源 dateSource-->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="#{dbConfig['jdbc.url']}"/>
+        <property name="username" value="#{dbConfig['jdbc.username']}"/>
+        <property name="password" value=""/>
+    </bean>
+
+    <!--mybatis的sqlSessionFactory-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="mapperLocations" value="classpath*:sqlmap/*.xml"/>
+        <property name="typeAliasesPackage" value="cn.xiaohuodui.model"/>
+    </bean>
+
+    <!--自动扫描mapper对应的接口 并实现接口 注册BEAN 也可以手动写-->
+  <!--  <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+         <property name="basePackage" value="classpath*:cn.xiaohuodui.dao"/>
+    </bean>-->
+
+  <!--手写注册生成接口实现类-->
+    <bean id="ActivityMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="cn.xiaohuodui.dao.ActivityMapper"/>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+
+    </bean>
+    <bean id="ClickinfoMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="cn.xiaohuodui.dao.ClickinfoMapper"/>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+
+    </bean>
+    <bean id="ShareinfoMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="cn.xiaohuodui.dao.ShareinfoMapper"/>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+
+    </bean>
+
+
+
+    <!--事务管理-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+
+</beans>
