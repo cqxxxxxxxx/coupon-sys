@@ -1,208 +1,191 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.xiaohuodui.dao.ClickinfoMapper">
-    <resultMap id="BaseResultMap" type="cn.xiaohuodui.model.Clickinfo">
-        <id column="id" property="id" jdbcType="INTEGER"/>
-        <result column="code" property="code" jdbcType="VARCHAR"/>
-        <result column="type" property="type" jdbcType="VARCHAR"/>
-        <result column="ip" property="ip" jdbcType="VARCHAR"/>
-        <result column="browser" property="browser" jdbcType="VARCHAR"/>
-        <result column="created" property="created" jdbcType="TIMESTAMP"/>
-    </resultMap>
-    <resultMap id="IpMap" type="cn.xiaohuodui.model.IpGroup">
-        <id column="id" property="id" jdbcType="INTEGER"/>
-        <result column="total" property="sum" jdbcType="INTEGER"/>
-        <result column="ip" property="ip" jdbcType="VARCHAR"/>
-    </resultMap>
+<mapper namespace="cn.xiaohuodui.dao.ClickinfoMapper" >
+  <resultMap id="BaseResultMap" type="cn.xiaohuodui.model.Clickinfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="browser" property="browser" jdbcType="VARCHAR" />
+    <result column="created" property="created" jdbcType="BIGINT" />
+  </resultMap>
+  <resultMap id="IpMap" type="cn.xiaohuodui.model.IpGroup">
+    <id column="id" property="id" jdbcType="INTEGER"/>
+    <result column="total" property="sum" jdbcType="INTEGER"/>
+    <result column="ip" property="ip" jdbcType="VARCHAR"/>
+  </resultMap>
 
-
-    <!--分页的查询SQL语句-->
-    <select id="listFenYe" resultMap="BaseResultMap" parameterType="java.util.Map">
-        SELECT
-        <include refid="Base_Column_List"/>
-        FROM click_info
-        <where>
-            <if test="code!=null">
-                code = #{code,jdbcType=VARCHAR}
-            </if>
-            <if test="type!=null">
-                AND type = #{type,jdbcType=VARCHAR}
-            </if>
-            <if test="keyword!=null">
-                AND code LIKE #{keyword}"%"
-            </if>
-            <if test="browser!=null">
-                AND browser = #{browser,jdbcType=VARCHAR}
-            </if>
-            <if test="endtime!=null">
-                AND created &lt;  #{endtime,jdbcType=TIMESTAMP}
-            </if>
-            <if test="starttime!=null">
-                AND created &gt; #{starttime,jdbcType=TIMESTAMP}
-            </if>
-        </where>
-        ORDER BY created DESC
-        LIMIT #{offset},#{limit}
-    </select>
-
-    <!--按IP进行分组-->
-    <select id="groupByIp" resultMap="IpMap" parameterType="java.util.Map">
-        SELECT COUNT(id) AS total ,ip
-        FROM click_info
-        <if test="keyword!=null">
-           where ip LIKE #{keyword}"%"
-        </if>
-        GROUP BY ip
-        LIMIT #{offset},#{limit}
-    </select>
-
-    <!--查询IP分组的总数-->
-    <select id="countIpAll" resultMap="IpMap" parameterType="java.lang.String">
-        SELECT COUNT(id) AS total ,ip
-        FROM click_info
-        <if test="keyword!=null">
-            where ip LIKE #{keyword}"%"
-        </if>
-        GROUP BY ip
-
-    </select>
-
-    <!--获取查询得到的数据总数-->
-    <select id="countAll" parameterType="map" resultType="java.lang.Integer">
-        select
-        COUNT(id)
-        from click_info
-        <where>
-            <if test="code!=null">
-                code = #{code,jdbcType=VARCHAR}
-            </if>
-            <if test="type!=null">
-                AND type = #{type,jdbcType=VARCHAR}
-            </if>
-            <if test="keyword!=null">
-                AND code LIKE #{keyword}"%"
-            </if>
-            <if test="browser!=null">
-                AND browser = #{browser,jdbcType=VARCHAR}
-            </if>
-            <if test="endtime!=null">
-                AND created &lt;  #{endtime,jdbcType=TIMESTAMP}
-            </if>
-            <if test="starttime!=null">
-                AND created &gt; #{starttime,jdbcType=TIMESTAMP}
-            </if>
-        </where>
-    </select>
-
-
-    <!--得到个人分享连接的点击者信息列表-->
-    <select id="ListP" resultMap="BaseResultMap" parameterType="java.util.Map">
-    SELECT * FROM click_info
-    where code = #{code,jdbcType=VARCHAR} AND
-          type = #{type,jdbcType=VARCHAR}
-
-    </select>
-
-    <!--得到官方分享连接的点击者信息列表-->
-    <select id="ListO" resultMap="BaseResultMap" parameterType="java.lang.String">
-    SELECT * FROM click_info
-    where code = #{code,jdbcType=VARCHAR} AND
-          type = 0
-
-    </select>
-
-    <sql id="Base_Column_List">
+  <sql id="Base_Column_List" >
     id, code, type, ip, browser, created
-    </sql>
-    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-        select
-        <include refid="Base_Column_List"/>
-        from click_info
-        where id = #{id,jdbcType=INTEGER}
-    </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  </sql>
+
+  <!--分页的查询SQL语句-->
+  <select id="listPage" resultMap="BaseResultMap" parameterType="java.util.Map">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM click_info
+    <where>
+      <if test="code!=null">
+        code = #{code,jdbcType=VARCHAR}
+      </if>
+      <if test="type!=null">
+        AND type = #{type,jdbcType=VARCHAR}
+      </if>
+      <if test="keyword!=null">
+        AND code LIKE #{keyword}"%"
+      </if>
+      <if test="browser!=null">
+        AND browser = #{browser,jdbcType=VARCHAR}
+      </if>
+      <if test="endtime!=null">
+        AND created &lt;  #{endtime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="starttime!=null">
+        AND created &gt; #{starttime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+    ORDER BY created DESC
+    LIMIT #{offset},#{limit}
+  </select>
+
+  <!--按IP进行分组-->
+  <select id="groupByIp" resultMap="IpMap" parameterType="java.util.Map">
+    SELECT COUNT(id) AS total ,ip
+    FROM click_info
+    <if test="keyword!=null">
+      where ip LIKE #{keyword}"%"
+    </if>
+    GROUP BY ip
+    LIMIT #{offset},#{limit}
+  </select>
+
+  <!--查询IP分组的总数-->
+  <select id="countIpAll" resultMap="IpMap" parameterType="java.lang.String">
+    SELECT COUNT(id) AS total ,ip
+    FROM click_info
+    <if test="keyword!=null">
+      where ip LIKE #{keyword}"%"
+    </if>
+    GROUP BY ip
+
+  </select>
+
+  <!--获取查询得到的数据总数-->
+  <select id="countAll" parameterType="map" resultType="java.lang.Integer">
+    select
+    COUNT(id)
+    from click_info
+    <where>
+      <if test="code!=null">
+        code = #{code,jdbcType=VARCHAR}
+      </if>
+      <if test="type!=null">
+        AND type = #{type,jdbcType=VARCHAR}
+      </if>
+      <if test="keyword!=null">
+        AND code LIKE #{keyword}"%"
+      </if>
+      <if test="browser!=null">
+        AND browser = #{browser,jdbcType=VARCHAR}
+      </if>
+      <if test="endtime!=null">
+        AND created &lt;  #{endtime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="starttime!=null">
+        AND created &gt; #{starttime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from click_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from click_info
     where id = #{id,jdbcType=INTEGER}
-    </delete>
-    <insert id="insert" parameterType="cn.xiaohuodui.model.Clickinfo">
+  </delete>
+  <insert id="insert" parameterType="cn.xiaohuodui.model.Clickinfo" >
     insert into click_info (id, code, type, 
       ip, browser, created
       )
     values (#{id,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
-      #{ip,jdbcType=VARCHAR}, #{browser,jdbcType=VARCHAR}, #{created,jdbcType=TIMESTAMP}
+      #{ip,jdbcType=VARCHAR}, #{browser,jdbcType=VARCHAR}, #{created,jdbcType=BIGINT}
       )
-    </insert>
-    <insert id="insertSelective" parameterType="cn.xiaohuodui.model.Clickinfo">
-        insert into click_info
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                id,
-            </if>
-            <if test="code != null">
-                code,
-            </if>
-            <if test="type != null">
-                type,
-            </if>
-            <if test="ip != null">
-                ip,
-            </if>
-            <if test="browser != null">
-                browser,
-            </if>
-            <if test="created != null">
-                created,
-            </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                #{id,jdbcType=INTEGER},
-            </if>
-            <if test="code != null">
-                #{code,jdbcType=VARCHAR},
-            </if>
-            <if test="type != null">
-                #{type,jdbcType=VARCHAR},
-            </if>
-            <if test="ip != null">
-                #{ip,jdbcType=VARCHAR},
-            </if>
-            <if test="browser != null">
-                #{browser,jdbcType=VARCHAR},
-            </if>
-            <if test="created != null">
-                #{created,jdbcType=TIMESTAMP},
-            </if>
-        </trim>
-    </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="cn.xiaohuodui.model.Clickinfo">
-        update click_info
-        <set>
-            <if test="code != null">
-                code = #{code,jdbcType=VARCHAR},
-            </if>
-            <if test="type != null">
-                type = #{type,jdbcType=VARCHAR},
-            </if>
-            <if test="ip != null">
-                ip = #{ip,jdbcType=VARCHAR},
-            </if>
-            <if test="browser != null">
-                browser = #{browser,jdbcType=VARCHAR},
-            </if>
-            <if test="created != null">
-                created = #{created,jdbcType=TIMESTAMP},
-            </if>
-        </set>
-        where id = #{id,jdbcType=INTEGER}
-    </update>
-    <update id="updateByPrimaryKey" parameterType="cn.xiaohuodui.model.Clickinfo">
+  </insert>
+  <insert id="insertSelective" parameterType="cn.xiaohuodui.model.Clickinfo" >
+    insert into click_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="ip != null" >
+        ip,
+      </if>
+      <if test="browser != null" >
+        browser,
+      </if>
+      <if test="created != null" >
+        created,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="browser != null" >
+        #{browser,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        #{created,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.xiaohuodui.model.Clickinfo" >
+    update click_info
+    <set >
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null" >
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="browser != null" >
+        browser = #{browser,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        created = #{created,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.xiaohuodui.model.Clickinfo" >
     update click_info
     set code = #{code,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR},
       ip = #{ip,jdbcType=VARCHAR},
       browser = #{browser,jdbcType=VARCHAR},
-      created = #{created,jdbcType=TIMESTAMP}
+      created = #{created,jdbcType=BIGINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

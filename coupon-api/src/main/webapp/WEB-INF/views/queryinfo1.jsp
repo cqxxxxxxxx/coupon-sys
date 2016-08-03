@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
@@ -148,7 +147,7 @@
 
     $(document).ready(function () {
         var oTable = $('#admin-table');
-        var url = "shareinfo/list";
+        var url = "shareinfo/page";
         console.log(url);
         loadData();
         $('.date').datepicker({
@@ -180,21 +179,21 @@
                     + date.getDate() + "  " + date.getHours() + ":" + date.getMinutes();
         }
 
-        function checkType(data) {
-            if(data==0){
+        function checkType(data) {  //检查邀请者类型
+            if (data == "0") {
                 return "官方"
-            }else {
+            } else if(data=="1"){
                 return "个人"
+            }else{
+                return "企业"
             }
         }
-
 
         function loadData() {
             oTable.dataTable({
                 "sDom": "<'row'<'col-sm-6'l><'col-sm-6'f>r><'row'<'col-sm-12't>><'row'<'col-sm-6'i><'col-sm-6'p>>",
                 "bScrollCollapse": true,
                 "aoColumns": [
-
                     {
                         "mDataProp": "code",
                         "bSortable": true,
@@ -241,8 +240,14 @@
                     aoData.push(        //Ajax 把数据穿给后台
                             {"name": "code", "value": $('#code').val().trim()},
                             {"name": "phone", "value": $('#phone').val().trim()},
-                            {"name": "starttime", "value": $('#Starttime').val().replace("年","-").replace("月","-").replace("日","")},
-                            {"name": "endtime", "value":$('#Endtime').val().replace("年","-").replace("月","-").replace("日","")})
+                            {
+                                "name": "starttime",
+                                "value": $('#Starttime').val().replace("年", "-").replace("月", "-").replace("日", "")
+                            },
+                            {
+                                "name": "endtime",
+                                "value": $('#Endtime').val().replace("年", "-").replace("月", "-").replace("日", "")
+                            })
                 },
                 "oClasses": {
                     "sFilter": "dataTables_filter"
@@ -252,8 +257,6 @@
         }
 
         /****查询--end********/
-
-
     })
 </script>
 </body>

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.net.URLDecoder;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,13 +40,12 @@ public class ClickController {
     }
 
     //  datatables 的分页处理
-    @RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+    @RequestMapping(value = "/page", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
     public
     @ResponseBody
-    String clickInfoQuery(HttpServletRequest request, String code, String starttime, String endtime) {
+    String clickInfoQuery(HttpServletRequest request, String code, String starttime, String endtime) throws ParseException {
         System.out.println(request.getHeader("User-Agent"));
         System.out.println("code:" + request.getParameter("code"));
-        System.out.println("type:" + request.getParameter("type"));
         System.out.println("starttime:" + request.getParameter("starttime"));
         System.out.println("endtime:" + request.getParameter("endtime"));
         System.out.println("offset:" + request.getParameter("iDisplayStart"));
@@ -88,7 +88,7 @@ public class ClickController {
         form.setOffset(offset);
 
 
-        List<Clickinfo> list = clickService.getClickInfoFenYe(form);
+        List<Clickinfo> list = clickService.getClickInfos(form);
         Map<String, Object> results = new HashMap<String, Object>();
         results.put("sEcho", sEcho);
         results.put("iTotalDisplayRecords", clickService.countAll(form));
@@ -115,9 +115,9 @@ public class ClickController {
         }
         System.out.println(sEcho + "--" + keyword + "--" + offset + "--" + limit);
         System.out.println(clickService.countAllIpGroup(keyword));
-        List<IpGroup> list = clickService.getIpGroupFenYe(offset, limit, keyword);
-        System.out.println("list:"+list);
-        for (IpGroup ipg : list){
+        List<IpGroup> list = clickService.getIpGroup(offset, limit, keyword);
+        System.out.println("list:" + list);
+        for (IpGroup ipg : list) {
             System.out.println(ipg.toString());
         }
 

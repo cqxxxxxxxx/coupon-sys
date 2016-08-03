@@ -117,7 +117,7 @@
             var phone = $('#phone').val();
             if (validForm()) {
                 $.ajax({
-                    url: "/shareinfo/add",
+                    url: "/Shareinfo/add",
                     type: 'POST',
                     data: 'code=' + code + '&type=' + type + '&phone=' + phone,
                     dataTyp: 'html',

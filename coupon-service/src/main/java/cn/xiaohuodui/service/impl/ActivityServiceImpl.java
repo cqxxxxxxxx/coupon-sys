@@ -4,10 +4,11 @@ package cn.xiaohuodui.service.impl;
 import cn.xiaohuodui.dao.ActivityMapper;
 import cn.xiaohuodui.model.Activity;
 import cn.xiaohuodui.service.ActivityService;
+import cn.xiaohuodui.util.DateUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.sql.Timestamp;
+import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -21,25 +22,32 @@ public class ActivityServiceImpl implements ActivityService {
     @Resource(name = "ActivityMapper")
     private ActivityMapper activityMapper;
 
-    public List<Activity> getActivitys() {
-        List<Activity> activities = activityMapper.listAll();
+
+    //分页版本 map中需要 offset limit  keyword可选
+    public List<Activity> getActivities(String keyword, int limit, int offset) {
+        List<Activity> activities = activityMapper.listPage(keyword, limit, offset);
         return activities;
     }
 
-    //分页版本 map中需要 offset limit  keyword可选
-    public List<Activity> getActivitys(String keyword, int limit, int offset) {
-        List<Activity> list = activityMapper.listFenYe(keyword, limit, offset);
-        return list;
-    }
-
-
-    public boolean createActivity(String code, String title, String des) {
-        Timestamp ts = new Timestamp(System.currentTimeMillis());
+    /**
+     * @param code
+     * @param title
+     * @param des
+     * @return
+     */
+    public boolean createActivity(String code, String title, String des, int total_limit, int num, String starttime, String endtime) throws ParseException {
+        Long time = System.currentTimeMillis();
+        Long st = DateUtil.stringToTimeStamp(starttime);
+        Long et = DateUtil.stringToTimeStamp(endtime);
         Activity activity = new Activity();
+        activity.setTotalLimit(total_limit);
+        activity.setNum(num);
         activity.setCode(code);
         activity.setTitle(title);
         activity.setDes(des);
-        activity.setCreated(ts);
+        activity.setCreated(time);
+        activity.setStarttime(st);
+        activity.setEndtime(et);
         if (this.checkCode(code)) {
             activityMapper.insert(activity);
             return true;        //注册成功
@@ -51,8 +59,8 @@ public class ActivityServiceImpl implements ActivityService {
 
     //update
     public boolean updateActivity(Activity activity) {
-        Timestamp ts = new Timestamp(System.currentTimeMillis());
-        activity.setUpdated(ts);
+        Long time = System.currentTimeMillis();
+        activity.setUpdated(time);
         if (activityMapper.updateActivity(activity) > 0) {
             return true;
         }

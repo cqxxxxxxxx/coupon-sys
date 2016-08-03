@@ -1,14 +1,19 @@
 package cn.xiaohuodui.service.impl;
 
+import cn.xiaohuodui.dao.ActivityMapper;
+import cn.xiaohuodui.dao.OrganizationMapper;
 import cn.xiaohuodui.dao.ShareinfoMapper;
 import cn.xiaohuodui.form.ShareQueryForm;
 import cn.xiaohuodui.model.Shareinfo;
 import cn.xiaohuodui.service.ShareService;
+import cn.xiaohuodui.util.DateUtil;
 import cn.xiaohuodui.vo.InviteVo;
+import cn.xiaohuodui.vo.InviteinfoVo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.sql.Timestamp;
+import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -20,16 +25,16 @@ public class ShareServiceImpl implements ShareService {
     @Resource
     private ShareinfoMapper shareinfoMapper;
 
-    private Shareinfo shareinfo;
+    @Resource
+    private OrganizationMapper organizationMapper;
 
-    private Timestamp ts;
+    @Resource
+    private ActivityMapper activityMapper;
 
     public boolean setInfo(String code, String phone, String type) {
 
-        shareinfo = new Shareinfo();
-
-        ts = new Timestamp(System.currentTimeMillis());
-        shareinfo.setCreated(ts);
+        Shareinfo shareinfo = new Shareinfo();
+        shareinfo.setCreated(System.currentTimeMillis());
         shareinfo.setCode(code);
         shareinfo.setType(type);
         shareinfo.setPhone(phone);
@@ -44,9 +49,18 @@ public class ShareServiceImpl implements ShareService {
 
     }
 
-    public List<Shareinfo> getShareInfoFenYe(ShareQueryForm form) {
+    public List<Shareinfo> getShareInfos(ShareQueryForm form) throws ParseException {
         System.out.println("getphone:" + form.getPhone());
-        List<Shareinfo> list = shareinfoMapper.listFenYe(form.getCode(), form.getPhone(), form.getKeyword(), form.getLimit(), form.getOffset(), form.getStarttime(), form.getEndtime());
+        Long starttime = null;
+        Long endtime = null;
+        if (form.getStarttime() != null) {
+            starttime = DateUtil.stringToTimeStamp(form.getStarttime());
+        }
+        if (form.getEndtime() != null) {
+            endtime = DateUtil.stringToTimeStamp(form.getEndtime());
+        }
+
+        List<Shareinfo> list = shareinfoMapper.listPage(form.getCode(), form.getPhone(), form.getKeyword(), form.getLimit(), form.getOffset(), starttime, endtime);
         if (list == null) {
             System.out.println("获取失败");
             return null;
@@ -56,8 +70,16 @@ public class ShareServiceImpl implements ShareService {
         }
     }
 
-    public int countAll(ShareQueryForm form) {
-        return shareinfoMapper.countAll(form.getCode(), form.getPhone(), form.getKeyword(), form.getStarttime(), form.getEndtime());
+    public int countAll(ShareQueryForm form) throws ParseException {
+        Long starttime = null;
+        Long endtime = null;
+        if (form.getStarttime() != null) {
+            starttime = DateUtil.stringToTimeStamp(form.getStarttime());
+        }
+        if (form.getEndtime() != null) {
+            endtime = DateUtil.stringToTimeStamp(form.getEndtime());
+        }
+        return shareinfoMapper.countAll(form.getCode(), form.getPhone(), form.getKeyword(), starttime, endtime);
     }
 
     public InviteVo getInviteVoByPhone(String phone) {
@@ -66,11 +88,31 @@ public class ShareServiceImpl implements ShareService {
             InviteVo inviteVo = new InviteVo();
             inviteVo.setPhone(phone);
             inviteVo.setRef(shareinfo.getCode());
-            inviteVo.setCreated(shareinfo.getCreated().getTime());
+            inviteVo.setCreated(shareinfo.getCreated());
 
             return inviteVo;
         } else {
             return new InviteVo();
         }
+    }
+
+    public InviteinfoVo getInviteinfoVoByPhone(String phone) {
+        Shareinfo shareinfo = shareinfoMapper.selectByPhone(phone);
+        InviteinfoVo inviteinfoVo = new InviteinfoVo();
+        if (shareinfo != null) {
+            inviteinfoVo.setPhone(phone);
+            inviteinfoVo.setRef(shareinfo.getCode());
+            inviteinfoVo.setType(shareinfo.getType());
+            inviteinfoVo.setCreated(shareinfo.getCreated());
+            if (shareinfo.getCode().length()==7){
+                inviteinfoVo.setNum(organizationMapper.getNum(shareinfo.getCode()));
+            }else {
+                inviteinfoVo.setNum(activityMapper.getNum(shareinfo.getCode()));
+            }
+            return inviteinfoVo;
+        }else {
+            return inviteinfoVo;
+        }
+
     }
 }

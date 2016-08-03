@@ -36,7 +36,7 @@
                 <a href="<c:url value="/"/>"> <span class="nav-label">控制面板</span>
                 </a>
             </li>--%>
-            <li class="<c:if test="${param.index eq 'activity'}">active</c:if>">
+            <li class="<c:if test="${param.index eq 'Activity'}">active</c:if>">
                 <a href="#"><span class="nav-label">活动管理</span><span class="fa arrow"></span> </a>
                 <ul class="nav nav-second-level collapse">
                     <li class="<c:if test="${param.index1 eq 'activities'}">active</c:if>"><a
@@ -51,9 +51,9 @@
             <li class="<c:if test="${param.index eq 'info'}">active</c:if>">
                 <a href="#"><span class="nav-label">查询管理</span><span class="fa arrow"></span> </a>
                 <ul class="nav nav-second-level collapse">
-                    <li class="<c:if test="${param.index1 eq 'clickinfo'}">active</c:if>"><a
+                    <li class="<c:if test="${param.index1 eq 'Clickinfo'}">active</c:if>"><a
                             href="<c:url value="/clickinfo"/> ">活动点击量信息查询</a></li>
-                    <li class="<c:if test="${param.index1 eq 'shareinfo'}">active</c:if>"><a
+                    <li class="<c:if test="${param.index1 eq 'Shareinfo'}">active</c:if>"><a
                             href="<c:url value="/shareinfo"/> ">已参加动用户信息查询</a></li>
                 </ul>
             </li>

@@ -28,7 +28,5 @@
         <li role="presentation"><a href="/activityList">活动列表</a></li>
         <li role="presentation"><a href="/checkinfo.jsp">信息查询</a></li>
     </ul>--%>
-
-
 </body>
 </html>

@@ -14,6 +14,8 @@
     <!-- Page title -->
     <title>添加活动</title>
     <jsp:include page="/WEB-INF/views/comp/header.include.jsp"/>
+    <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap-datepicker3.min.css"/>">
+
 </head>
 <body class="fixed-navbar fixed-sidebar">
 
@@ -73,7 +75,37 @@
                                     <input id="des" type="text" class="form-control m-b" required="">
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group"><label class="col-sm-2 control-label">优惠券总数</label>
+
+                                <div class="col-sm-10">
+                                    <input id="total_limit" type="text" class="form-control m-b" required="true">
+                                </div>
+                            </div>
+                            <div class="form-group"><label class="col-sm-2 control-label">每人分发张数</label>
+
+                                <div class="col-sm-10">
+                                    <input id="num" type="text" class="form-control m-b" required="true">
+                                </div>
+                            </div>
+                            <div class="form-group" style="margin-left: 40%">
+                                <div class="col-sm-3">
+                                    <label class="control-label inline">活动开始日期</label>
+                                    <div class="input-group date">
+                                        <input id="Starttime" name="Starttime" type="text"
+                                               class="form-control"><span
+                                            class="input-group-addon"><i
+                                            class="fa fa-clock-o"></i></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="control-label inline">活动截止日期</label>
+                                    <div class="input-group date">
+                                        <input id="Endtime" name="Endtime" type="text"
+                                               class="form-control"><span
+                                            class="input-group-addon"><i
+                                            class="fa fa-clock-o"></i></span>
+                                    </div>
+                                </div>
                                 <div class="col-sm-8 col-sm-offset-2">
                                     <button id="submit" class="btn btn-primary">添加活动</button>
                                 </div>
@@ -89,12 +121,17 @@
 </div>
 </div>
 </body>
+<script src="<c:url value="/resources/js/date/bootstrap-datepicker.min.js"/>"></script>
+<script src="<c:url value="/resources/js/date/bootstrap-datepicker.zh-CN.min.js"/>"></script>
+
 <script type="text/javascript">
     var path = location.pathname.split('/');
     console.log(location.pathname);
     var app = path[1];
     var prefix = "/" + app;
-
+    $('.date').datepicker({
+        language: 'zh-CN'
+    });
     toastr.options = {      //这个是个通知的插件
         "closeButton": true,
         "debug": false,
@@ -120,11 +157,15 @@
             var title = $('#title').val();
             var des = $('#des').val();
             var code = $('#code').val();
+            var total_limit = $('#total_limit').val();
+            var num = $('#num').val();
+            var starttime = $('#Starttime').val().replace("年", "-").replace("月", "-").replace("日", "");
+            var endtime = $('#Endtime').val().replace("年", "-").replace("月", "-").replace("日", "")
             if (validForm()) {
                 $.ajax({
                     url: prefix + "/add",
                     type: 'POST',
-                    data: 'code=' + code + '&title=' + title + '&des=' + des,
+                    data: 'code=' + code + '&title=' + title + '&des=' + des + '&total_limit=' + total_limit + '&num=' + num + '&starttime=' + starttime + '&endtime=' + endtime,
                     dataType: 'html',
                     success: function (data) {
                         console.log(data);
@@ -139,17 +180,19 @@
                     }
                 });
             } else {
-                toastr.error('code填写出错');
+                toastr.error('内容不能为空');
             }
         });
 
         function cleanForm() {
             $('#title').val('');
             $('#des').val('');
+            $('#Starttime').val('');
+            $('#Endtime').val('');
         }
 
         function validForm() {
-            if ($('#code').val().trim() != ""&&$('#code').val().trim().length==8) {
+            if ($('#code').val().trim() != "" && $('#code').val().trim().length == 8 && $('#Starttime').val().trim() != ""&& $('#Endtime').val().trim() != ""&& $('#num').val().trim() != ""&& $('#total_limit').val().trim() != "") {
                 return true;
             }
             return false;

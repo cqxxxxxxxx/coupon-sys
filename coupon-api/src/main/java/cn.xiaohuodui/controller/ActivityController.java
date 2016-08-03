@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,40 +27,29 @@ public class ActivityController {
     @Resource(name = "ActivityService")
     ActivityService activityService;
 
-/*
 
-    @RequestMapping(value = "/info/{code}/{type}", method = RequestMethod.GET)
-    public String activityInfo(@PathVariable("code") String code, @PathVariable("type") String type, Model model) {
-        Activity activity = activityService.getinfo(code);
-        model.addAttribute("code", code);
-        model.addAttribute("type", type);
-        model.addAttribute("activity", activity);
-        return "url";
-    }
-*/
-
-//  跳转方法
+    //  跳转方法
     @RequestMapping(method = RequestMethod.GET)
     public String activities() {
         return "activities";
     }
 
-//  跳转方法
+    //  跳转方法
     @RequestMapping(value = "/update", method = RequestMethod.GET)
     public String updateActivity() {
         return "updateActivity";
     }
 
-//  对活动进行更新操作
+    //  对活动进行更新操作
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public
     @ResponseBody
     String updateActivity(String code, String title, String des) {
         Activity activity = new Activity();
-        if(!title.equals("")){
+        if (!title.equals("")) {
             activity.setTitle(title);
         }
-        if (!des.equals("")){
+        if (!des.equals("")) {
             activity.setDes(des);
         }
         activity.setCode(code);
@@ -69,8 +58,8 @@ public class ActivityController {
         return ApplicationConstants.RESPONSE_FAIL;
     }
 
-//  datatables 的分页处理
-    @RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+    //  datatables 的分页处理
+    @RequestMapping(value = "/page", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
     public
     @ResponseBody
     String getActivities(HttpServletRequest request) {
@@ -87,7 +76,7 @@ public class ActivityController {
         System.out.println("keyword:" + keyword + "--limit:" + limit + "--offset:" + offset);
 
 
-        List<Activity> list = activityService.getActivitys(keyword, limit, offset);
+        List<Activity> list = activityService.getActivities(keyword, limit, offset);
         Map<String, Object> results = new HashMap<String, Object>();
         results.put("sEcho", sEcho);
         results.put("iTotalDisplayRecords", activityService.countAll(keyword));
@@ -98,18 +87,19 @@ public class ActivityController {
         return JsonUtil.writeObjectAsString(results);
     }
 
-//  添加页面的跳转
+    //  添加页面的跳转
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String addActivity() {
         return "addActivity";
     }
 
-//  进行活动添加操作
+    //  进行活动添加操作
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public
     @ResponseBody
-    String addActivity(String code, String title, String des) {
-        if (activityService.createActivity(code, title, des))
+    String addActivity(String code, String title, String des, int total_limit, int num, String starttime, String endtime) throws ParseException {
+        System.out.println(code + "--" + title + "--" + des + "--" + total_limit + "--" + num + "--" + starttime + "--" + endtime);
+        if (activityService.createActivity(code, title, des, total_limit, num, starttime, endtime))
             return ApplicationConstants.RESPONSE_SUCCESS;
         else
             return ApplicationConstants.RESPONSE_FAIL;

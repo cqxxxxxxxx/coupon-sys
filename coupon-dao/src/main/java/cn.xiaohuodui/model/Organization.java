@@ -1,11 +1,13 @@
 package cn.xiaohuodui.model;
 
-public class Activity {
+public class Organization {
     private int id;
 
-    private String code;
+    private String key;
 
-    private String title;
+    private String name;
+
+    private String logo;
 
     private int num;
 
@@ -17,10 +19,6 @@ public class Activity {
 
     private long endtime;
 
-    private long created;
-
-    private long updated;
-
     private String des;
 
     public int getId() {
@@ -31,20 +29,28 @@ public class Activity {
         this.id = id;
     }
 
-    public String getCode() {
-        return code;
+    public String getKey() {
+        return key;
     }
 
-    public void setCode(String code) {
-        this.code = code == null ? null : code.trim();
+    public void setKey(String key) {
+        this.key = key == null ? null : key.trim();
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title == null ? null : title.trim();
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
+    }
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo == null ? null : logo.trim();
     }
 
     public int getNum() {
@@ -85,22 +91,6 @@ public class Activity {
 
     public void setEndtime(long endtime) {
         this.endtime = endtime;
-    }
-
-    public long getCreated() {
-        return created;
-    }
-
-    public void setCreated(long created) {
-        this.created = created;
-    }
-
-    public long getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(Long updated) {
-        this.updated = updated;
     }
 
     public String getDes() {

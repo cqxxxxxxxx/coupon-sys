@@ -1,9 +1,7 @@
 package cn.xiaohuodui.model;
 
-import java.util.Date;
-
 public class Clickinfo {
-    private Integer id;
+    private int id;
 
     private String code;
 
@@ -13,13 +11,13 @@ public class Clickinfo {
 
     private String browser;
 
-    private Date created;
+    private long created;
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -55,11 +53,11 @@ public class Clickinfo {
         this.browser = browser == null ? null : browser.trim();
     }
 
-    public Date getCreated() {
+    public long getCreated() {
         return created;
     }
 
-    public void setCreated(Date created) {
+    public void setCreated(long created) {
         this.created = created;
     }
 }

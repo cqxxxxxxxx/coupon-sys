@@ -6,12 +6,12 @@ import cn.xiaohuodui.form.ClickQueryForm;
 import cn.xiaohuodui.model.Clickinfo;
 import cn.xiaohuodui.model.IpGroup;
 import cn.xiaohuodui.service.ClickService;
+import cn.xiaohuodui.util.DateUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.sql.Timestamp;
+import java.text.ParseException;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by cqxxxxx on 2016/7/20.
@@ -22,66 +22,42 @@ public class ClickServiceImpl implements ClickService {
     @Resource
     private ClickinfoMapper clickinfoMapper;
 
-    private Clickinfo clickinfo;
-
-    private Timestamp ts;
-
 
     //官方分享的URL被点击后  把点击者信息插入clickinfo表
     public void setInfo(String code, String ip, String browser) {
-
-        clickinfo = new Clickinfo();
+        Clickinfo clickinfo = new Clickinfo();
         if (code.length() == 8) {      //官方code8位长， TYPE为0
             clickinfo.setType("0");
+        } else if (code.length()==7){
+            clickinfo.setType("2"); //企业code为7位， TYPE2
         }else {
-            clickinfo.setType("1"); //不是官方的URL 则type设为1
+            clickinfo.setType("1"); //个人code为6位 type1
         }
-        ts = new Timestamp(System.currentTimeMillis());
-        clickinfo.setCreated(ts);
+        clickinfo.setCreated(System.currentTimeMillis());
         clickinfo.setBrowser(browser);
         clickinfo.setCode(code);
         clickinfo.setIp(ip);
-
 
         if (clickinfoMapper.insert(clickinfo) != 0) {
             System.out.println("插入成功");
         } else
             System.out.println("插入失败");
-
-
     }
 
-    //提取出info表中指定code(对应一个活动编号)，type(对应一个分享者)的信息  个人的
-    public List<Clickinfo> getClickInfo(Map map) {
-
-        List<Clickinfo> list = clickinfoMapper.ListP(map);
-        if (list == null) {
-            System.out.println("获取失败");
-            return null;
-        } else {
-            System.out.println("获取成功");
-            return list;
-        }
-
-    }
-
-    //提取出info表中指定code(对应一个活动编号)的信息   官方的
-    public List<Clickinfo> getClickInfo(String code) {
-
-        List<Clickinfo> list = clickinfoMapper.ListO(code);
-        if (list == null) {
-            System.out.println("获取失败");
-            return null;
-        } else {
-            System.out.println("获取成功");
-            return list;
-        }
-    }
 
     //分页版本  需要code type offset limit   keyword可选
-    public List<Clickinfo> getClickInfoFenYe(ClickQueryForm form) {
+    public List<Clickinfo> getClickInfos(ClickQueryForm form) throws ParseException {
         System.out.println("-----ClickServiceImpl endtime:" + form.getEndtime());
-        List<Clickinfo> list = clickinfoMapper.listFenYe(form.getCode(), form.getType(), form.getKeyword(), form.getLimit(), form.getOffset(), form.getBrowser(), form.getStarttime(), form.getEndtime());
+        Long starttime = null;
+        Long endtime = null;
+        if (form.getStarttime() != null) {
+            starttime = DateUtil.stringToTimeStamp(form.getStarttime());
+        }
+        if (form.getEndtime() != null) {
+            endtime = DateUtil.stringToTimeStamp(form.getEndtime());
+        }
+
+        List<Clickinfo> list = clickinfoMapper.listPage(form.getCode(), form.getType(), form.getKeyword(), form.getLimit(), form.getOffset(), form.getBrowser(), starttime, endtime);
         if (list == null) {
             System.out.println("获取失败");
             return null;
@@ -91,11 +67,19 @@ public class ClickServiceImpl implements ClickService {
         }
     }
 
-    public int countAll(ClickQueryForm form) {
-        return clickinfoMapper.countAll(form.getKeyword(), form.getCode(), form.getType(), form.getBrowser(), form.getStarttime(), form.getEndtime());
+    public int countAll(ClickQueryForm form) throws ParseException {
+        Long starttime = null;
+        Long endtime = null;
+        if (form.getStarttime() != null) {
+            starttime = DateUtil.stringToTimeStamp(form.getStarttime());
+        }
+        if (form.getEndtime() != null) {
+            endtime = DateUtil.stringToTimeStamp(form.getEndtime());
+        }
+        return clickinfoMapper.countAll(form.getKeyword(), form.getCode(), form.getType(), form.getBrowser(), starttime, endtime);
     }
 
-    public List<IpGroup> getIpGroupFenYe(int offset, int limit, String keyword) {
+    public List<IpGroup> getIpGroup(int offset, int limit, String keyword) {
 
         return clickinfoMapper.groupByIp(offset, limit, keyword);
 

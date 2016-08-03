@@ -88,7 +88,7 @@
                         </div>
                     </div>
                     <br>
-                    <div class="panel-body"  id="panel0" >
+                    <div class="panel-body" id="panel0">
                         <div class="row">
                             <div class="col-sm-12">
                                 <table class="table table-striped table-bordered"
@@ -173,7 +173,7 @@
     $(document).ready(function () {
         var oTable = $('#admin-table');
         var ipTable = $('#ip-table');
-        var url = "clickinfo/list";
+        var url = "clickinfo/page";
         console.log(url);
         loadData();
         $('.date').datepicker({
@@ -214,8 +214,10 @@
         function checkType(data) {  //检查邀请者类型
             if (data == "0") {
                 return "官方"
-            } else {
+            } else if(data=="1"){
                 return "个人"
+            }else{
+                return "企业"
             }
         }
 
@@ -320,14 +322,8 @@
                     aoData.push(        //Ajax 把数据穿给后台
                             {"name": "code", "value": $('#code').val().trim()},
                             {"name": "browser", "value": encodeURIComponent($('#browser').val().trim())},
-                            {
-                                "name": "starttime",
-                                "value": $('#Starttime').val().replace("年", "-").replace("月", "-").replace("日", "")
-                            },
-                            {
-                                "name": "endtime",
-                                "value": $('#Endtime').val().replace("年", "-").replace("月", "-").replace("日", "")
-                            })
+                            {"name": "starttime", "value": $('#Starttime').val().replace("年", "-").replace("月", "-").replace("日", "")},
+                            {"name": "endtime", "value": $('#Endtime').val().replace("年", "-").replace("月", "-").replace("日", "")})
                 },
                 "oClasses": {
                     "sFilter": "dataTables_filter"

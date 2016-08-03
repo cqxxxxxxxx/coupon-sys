@@ -40,9 +40,11 @@
     <bean id="ShareinfoMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
         <property name="mapperInterface" value="cn.xiaohuodui.dao.ShareinfoMapper"/>
         <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
-
     </bean>
-
+    <bean id="OrganizationMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="cn.xiaohuodui.dao.OrganizationMapper"/>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
 
 
     <!--事务管理-->

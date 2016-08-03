@@ -1,7 +1,6 @@
 package cn.xiaohuodui.controller;
 
 import cn.xiaohuodui.form.ShareQueryForm;
-
 import cn.xiaohuodui.model.Shareinfo;
 import cn.xiaohuodui.service.ShareService;
 import cn.xiaohuodui.utils.ApplicationConstants;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,17 +28,17 @@ public class ShareController {
     @Resource(name = "ShareService")
     ShareService shareService;
 
-//  点击跳转
+    //  点击跳转
     @RequestMapping(method = RequestMethod.GET)
     public String jump() {
         return "queryinfo1";
     }
 
-//  datatables 的处理方法
-    @RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+    //  datatables 的处理方法
+    @RequestMapping(value = "/page", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
     public
     @ResponseBody
-    String shareInfoQuery(HttpServletRequest request, String code, String phone, String starttime, String endtime) {
+    String shareInfoQuery(HttpServletRequest request, String code, String phone, String starttime, String endtime) throws ParseException {
 
         String sEchoStr = request.getParameter("sEcho");
         int sEcho = sEchoStr == null ? 0 : Integer.parseInt(sEchoStr);
@@ -49,7 +49,7 @@ public class ShareController {
         String keyword = request.getParameter("sSearch");
 
         ShareQueryForm form = new ShareQueryForm();
-        if (!code.equals("")){
+        if (!code.equals("")) {
             form.setCode(code);
         }
         if (!starttime.equals("")) {
@@ -67,9 +67,9 @@ public class ShareController {
         form.setLimit(limit);
         form.setOffset(offset);
 
-        System.out.println("-------"+phone);
+        System.out.println("-------" + phone);
 
-        List<Shareinfo> list = shareService.getShareInfoFenYe(form);
+        List<Shareinfo> list = shareService.getShareInfos(form);
         Map<String, Object> results = new HashMap<String, Object>();
         results.put("sEcho", sEcho);
         results.put("iTotalDisplayRecords", shareService.countAll(form));

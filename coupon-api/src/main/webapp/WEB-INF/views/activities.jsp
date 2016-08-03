@@ -148,7 +148,17 @@
                                             </th>
                                             <th>活动主题
                                             </th>
-                                            <th>活动内容
+                                           <%-- <th>活动内容
+                                            </th>--%>
+                                            <th>优惠券总数
+                                            </th>
+                                            <th>已发数
+                                            </th>
+                                            <th>单人可领数
+                                            </th>
+                                            <th>活动开始时间
+                                            </th>
+                                            <th>活动截止时间
                                             </th>
                                             <th>新建时间
                                             </th>
@@ -200,7 +210,7 @@
     }
     $(document).ready(function () {
         var oTable = $('#admin-table');
-        var url = prefix + "/list";
+        var url = prefix + "/page";
         var keyword = "keyword=" + " ";
         var title;
         loadData();
@@ -218,7 +228,8 @@
         function renderDate(time) {
             var date = new Date(time);
             return date.getFullYear() + "-" + (date.getMonth() + 1) + "-"
-                    + date.getDate() + "  " + date.getHours() + ":" + date.getMinutes();
+                    + date.getDate();
+            /* + "  " + date.getHours() + ":" + date.getMinutes()*/
         }
 
         function generateOp(id) {   //button的ID就是对应的code
@@ -247,9 +258,35 @@
 
 
                     },
-                    {
+        /*            {
                         "mDataProp": "des",
                         "bSortable": false
+                    },*/
+                    {
+                        "mDataProp": "totalLimit",
+                        "bSortable": false
+                    },
+                    {
+                        "mDataProp": "sended",
+                        "bSortable": false
+                    },
+                    {
+                        "mDataProp": "num",
+                        "bSortable": false
+                    },
+                    {
+                        "mDataProp": "starttime",
+                        "bSortable": false,
+                        "mRender": function (time) {    //  转下格式显示出来
+                            return renderDate(time);
+                        }
+                    },
+                    {
+                        "mDataProp": "endtime",
+                        "bSortable": false,
+                        "mRender": function (time) {    //  转下格式显示出来
+                            return renderDate(time);
+                        }
                     },
                     {
                         "mDataProp": "created",

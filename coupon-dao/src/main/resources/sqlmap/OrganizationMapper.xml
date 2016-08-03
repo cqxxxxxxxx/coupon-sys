@@ -1,87 +1,48 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.xiaohuodui.dao.ActivityMapper">
-    <resultMap id="BaseResultMap" type="cn.xiaohuodui.model.Activity">
+<mapper namespace="cn.xiaohuodui.dao.OrganizationMapper">
+    <resultMap id="BaseResultMap" type="cn.xiaohuodui.model.Organization">
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="code" property="code" jdbcType="VARCHAR"/>
-        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="logo" property="logo" jdbcType="VARCHAR"/>
         <result column="num" property="num" jdbcType="INTEGER"/>
         <result column="total_limit" property="totalLimit" jdbcType="INTEGER"/>
         <result column="sended" property="sended" jdbcType="INTEGER"/>
         <result column="starttime" property="starttime" jdbcType="BIGINT"/>
         <result column="endtime" property="endtime" jdbcType="BIGINT"/>
-        <result column="created" property="created" jdbcType="BIGINT"/>
-        <result column="updated" property="updated" jdbcType="BIGINT"/>
     </resultMap>
-    <resultMap id="ResultMapWithBLOBs" type="cn.xiaohuodui.model.Activity" extends="BaseResultMap">
+    <resultMap id="ResultMapWithBLOBs" type="cn.xiaohuodui.model.Organization" extends="BaseResultMap">
         <result column="des" property="des" jdbcType="LONGVARCHAR"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, code, title, num, total_limit, sended, starttime, endtime, created, updated
+    id, code, name, logo, num, total_limit, sended, starttime, endtime
   </sql>
     <sql id="Blob_Column_List">
     des
   </sql>
 
-    <!--搜索code对应的信息-->
-    <select id="selectByCode" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
-        SELECT
-        <include refid="Base_Column_List"/>
-        FROM coupon_activity
-        WHERE code = #{code,jdbcType=VARCHAR}
-    </select>
-
-    <!--获取数据总数-->
-    <select id="countAll" parameterType="map" resultType="java.lang.Integer">
-        select
-        COUNT(id)
-        from coupon_activity
-        <if test="keyword!=null">
-            WHERE des LIKE #{keyword}"%"
-        </if>
-    </select>
-
-    <!--分页的SQL语句-->
-    <select id="listPage" resultMap="BaseResultMap" parameterType="java.util.Map">
-        SELECT
-        <include refid="Base_Column_List"/>
-        FROM coupon_activity
-        <if test="keyword!=null">
-            WHERE des LIKE #{keyword}"%"
-        </if>
-        ORDER BY created DESC
-        LIMIT #{offset},#{limit}
-    </select>
-
-    <!--查询code是否已经有了  检测code是否存在-->
-    <select id="exist" parameterType="java.lang.String" resultMap="BaseResultMap">
-        SELECT
-        <include refid="Base_Column_List"/>
-        FROM coupon_activity
-        WHERE code = #{code,jdbcType=VARCHAR}
-    </select>
-
     <!--查询num-->
     <select id="getNum" resultType="java.lang.Integer" parameterType="map">
     select
     num
-    from coupon_activity
-    where code = #{code,jdbcType=VARCHAR}
+    from organization
+    where code = #{code,jdbcType=INTEGER}
   </select>
 
     <!--查询sended-->
     <select id="getSended" resultType="java.lang.Integer" parameterType="map">
-    select
-    sended
-    from coupon_activity
-    where code = #{code,jdbcType=VARCHAR}
-  </select>
+        select
+        sended
+        from organization
+        where code = #{code,jdbcType=VARCHAR}
+    </select>
 
     <!--查询starttime-->
     <select id="getStarttime" resultType="java.lang.Long" parameterType="map">
         select
         starttime
-        from coupon_activity
+        from organization
         where code = #{code,jdbcType=VARCHAR}
     </select>
 
@@ -89,57 +50,43 @@
     <select id="getEndtime" resultType="java.lang.Long" parameterType="map">
         select
         endtime
-        from coupon_activity
+        from organization
         where code = #{code,jdbcType=VARCHAR}
     </select>
 
-
-    <!--更新活动信息-->
-    <update id="updateActivity" parameterType="cn.xiaohuodui.model.Activity">
-        UPDATE coupon_activity
-        SET
-        <if test="title!=null">
-            title = #{title},
-        </if>
-        <if test="des!=null">
-            des = #{des},
-        </if>
-        updated = #{updated}
-        WHERE code = #{code}
-    </update>
-
     <!--更新sended数量-->
     <update id="updateSended" parameterType="map">
-        UPDATE coupon_activity
+        UPDATE organization
         SET
         sended = #{sended}
-        WHERE code = #{code}
+        WHERE code = #{code, jdbcType=VARCHAR}
     </update>
 
-    <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
+
+    <select id="selectByPrimarycode" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
         ,
         <include refid="Blob_Column_List"/>
-        from coupon_activity
+        from organization
         where id = #{id,jdbcType=INTEGER}
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from coupon_activity
+    <delete id="deleteByPrimarycode" parameterType="java.lang.Integer">
+    delete from organization
     where id = #{id,jdbcType=INTEGER}
   </delete>
-    <insert id="insert" parameterType="cn.xiaohuodui.model.Activity">
-    insert into coupon_activity (id, code, title, 
-      num, total_limit, sended, 
-      starttime, endtime, created, 
-      updated, des)
-    values (#{id,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
-      #{num,jdbcType=INTEGER}, #{totalLimit,jdbcType=INTEGER}, #{sended,jdbcType=INTEGER}, 
-      #{starttime,jdbcType=BIGINT}, #{endtime,jdbcType=BIGINT}, #{created,jdbcType=BIGINT}, 
-      #{updated,jdbcType=BIGINT}, #{des,jdbcType=LONGVARCHAR})
+    <insert id="insert" parameterType="cn.xiaohuodui.model.Organization">
+    insert into organization (id, code, name,
+      logo, num, total_limit, 
+      sended, starttime, endtime, 
+      des)
+    values (#{id,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+      #{logo,jdbcType=VARCHAR}, #{num,jdbcType=INTEGER}, #{totalLimit,jdbcType=INTEGER}, 
+      #{sended,jdbcType=INTEGER}, #{starttime,jdbcType=BIGINT}, #{endtime,jdbcType=BIGINT}, 
+      #{des,jdbcType=LONGVARCHAR})
   </insert>
-    <insert id="insertSelective" parameterType="cn.xiaohuodui.model.Activity">
-        insert into coupon_activity
+    <insert id="insertSelective" parameterType="cn.xiaohuodui.model.Organization">
+        insert into organization
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
                 id,
@@ -147,8 +94,11 @@
             <if test="code != null">
                 code,
             </if>
-            <if test="title != null">
-                title,
+            <if test="name != null">
+                name,
+            </if>
+            <if test="logo != null">
+                logo,
             </if>
             <if test="num != null">
                 num,
@@ -165,12 +115,6 @@
             <if test="endtime != null">
                 endtime,
             </if>
-            <if test="created != null">
-                created,
-            </if>
-            <if test="updated != null">
-                updated,
-            </if>
             <if test="des != null">
                 des,
             </if>
@@ -182,8 +126,11 @@
             <if test="code != null">
                 #{code,jdbcType=VARCHAR},
             </if>
-            <if test="title != null">
-                #{title,jdbcType=VARCHAR},
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="logo != null">
+                #{logo,jdbcType=VARCHAR},
             </if>
             <if test="num != null">
                 #{num,jdbcType=INTEGER},
@@ -200,27 +147,22 @@
             <if test="endtime != null">
                 #{endtime,jdbcType=BIGINT},
             </if>
-            <if test="created != null">
-                #{created,jdbcType=BIGINT},
-            </if>
-            <if test="updated != null">
-                #{updated,jdbcType=BIGINT},
-            </if>
             <if test="des != null">
                 #{des,jdbcType=LONGVARCHAR},
             </if>
         </trim>
     </insert>
-
-
-    <update id="updateByPrimaryKeySelective" parameterType="cn.xiaohuodui.model.Activity">
-        update coupon_activity
+    <update id="updateByPrimarycodeSelective" parameterType="cn.xiaohuodui.model.Organization">
+        update organization
         <set>
             <if test="code != null">
                 code = #{code,jdbcType=VARCHAR},
             </if>
-            <if test="title != null">
-                title = #{title,jdbcType=VARCHAR},
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="logo != null">
+                logo = #{logo,jdbcType=VARCHAR},
             </if>
             <if test="num != null">
                 num = #{num,jdbcType=INTEGER},
@@ -237,43 +179,35 @@
             <if test="endtime != null">
                 endtime = #{endtime,jdbcType=BIGINT},
             </if>
-            <if test="created != null">
-                created = #{created,jdbcType=BIGINT},
-            </if>
-            <if test="updated != null">
-                updated = #{updated,jdbcType=BIGINT},
-            </if>
             <if test="des != null">
                 des = #{des,jdbcType=LONGVARCHAR},
             </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
-    <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.xiaohuodui.model.Activity">
-    update coupon_activity
+    <update id="updateByPrimarycodeWithBLOBs" parameterType="cn.xiaohuodui.model.Organization">
+    update organization
     set code = #{code,jdbcType=VARCHAR},
-      title = #{title,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      logo = #{logo,jdbcType=VARCHAR},
       num = #{num,jdbcType=INTEGER},
       total_limit = #{totalLimit,jdbcType=INTEGER},
       sended = #{sended,jdbcType=INTEGER},
       starttime = #{starttime,jdbcType=BIGINT},
       endtime = #{endtime,jdbcType=BIGINT},
-      created = #{created,jdbcType=BIGINT},
-      updated = #{updated,jdbcType=BIGINT},
       des = #{des,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-    <update id="updateByPrimaryKey" parameterType="cn.xiaohuodui.model.Activity">
-    update coupon_activity
+    <update id="updateByPrimarycode" parameterType="cn.xiaohuodui.model.Organization">
+    update organization
     set code = #{code,jdbcType=VARCHAR},
-      title = #{title,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      logo = #{logo,jdbcType=VARCHAR},
       num = #{num,jdbcType=INTEGER},
       total_limit = #{totalLimit,jdbcType=INTEGER},
       sended = #{sended,jdbcType=INTEGER},
       starttime = #{starttime,jdbcType=BIGINT},
-      endtime = #{endtime,jdbcType=BIGINT},
-      created = #{created,jdbcType=BIGINT},
-      updated = #{updated,jdbcType=BIGINT}
+      endtime = #{endtime,jdbcType=BIGINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
