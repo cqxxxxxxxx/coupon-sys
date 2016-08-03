@@ -1,180 +1,183 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.xiaohuodui.dao.ActivityMapper">
-    <resultMap id="BaseResultMap" type="cn.xiaohuodui.model.Activity">
-        <id column="id" property="id" jdbcType="INTEGER"/>
-        <result column="code" property="code" jdbcType="VARCHAR"/>
-        <result column="title" property="title" jdbcType="VARCHAR"/>
-        <result column="created" property="created" jdbcType="TIMESTAMP"/>
-        <result column="updated" property="updated" jdbcType="TIMESTAMP"/>
-    </resultMap>
-    <resultMap id="ResultMapWithBLOBs" type="cn.xiaohuodui.model.Activity" extends="BaseResultMap">
-        <result column="des" property="des" jdbcType="LONGVARCHAR"/>
-    </resultMap>
-
-    <!--搜索code对应的信息-->
-    <select id="selectByCode" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
-        SELECT *
-        FROM coupon_activity
-        WHERE code = #{code,jdbcType=VARCHAR}
-    </select>
-
-    <!--更新活动信息-->
-    <update id="updateActivity" parameterType="cn.xiaohuodui.model.Activity">
-        UPDATE coupon_activity
-        SET
-        <if test="title!=null">
-            title = #{title},
-        </if>
-        <if test="des!=null">
-            des = #{des},
-        </if>
-          updated = #{updated}
-        WHERE code = #{code}
-    </update>
-
-    <!--获取数据总数-->
-    <select id="countAll" parameterType="map" resultType="java.lang.Integer">
-        select
-        COUNT(id)
-        from coupon_activity
-        <if test="keyword!=null">
-            WHERE des LIKE #{keyword}"%"
-        </if>
-
-    </select>
-
-
-    <!--分页的SQL语句-->
-    <select id="listFenYe" resultMap="BaseResultMap" parameterType="java.util.Map">
-        SELECT *
-        FROM coupon_activity
-        <if test="keyword!=null">
-            WHERE des LIKE #{keyword}"%"
-        </if>
-        ORDER BY created DESC
-        LIMIT #{offset},#{limit}
-    </select>
-
-
-    <!--查询code是否已经有了  检测code是否存在-->
-    <select id="exist" parameterType="java.lang.String" resultMap="BaseResultMap">
-    SELECT * FROM coupon_activity
-    WHERE code = #{code,jdbcType=VARCHAR}
-
-  </select>
-
-    <!--获取活动列表-->
-    <select id="listAll" resultMap="ResultMapWithBLOBs">
-    SELECT * FROM coupon_activity
-
-  </select>
-
-    <sql id="Base_Column_List">
-    id, code, title, des, created, updated
+<mapper namespace="cn.xiaohuodui.dao.activityMapper" >
+  <resultMap id="BaseResultMap" type="cn.xiaohuodui.model.activity" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="num" property="num" jdbcType="INTEGER" />
+    <result column="total_limit" property="totalLimit" jdbcType="INTEGER" />
+    <result column="sended" property="sended" jdbcType="INTEGER" />
+    <result column="starttime" property="starttime" jdbcType="BIGINT" />
+    <result column="endtime" property="endtime" jdbcType="BIGINT" />
+    <result column="created" property="created" jdbcType="BIGINT" />
+    <result column="updated" property="updated" jdbcType="BIGINT" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="cn.xiaohuodui.model.activity" extends="BaseResultMap" >
+    <result column="des" property="des" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, code, title, num, total_limit, sended, starttime, endtime, created, updated
   </sql>
-    <sql id="Blob_Column_List">
+  <sql id="Blob_Column_List" >
     des
   </sql>
-    <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
-        select
-        <include refid="Base_Column_List"/>
-        ,
-        <include refid="Blob_Column_List"/>
-        from coupon_activity
-        where id = #{id,jdbcType=INTEGER}
-    </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from coupon_activity
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from coupon_activity
     where id = #{id,jdbcType=INTEGER}
   </delete>
-    <insert id="insert" parameterType="cn.xiaohuodui.model.Activity">
+  <insert id="insert" parameterType="cn.xiaohuodui.model.activity" >
     insert into coupon_activity (id, code, title, 
-      created, updated, des
-      )
+      num, total_limit, sended, 
+      starttime, endtime, created, 
+      updated, des)
     values (#{id,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
-      #{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP}, #{des,jdbcType=LONGVARCHAR}
-      )
+      #{num,jdbcType=INTEGER}, #{totalLimit,jdbcType=INTEGER}, #{sended,jdbcType=INTEGER}, 
+      #{starttime,jdbcType=BIGINT}, #{endtime,jdbcType=BIGINT}, #{created,jdbcType=BIGINT}, 
+      #{updated,jdbcType=BIGINT}, #{des,jdbcType=LONGVARCHAR})
   </insert>
-    <insert id="insertSelective" parameterType="cn.xiaohuodui.model.Activity">
-        insert into coupon_activity
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                id,
-            </if>
-            <if test="code != null">
-                code,
-            </if>
-            <if test="title != null">
-                title,
-            </if>
-            <if test="created != null">
-                created,
-            </if>
-            <if test="updated != null">
-                updated,
-            </if>
-            <if test="des != null">
-                des,
-            </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                #{id,jdbcType=INTEGER},
-            </if>
-            <if test="code != null">
-                #{code,jdbcType=VARCHAR},
-            </if>
-            <if test="title != null">
-                #{title,jdbcType=VARCHAR},
-            </if>
-            <if test="created != null">
-                #{created,jdbcType=TIMESTAMP},
-            </if>
-            <if test="updated != null">
-                #{updated,jdbcType=TIMESTAMP},
-            </if>
-            <if test="des != null">
-                #{des,jdbcType=LONGVARCHAR},
-            </if>
-        </trim>
-    </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="cn.xiaohuodui.model.Activity">
-        update coupon_activity
-        <set>
-            <if test="code != null">
-                code = #{code,jdbcType=VARCHAR},
-            </if>
-            <if test="title != null">
-                title = #{title,jdbcType=VARCHAR},
-            </if>
-            <if test="created != null">
-                created = #{created,jdbcType=TIMESTAMP},
-            </if>
-            <if test="updated != null">
-                updated = #{updated,jdbcType=TIMESTAMP},
-            </if>
-            <if test="des != null">
-                des = #{des,jdbcType=LONGVARCHAR},
-            </if>
-        </set>
-        where id = #{id,jdbcType=INTEGER}
-    </update>
-    <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.xiaohuodui.model.Activity">
+  <insert id="insertSelective" parameterType="cn.xiaohuodui.model.activity" >
+    insert into coupon_activity
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="num != null" >
+        num,
+      </if>
+      <if test="totalLimit != null" >
+        total_limit,
+      </if>
+      <if test="sended != null" >
+        sended,
+      </if>
+      <if test="starttime != null" >
+        starttime,
+      </if>
+      <if test="endtime != null" >
+        endtime,
+      </if>
+      <if test="created != null" >
+        created,
+      </if>
+      <if test="updated != null" >
+        updated,
+      </if>
+      <if test="des != null" >
+        des,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null" >
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="totalLimit != null" >
+        #{totalLimit,jdbcType=INTEGER},
+      </if>
+      <if test="sended != null" >
+        #{sended,jdbcType=INTEGER},
+      </if>
+      <if test="starttime != null" >
+        #{starttime,jdbcType=BIGINT},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=BIGINT},
+      </if>
+      <if test="created != null" >
+        #{created,jdbcType=BIGINT},
+      </if>
+      <if test="updated != null" >
+        #{updated,jdbcType=BIGINT},
+      </if>
+      <if test="des != null" >
+        #{des,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.xiaohuodui.model.activity" >
+    update coupon_activity
+    <set >
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null" >
+        num = #{num,jdbcType=INTEGER},
+      </if>
+      <if test="totalLimit != null" >
+        total_limit = #{totalLimit,jdbcType=INTEGER},
+      </if>
+      <if test="sended != null" >
+        sended = #{sended,jdbcType=INTEGER},
+      </if>
+      <if test="starttime != null" >
+        starttime = #{starttime,jdbcType=BIGINT},
+      </if>
+      <if test="endtime != null" >
+        endtime = #{endtime,jdbcType=BIGINT},
+      </if>
+      <if test="created != null" >
+        created = #{created,jdbcType=BIGINT},
+      </if>
+      <if test="updated != null" >
+        updated = #{updated,jdbcType=BIGINT},
+      </if>
+      <if test="des != null" >
+        des = #{des,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.xiaohuodui.model.activity" >
     update coupon_activity
     set code = #{code,jdbcType=VARCHAR},
       title = #{title,jdbcType=VARCHAR},
-      created = #{created,jdbcType=TIMESTAMP},
-      updated = #{updated,jdbcType=TIMESTAMP},
+      num = #{num,jdbcType=INTEGER},
+      total_limit = #{totalLimit,jdbcType=INTEGER},
+      sended = #{sended,jdbcType=INTEGER},
+      starttime = #{starttime,jdbcType=BIGINT},
+      endtime = #{endtime,jdbcType=BIGINT},
+      created = #{created,jdbcType=BIGINT},
+      updated = #{updated,jdbcType=BIGINT},
       des = #{des,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-    <update id="updateByPrimaryKey" parameterType="cn.xiaohuodui.model.Activity">
+  <update id="updateByPrimaryKey" parameterType="cn.xiaohuodui.model.activity" >
     update coupon_activity
     set code = #{code,jdbcType=VARCHAR},
       title = #{title,jdbcType=VARCHAR},
-      created = #{created,jdbcType=TIMESTAMP},
-      updated = #{updated,jdbcType=TIMESTAMP}
+      num = #{num,jdbcType=INTEGER},
+      total_limit = #{totalLimit,jdbcType=INTEGER},
+      sended = #{sended,jdbcType=INTEGER},
+      starttime = #{starttime,jdbcType=BIGINT},
+      endtime = #{endtime,jdbcType=BIGINT},
+      created = #{created,jdbcType=BIGINT},
+      updated = #{updated,jdbcType=BIGINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
