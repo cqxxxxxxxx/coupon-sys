@@ -22,6 +22,46 @@
     des
   </sql>
 
+    <!--获取code对应的信息-->
+    <select id="getInfo" parameterType="map" resultMap="ResultMapWithBLOBs">
+        SELECT
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        FROM organization
+        WHERE code = #{code,jdbcType=VARCHAR}
+    </select>
+
+    <!--判断code是否存在-->
+    <select id="exist" parameterType="map" resultType="java.lang.String">
+        select
+        code
+        FROM organization
+        WHERE code = #{code,jdbcType=VARCHAR}
+    </select>
+
+    <!--获取数据总数-->
+    <select id="countAll" parameterType="map" resultType="java.lang.Integer">
+        select
+        COUNT(id)
+        from organization
+        <if test="keyword!=null">
+            WHERE name LIKE #{keyword}"%"
+        </if>
+    </select>
+
+    <!--分页的SQL语句-->
+    <select id="listPage" resultMap="BaseResultMap" parameterType="java.util.Map">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM organization
+        <if test="keyword!=null">
+            WHERE name LIKE #{keyword}"%"
+        </if>
+        ORDER BY code DESC
+        LIMIT #{offset},#{limit}
+    </select>
+
     <!--查询num-->
     <select id="getNum" resultType="java.lang.Integer" parameterType="map">
     select
@@ -59,6 +99,31 @@
         UPDATE organization
         SET
         sended = #{sended}
+        WHERE code = #{code, jdbcType=VARCHAR}
+    </update>
+
+    <!--更新企业信息-->
+    <update id="updateInfo" parameterType="map">
+        UPDATE organization
+        SET
+        <if test="des!=null">
+            des = #{des,jdbcType=VARCHAR},
+        </if>
+        <if test="logo!=null">
+            logo = #{logo,jdbcType=VARCHAR},
+        </if>
+        <if test="num!=null">
+            num = #{num},
+        </if>
+        <if test="totalLimit!=null">
+            total_limit = #{totalLimit},
+        </if>
+        <if test="starttime!=null">
+            starttime = #{starttime},
+        </if>
+        <if test="endtime!=null">
+            endtime = #{endtime}
+        </if>
         WHERE code = #{code, jdbcType=VARCHAR}
     </update>
 

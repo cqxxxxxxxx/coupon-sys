@@ -54,9 +54,18 @@
                     <li class="<c:if test="${param.index1 eq 'Clickinfo'}">active</c:if>"><a
                             href="<c:url value="/clickinfo"/> ">活动点击量信息查询</a></li>
                     <li class="<c:if test="${param.index1 eq 'Shareinfo'}">active</c:if>"><a
-                            href="<c:url value="/shareinfo"/> ">已参加动用户信息查询</a></li>
+                            href="<c:url value="/shareinfo"/> ">已参加用户信息查询</a></li>
                 </ul>
             </li>
+    <li class="<c:if test="${param.index eq 'org'}">active</c:if>">
+        <a href="#"><span class="nav-label">企业活动管理</span><span class="fa arrow"></span> </a>
+        <ul class="nav nav-second-level collapse">
+            <li class="<c:if test="${param.index1 eq 'orginfo'}">active</c:if>"><a
+                    href="<c:url value="/organization"/> ">企业活动列表</a></li>
+            <li class="<c:if test="${param.index1 eq 'addorg'}">active</c:if>"><a
+                    href="<c:url value="/organization/add"/> ">添加企业</a></li>
+        </ul>
+    </li>
         </ul>
     </div>
 </aside>

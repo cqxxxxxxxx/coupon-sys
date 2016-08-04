@@ -3,7 +3,7 @@ package cn.xiaohuodui.model;
 public class Organization {
     private int id;
 
-    private String key;
+    private String code;
 
     private String name;
 
@@ -21,20 +21,21 @@ public class Organization {
 
     private String des;
 
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key == null ? null : key.trim();
     }
 
     public String getName() {

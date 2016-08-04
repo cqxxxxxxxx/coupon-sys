@@ -87,7 +87,7 @@
                                     <input id="num" type="text" class="form-control m-b" required="true">
                                 </div>
                             </div>
-                            <div class="form-group" style="margin-left: 40%">
+                            <div class="form-group" style="margin-left: 30%">
                                 <div class="col-sm-3">
                                     <label class="control-label inline">活动开始日期</label>
                                     <div class="input-group date">
@@ -106,8 +106,8 @@
                                             class="fa fa-clock-o"></i></span>
                                     </div>
                                 </div>
-                                <div class="col-sm-8 col-sm-offset-2">
-                                    <button id="submit" class="btn btn-primary">添加活动</button>
+                                <div class="col-sm-3 col-sm-offset-1">
+                                    <button id="submit" class="btn btn-primary" style="margin-top: 25px">添加活动</button>
                                 </div>
                             </div>
                         </form>

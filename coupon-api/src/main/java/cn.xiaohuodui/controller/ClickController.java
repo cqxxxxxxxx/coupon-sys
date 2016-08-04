@@ -53,7 +53,6 @@ public class ClickController {
         System.out.println("keyword:" + request.getParameter("sSearch"));
 
         String keyword = request.getParameter("sSearch");
-
         String sEchoStr = request.getParameter("sEcho");
         int sEcho = sEchoStr == null ? 0 : Integer.parseInt(sEchoStr);
         String limitStr = request.getParameter("iDisplayLength");
@@ -86,7 +85,6 @@ public class ClickController {
 
         form.setLimit(limit);
         form.setOffset(offset);
-
 
         List<Clickinfo> list = clickService.getClickInfos(form);
         Map<String, Object> results = new HashMap<String, Object>();

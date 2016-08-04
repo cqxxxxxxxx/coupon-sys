@@ -14,8 +14,6 @@
     <meta content="black" name="apple-mobile-web-app-status-bar-style">
     <title>领取优惠券</title>
     <script src="<c:url value="/resources/js/jquery.js"/>"></script>
-    <script src="<c:url value="/resources/js/toastr.js"/>"></script>
-    <link rel="stylesheet" href="<c:url value="/resources/css/toastr.css"/>">
     <style type="text/css">
         body {
             margin: 0;
@@ -154,86 +152,7 @@
 </head>
 
 <body>
-<img width="100%" src="/resources/imgs/bg1.png">
-<div class="receive-content">
-    <div>
-        <div class="receive-info">
-            嗨！<span class="share-name">
-        <c:choose>
-            <c:when test="${type eq '0'}">
-                活动官方
-            </c:when>
-            <c:otherwise>
-                ${name}
-            </c:otherwise>
-        </c:choose>
-
-        </span><br> 邀请您参加<span class="share-title">${activity.getTitle()}</span>活动<br><br>
-            <%--活动内容:${activity.getDes()}--%>
-        </div>
-    <input type="tel" maxlength="11" placeholder="请输入您领取优惠券的手机号" class="tel" id="phone"/>
-    <div class="receive-button" id="submit">领取优惠券</div>
-    </div>
-    <div class="discount-info">
-        <a href="#">优惠说明</a>
-    </div>
-</div>
-
-<script>
-
-    function isMobile(str) {
-        var reg = /^[1][34578]\d{9}$/;
-        return reg.test(str);
-    }
-
-    $(document).ready(function () {
-        var code = "${code}";
-        var type = "${type}";
-        console.log("locationname:"+location.pathname);
-        $('#submit').click(function () {
-            var phone = $('#phone').val();
-            console.log(code+type+phone+":"+validForm());
-            if (isMobile(phone)) {
-                $.ajax({
-                    url: "/invite/add",
-                    type: 'POST',
-                    data: 'ref=' + code + '&type=' + type + '&phone=' + phone,
-                    dataTyp: 'html',
-                    success: function (data) {
-                        console.log(data);
-                        if (data == "success") {
-                            console.log("success");
-                            cleanForm();
-                            alert.success('领取成功');
-                            location.href="/"
-                        } else {
-                            console.log("failed");
-                            alert.error('领取失败，已经领取过了');
-                        }
-                    },
-                    error: function (data) {
-                        alert.error("失败");
-                    }
-                });
-            } else {
-                alert.error('phone格式不对');
-            }
-        });
-
-        function cleanForm() {
-            $('#title').val('');
-            $('#des').val('');
-        }
-
-        function validForm() {
-            if ($('#phone').val().trim() == "") {
-                return false;
-            }
-            return true;
-        }
-    });
-</script>
-
+<img width="100%" src="/resources/imgs/invitefinish.png">
 
 
 </body>

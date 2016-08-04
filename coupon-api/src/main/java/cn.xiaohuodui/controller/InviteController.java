@@ -39,8 +39,8 @@ public class InviteController {
 
     @Resource(name = "DeadLineUtil")
     DeadLineUtil deadLineUtil;
-    //  官方URL 相当于invite.daimaniu.cn?ref=20160801
 
+    //  官方URL 相当于invite.daimaniu.cn?ref=20160801
     @RequestMapping(value = "/{ref}", method = RequestMethod.GET)
     public String invite(HttpServletRequest request, @PathVariable(value = "ref") String ref, Model model) {
         String ip = IPUtil.getIpAddr(request);
@@ -96,4 +96,9 @@ public class InviteController {
 
     }
 
+    //提交成功 跳转
+    @RequestMapping(value = "/finish", method = RequestMethod.GET)
+    public String redirect(){
+        return "invitefinish";
+    }
 }
