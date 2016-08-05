@@ -66,4 +66,12 @@ public class OrganizationServiceImpl implements OrganizationService {
             return false;
         }
     }
+
+    public boolean deleteOrganization(String code) {
+        if (organizationMapper.deleteOrganization(code)>0){
+            return true;
+        }else {
+            return false;
+        }
+    }
 }

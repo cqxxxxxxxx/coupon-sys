@@ -276,7 +276,8 @@
 
     function generateButton(id) {
         return ' <div class="btn-group">' +
-                '<button id=' + id + ' class="modify btn btn-xs btn-default"> 修改</button> '
+                '<button id=' + id + ' class="modify btn btn-xs btn-default"> 修改</button>'+
+                '<button id=' + id + ' class="op btn btn-xs btn-default">删除</button>' +
         '</div>'
     }
 
@@ -320,6 +321,42 @@
                     $modal.modal('toggle');
                 }
             });
+        });
+
+        oTable.find('tbody').on('click', ' tr button.op', function (e) {
+            var code = $(this).attr("id");
+            console.log(code);
+            $thisTr = $(this).closest("tr");
+            e.preventDefault();
+            swal({
+                        title: "删除该企业活动",
+                        text: "",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#5ECD1E",
+                        confirmButtonText: "Yes, 删除",
+                        cancelButtonText: "No, 取消",
+                        closeOnConfirm: true,
+                        closeOnCancel: true
+                    },
+                    function (isConfirm) {
+                        if (isConfirm) {
+                            $.ajax({
+                                url: prefix + '/delete/'+code,
+                                type: 'DELETE',
+                                success: function (data) {
+                                    if (data == "success") {
+                                        toastr.success('删除成功');
+                                        location.reload();
+                                    } else {
+                                        toastr.warning('删除失败');
+                                    }
+                                }
+                            });
+                        } else {
+
+                        }
+                    });
         });
 
         $('#submit').click(function (e) {

@@ -22,4 +22,6 @@ public interface OrganizationService {
     public Organization getinfo(String code);
 
     public boolean updateInfo(Organization organization);
+
+    public boolean deleteOrganization(String code);
 }

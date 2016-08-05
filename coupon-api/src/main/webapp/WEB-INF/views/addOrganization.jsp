@@ -120,16 +120,15 @@
                                     <img id="preview" src="<c:url value="/resources/imgs/logo.png"/> ">
                                 </div>
                             </div>
-                            <div class="form-group"><label class="col-sm-2 control-label">企业LOGO</label>
-                                <div id="container" class="col-sm-5">
+                            <div class="form-group">
+                                <div id="container" class="col-sm-3" style="margin-left: 10%">
                                     <button id="pickfiles" class="btn btn-primary btn-block">上传LOGO</button>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-8 col-sm-offset-1">
-                                    <button id="submit" class="btn btn-success">提交新服务</button>
+                                <div class="col-sm-4">
+                                    <button id="submit" class="btn btn-success">提交</button>
                                 </div>
                             </div>
+
 
                         </form>
                     </div>
@@ -152,7 +151,9 @@
     var path = location.pathname.split('/');
     var app = path[1];
     var prefix = "/" + app;
-
+    $('.date').datepicker({
+        language: 'zh-CN'
+    });
     toastr.options = {
         "closeButton": true,
         "debug": false,
@@ -173,6 +174,7 @@
     $(document).ready(function () {
         console.log(prefix + $('#uptoken_url').val());
         console.log($('#preview').attr('src'));
+
         $('#submit').click(function (e) {
             e.preventDefault();
             var code = $('#code').val();

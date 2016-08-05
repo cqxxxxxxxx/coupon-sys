@@ -3,11 +3,9 @@ package cn.xiaohuodui.controller;
 import cn.xiaohuodui.form.OrganizationCreateForm;
 import cn.xiaohuodui.model.Organization;
 import cn.xiaohuodui.service.OrganizationService;
-import cn.xiaohuodui.util.DateUtil;
 import cn.xiaohuodui.util.IFileUtil;
 import cn.xiaohuodui.utils.ApplicationConstants;
 import cn.xiaohuodui.utils.JsonUtil;
-import cn.xiaohuodui.vo.OrganizationVo;
 import cn.xiaohuodui.vo.UploadTokenVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -41,7 +39,7 @@ public class OrganizationController {
     @RequestMapping(method = RequestMethod.GET)
     public String organization(Model model) {
         model.addAttribute("domain", "7xl7mb.com1.z0.glb.clouddn.com");
-        model.addAttribute("uptoken_url","/uploadToken");
+        model.addAttribute("uptoken_url", "/uploadToken");
         return "orgActivities";
     }
 
@@ -82,7 +80,7 @@ public class OrganizationController {
     public String addOrganization(Model model) {
         System.out.println("7xl7mb.com1.z0.glb.clouddn.com");
         model.addAttribute("domain", "7xl7mb.com1.z0.glb.clouddn.com");
-        model.addAttribute("uptoken_url","/uploadToken");
+        model.addAttribute("uptoken_url", "/uploadToken");
         return "addOrganization";
     }
 
@@ -90,7 +88,7 @@ public class OrganizationController {
     @RequestMapping(value = "/uploadToken", method = RequestMethod.GET)
     public
     @ResponseBody
-    String uploadToken(){
+    String uploadToken() {
         UploadTokenVo uploadTokenVo = new UploadTokenVo();
         uploadTokenVo.setUptoken(iFileUtil.getImageUpdateToken());
         return JsonUtil.writeObjectAsString(uploadTokenVo);
@@ -109,7 +107,7 @@ public class OrganizationController {
     @RequestMapping(value = "/info/{code}", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
     public
     @ResponseBody
-    String getOrganizationInfo(@PathVariable("code") String code){
+    String getOrganizationInfo(@PathVariable("code") String code) {
    /*     Organization organization = organizationService.getinfo(code);
         OrganizationVo organizationVo = new OrganizationVo(organization);*/
         return JsonUtil.writeObjectAsString(organizationService.getinfo(code));
@@ -119,7 +117,7 @@ public class OrganizationController {
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public
     @ResponseBody
-    String updateOrganizationInfo(String code,String des,String logo,int num,int totalLimit) throws ParseException {
+    String updateOrganizationInfo(String code, String des, String logo, int num, int totalLimit) throws ParseException {
 
         Organization organization = new Organization();
         organization.setCode(code);
@@ -128,14 +126,27 @@ public class OrganizationController {
         organization.setLogo(logo);
         organization.setTotalLimit(totalLimit);
 
-        System.out.println("org:"+organization);
+        System.out.println("org:" + organization);
 
-        if (organizationService.updateInfo(organization)){
+        if (organizationService.updateInfo(organization)) {
+            return ApplicationConstants.RESPONSE_SUCCESS;
+        } else {
+            return ApplicationConstants.RESPONSE_FAIL;
+        }
+    }
+
+    //删除企业活动
+    @RequestMapping(value = "/delete/{code}", method = RequestMethod.DELETE)
+    public
+    @ResponseBody
+    String deleteOrganization(@PathVariable("code") String code){
+        System.out.println(code);
+        if (organizationService.deleteOrganization(code)) {
             return ApplicationConstants.RESPONSE_SUCCESS;
         }else {
             return ApplicationConstants.RESPONSE_FAIL;
         }
-
     }
+
 }
 

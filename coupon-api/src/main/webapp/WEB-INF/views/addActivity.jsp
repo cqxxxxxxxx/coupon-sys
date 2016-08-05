@@ -180,7 +180,7 @@
                     }
                 });
             } else {
-                toastr.error('内容不能为空');
+                toastr.error('添加失败');
             }
         });
 
@@ -192,10 +192,36 @@
         }
 
         function validForm() {
-            if ($('#code').val().trim() != "" && $('#code').val().trim().length == 8 && $('#Starttime').val().trim() != ""&& $('#Endtime').val().trim() != ""&& $('#num').val().trim() != ""&& $('#total_limit').val().trim() != "") {
-                return true;
+            if ($('#code').val().trim().length!=8) {
+                toastr.error('code长度必须为8位');
+                return false;
             }
-            return false;
+            if ($('#title').val().trim() == "") {
+                toastr.error('活动名不能为空');
+                return false;
+            }
+            if ($('#des').val().trim() == "") {
+                toastr.error('内容不能为空');
+                return false;
+            }
+            if ($('#Starttime').val().trim() == "") {
+                toastr.error('开始时间不能为空');
+                return false;
+            }
+            if ($('#Endtime').val().trim() == "") {
+                toastr.error('结束时间不能为空');
+                return false;
+            }
+            if ($('#total_limit').val().trim()=="") {
+                toastr.error('优惠券总数不能为空');
+                return false;
+            }
+
+            if ($('#num').val().trim()=="") {
+                toastr.error('num不能为空');
+                return false;
+            }
+            return true;
         }
     });
 </script>

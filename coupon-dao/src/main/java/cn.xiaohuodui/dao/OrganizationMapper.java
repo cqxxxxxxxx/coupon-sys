@@ -40,4 +40,6 @@ public interface OrganizationMapper {
     Organization getInfo(@Param("code") String code);
 
     int updateInfo(Organization organization);
+
+    int deleteOrganization(@Param("code") String code);
 }

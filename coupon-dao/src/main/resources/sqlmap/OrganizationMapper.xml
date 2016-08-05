@@ -136,6 +136,13 @@
         from organization
         where id = #{id,jdbcType=INTEGER}
     </select>
+
+    <delete id="deleteOrganization" parameterType="map">
+    delete
+    from organization
+    where code= #{code,jdbcType=VARCHAR}
+    </delete>
+
     <delete id="deleteByPrimarycode" parameterType="java.lang.Integer">
     delete from organization
     where id = #{id,jdbcType=INTEGER}

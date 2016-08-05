@@ -204,19 +204,19 @@
                         if (data == "success") {
                             console.log("success");
                             cleanForm();
-                            alert.success('领取成功');
+                            alert('领取成功');
                             location.href="/"
                         } else {
                             console.log("failed");
-                            alert.error('领取失败，已经领取过了');
+                            alert('领取失败，已经领取过了');
                         }
                     },
                     error: function (data) {
-                        alert.error("失败");
+                        alert("失败");
                     }
                 });
             } else {
-                alert.error('phone格式不对');
+                alert('phone格式不对');
             }
         });
 
