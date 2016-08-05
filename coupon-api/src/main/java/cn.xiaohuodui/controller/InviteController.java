@@ -10,7 +10,6 @@ import cn.xiaohuodui.utils.ApplicationConstants;
 import cn.xiaohuodui.utils.IPUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -40,9 +39,9 @@ public class InviteController {
     @Resource(name = "DeadLineUtil")
     DeadLineUtil deadLineUtil;
 
-    //  官方URL 相当于invite.daimaniu.cn?ref=20160801
-    @RequestMapping(value = "/{ref}", method = RequestMethod.GET)
-    public String invite(HttpServletRequest request, @PathVariable(value = "ref") String ref, Model model) {
+    //  邀请的URL 相当于invite.daimaniu.cn?ref=20160801
+    @RequestMapping(method = RequestMethod.GET)
+    public String invite(HttpServletRequest request, String ref, String name, Model model) {
         String ip = IPUtil.getIpAddr(request);
         String browser = IPUtil.getBrowser(request);
         System.out.println(ip + "---" + browser);
@@ -50,25 +49,32 @@ public class InviteController {
         long starttime = deadLineUtil.getStarttime(ref);
         long endtime = deadLineUtil.getEndtime(ref);
         System.out.println(System.currentTimeMillis());
-        System.out.println(starttime+"----"+endtime);
+        System.out.println(starttime + "----" + endtime);
         //判断当前时间是否小于开始时间或者大于结束时间
-        if (System.currentTimeMillis()<starttime||System.currentTimeMillis()>endtime){
+        if (System.currentTimeMillis() < starttime || System.currentTimeMillis() > endtime) {
             return "error";
         }
-        if (ref.length()==8){
+        if (ref.length() == 8) {
             model.addAttribute("type", "0");    //官方的url进来的
-        }else{
+        } else if (ref.length() == 7) {
             model.addAttribute("type", "2");    //企业的url进来的
+        } else {
+            model.addAttribute("type", "1");    //个人的url进来的
         }
         model.addAttribute("Activity", activityService.getinfo(ref));
         model.addAttribute("code", ref);
-        clickService.setInfo(ref, ip, browser);
-        return "invite";
+        if (name == null) {
+            return "officalInvite";
+        } else {
+            model.addAttribute("name", name);
+            clickService.setInfo(ref, ip, browser);
+            return "invite";
+        }
     }
 
 
     //  个人URL 相当于invite.daimaniu.cn?ref=vwZLr3&name=keepcleargas
-    @RequestMapping(value = "/{ref}/{name}", method = RequestMethod.GET)
+ /*   @RequestMapping(value = "/{ref}/{name}", method = RequestMethod.GET)
     public String invite(HttpServletRequest request, @PathVariable(value = "ref") String ref, @PathVariable(value = "name") String name, Model model) {
         String ip = IPUtil.getIpAddr(request);
         String browser = IPUtil.getBrowser(request);
@@ -80,7 +86,7 @@ public class InviteController {
         clickService.setInfo(ref, ip, browser);
         return "invite";
     }
-
+*/
 
     //    手机号码提交后判断是否已经领取，并保存信息
     @RequestMapping(value = "/add", method = RequestMethod.POST)
@@ -88,17 +94,16 @@ public class InviteController {
     @ResponseBody
     String addInfo(String ref, String type, String phone) {
         System.out.println("code:" + ref + "type:" + type + "phone:" + phone);
-        if (shareService.setInfo(ref, phone, type)&&couponService.updateSended(ref)) {
+        if (shareService.setInfo(ref, phone, type) && couponService.updateSended(ref)) {
             return ApplicationConstants.RESPONSE_SUCCESS;
         } else {
             return ApplicationConstants.RESPONSE_FAIL;
         }
-
     }
 
     //提交成功 跳转
     @RequestMapping(value = "/finish", method = RequestMethod.GET)
-    public String redirect(){
+    public String redirect() {
         return "invitefinish";
     }
 }

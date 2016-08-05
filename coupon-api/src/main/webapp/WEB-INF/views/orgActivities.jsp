@@ -271,7 +271,7 @@
     function generateOp(id) {   //button的ID就是对应的code
         var code = id;
         var url = "/invite/" + code;
-        return '<p>'+'http://localhost:8080'+url+'</p>';
+        return '<p>'+'http://localhost:8080/invite?ref='+code+'</p>';
     }
 
     function generateButton(id) {

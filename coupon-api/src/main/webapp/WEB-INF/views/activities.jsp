@@ -236,7 +236,7 @@
             var code = id;
             var url = "/invite/" + code;
 
-            return '<p>'+'http://localhost:8080'+url+'</p>';
+            return '<p>'+'http://localhost:8080/invite?ref='+code+'</p>';
         }
 
         function loadData() {
