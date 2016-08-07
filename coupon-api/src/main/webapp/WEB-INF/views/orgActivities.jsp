@@ -186,7 +186,7 @@
                     <form class="form-horizontal" method="get">
                         <input type="hidden" id="domain" value="${domain}">
                         <input type="hidden" id="uptoken_url" value="${uptoken_url}">
-                        <input type="hidden" id="code" >
+                        <input type="hidden" id="code">
                         <div class="form-group"><label class="col-sm-2 control-label">企业名称</label>
                             <div class="col-sm-10">
                                 <input id="name" type="text" class="form-control m-b" disabled>
@@ -271,22 +271,24 @@
     function generateOp(id) {   //button的ID就是对应的code
         var code = id;
         var url = "/invite/" + code;
-        return '<p>'+'http://localhost:8080/invite?ref='+code+'</p>';
+        return '<p>' + 'http://localhost:8080/invite?ref=' + code + '</p>';
     }
 
     function generateButton(id) {
+
         return ' <div class="btn-group">' +
-                '<button id=' + id + ' class="modify btn btn-xs btn-default"> 修改</button>'+
-                '<button id=' + id + ' class="op btn btn-xs btn-default">删除</button>' +
-        '</div>'
+                '<button id=' + id + ' class="modify btn btn-xs btn-default"> 修改</button> ' +
+                '<button id=' + id + ' class="delete btn btn-xs btn-danger">删除</button>' +
+                '</div>'
+
     }
 
     function validForm() {
-        if($('#totalLimit').val().trim() == ""){
+        if ($('#totalLimit').val().trim() == "") {
             toastr.error("优惠券总数不能为空");
             return false;
         }
-        if($('#num').val().trim() == ""){
+        if ($('#num').val().trim() == "") {
             toastr.error("单人券数不能为空");
             return false;
         }
@@ -308,7 +310,7 @@
             $thisTr = $(this).closest("tr");
             e.preventDefault();
             $.ajax({
-                url: prefix + '/info/'+code,
+                url: prefix + '/info/' + code,
                 type: 'GET',
                 success: function (data) {
                     $('#code').val(data.code);
@@ -323,7 +325,7 @@
             });
         });
 
-        oTable.find('tbody').on('click', ' tr button.op', function (e) {
+        oTable.find('tbody').on('click', ' tr button.delete', function (e) {
             var code = $(this).attr("id");
             console.log(code);
             $thisTr = $(this).closest("tr");
@@ -342,7 +344,7 @@
                     function (isConfirm) {
                         if (isConfirm) {
                             $.ajax({
-                                url: prefix + '/delete/'+code,
+                                url: prefix + '/delete/' + code,
                                 type: 'DELETE',
                                 success: function (data) {
                                     if (data == "success") {
@@ -361,17 +363,17 @@
 
         $('#submit').click(function (e) {
             e.preventDefault();
-            var code= $('#code').val();
+            var code = $('#code').val();
             var des = $('#des').val();
             var totalLimit = $('#totalLimit').val();
             var num = $('#num').val();
-             var logo = $('#preview').attr('src');      //预览图的src
+            var logo = $('#preview').attr('src');      //预览图的src
             console.log(logo);
             if (validForm()) {
                 $.ajax({
                     url: prefix + "/update",
                     type: 'POST',
-                    data:'des=' + des + '&code=' + code + '&totalLimit=' + totalLimit + '&num=' + num + '&logo=' + logo,
+                    data: 'des=' + des + '&code=' + code + '&totalLimit=' + totalLimit + '&num=' + num + '&logo=' + logo,
                     success: function (data) {
                         if (data == "success") {
                             toastr.success('更新成功')

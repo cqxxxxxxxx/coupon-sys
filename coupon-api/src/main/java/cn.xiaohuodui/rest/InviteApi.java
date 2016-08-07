@@ -1,7 +1,7 @@
 package cn.xiaohuodui.rest;
 
 import cn.xiaohuodui.service.ShareService;
-import cn.xiaohuodui.vo.InviteVo;
+import cn.xiaohuodui.vo.InviteinfoVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,8 +28,8 @@ public class InviteApi {
     @RequestMapping(value = "/v1/invites", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
     public
     @ResponseBody
-    InviteVo query(@RequestParam("phone") String phone) {
-        return shareService.getInviteVoByPhone(phone);
+    InviteinfoVo query(@RequestParam("phone") String phone) {
+        return shareService.getInviteinfoVoByPhone(phone);
     }
 
 

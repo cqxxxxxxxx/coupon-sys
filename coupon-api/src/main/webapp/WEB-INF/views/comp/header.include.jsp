@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page isELIgnored="false" %>
-<link rel="alternate icon" type="image/png" href="<c:url value="/resources/imgs/icon.png"/>">
+<link rel="alternate icon" type="image/png" href="<c:url value="/resources/imgs/logo.png"/>">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">

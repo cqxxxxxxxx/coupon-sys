@@ -6,4 +6,6 @@ package cn.xiaohuodui.service;
 public interface CouponService {
 
     public boolean updateSended(String code);
+
+    public boolean checkRemain(String code);
 }

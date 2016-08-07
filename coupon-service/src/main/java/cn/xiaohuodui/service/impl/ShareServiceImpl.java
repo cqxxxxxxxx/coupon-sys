@@ -106,8 +106,10 @@ public class ShareServiceImpl implements ShareService {
             inviteinfoVo.setCreated(shareinfo.getCreated());
             if (shareinfo.getCode().length()==7){
                 inviteinfoVo.setNum(organizationMapper.getNum(shareinfo.getCode()));
-            }else {
+            }else if (shareinfo.getCode().length()==8){
                 inviteinfoVo.setNum(activityMapper.getNum(shareinfo.getCode()));
+            }else {
+                inviteinfoVo.setNum(0);
             }
             return inviteinfoVo;
         }else {

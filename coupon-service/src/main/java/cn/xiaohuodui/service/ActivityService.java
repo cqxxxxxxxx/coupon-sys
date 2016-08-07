@@ -28,4 +28,6 @@ public interface ActivityService {
     public int countAll(String keyword);
 
     public Activity getinfo(String code);
+
+    public boolean deleteActivity(String code);
 }

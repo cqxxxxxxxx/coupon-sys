@@ -42,4 +42,6 @@ public interface OrganizationMapper {
     int updateInfo(Organization organization);
 
     int deleteOrganization(@Param("code") String code);
+
+    int getTotalLimit(@Param("code") String code);
 }

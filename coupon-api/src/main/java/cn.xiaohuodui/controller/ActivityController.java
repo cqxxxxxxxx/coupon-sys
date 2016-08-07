@@ -5,12 +5,14 @@ import cn.xiaohuodui.service.ActivityService;
 import cn.xiaohuodui.utils.ApplicationConstants;
 import cn.xiaohuodui.utils.JsonUtil;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.net.URLDecoder;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +30,14 @@ public class ActivityController {
     ActivityService activityService;
 
 
+    // 获取信息
+    @RequestMapping(value = "/info/{code}", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+    public
+    @ResponseBody
+    String getActivityInfo(@PathVariable("code") String code) {
+        return JsonUtil.writeObjectAsString(activityService.getinfo(code));
+    }
+
     //  跳转方法
     @RequestMapping(method = RequestMethod.GET)
     public String activities() {
@@ -44,18 +54,28 @@ public class ActivityController {
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public
     @ResponseBody
-    String updateActivity(String code, String title, String des) {
+    String updateActivity(String code, int num, String des, int totalLimit) {
         Activity activity = new Activity();
-        if (!title.equals("")) {
-            activity.setTitle(title);
-        }
-        if (!des.equals("")) {
-            activity.setDes(des);
-        }
+        activity.setNum(num);
+        activity.setDes(des);
+        activity.setTotalLimit(totalLimit);
         activity.setCode(code);
         if (activityService.updateActivity(activity))
             return ApplicationConstants.RESPONSE_SUCCESS;
         return ApplicationConstants.RESPONSE_FAIL;
+    }
+
+    //删除企业活动
+    @RequestMapping(value = "/delete/{code}", method = RequestMethod.DELETE)
+    public
+    @ResponseBody
+    String deleteActivity(@PathVariable("code") String code) {
+        System.out.println(code);
+        if (activityService.deleteActivity(code)) {
+            return ApplicationConstants.RESPONSE_SUCCESS;
+        } else {
+            return ApplicationConstants.RESPONSE_FAIL;
+        }
     }
 
     //  datatables 的分页处理
@@ -63,7 +83,12 @@ public class ActivityController {
     public
     @ResponseBody
     String getActivities(HttpServletRequest request) {
-        String keyword = request.getParameter("sSearch");
+        String keyword = null;
+        try {
+            keyword = URLDecoder.decode(request.getParameter("keyword"), "UTF-8");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         String sEchoStr = request.getParameter("sEcho");
         int sEcho = sEchoStr == null ? 0 : Integer.parseInt(sEchoStr);
         String limitStr = request.getParameter("iDisplayLength");
@@ -97,7 +122,7 @@ public class ActivityController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public
     @ResponseBody
-    String addActivity(String code, String title, String des, int total_limit, int num, String starttime, String endtime) throws ParseException {
+    String addActivity(String code, String title, String des, Integer total_limit, int num, String starttime, String endtime) throws ParseException {
         System.out.println(code + "--" + title + "--" + des + "--" + total_limit + "--" + num + "--" + starttime + "--" + endtime);
         if (activityService.createActivity(code, title, des, total_limit, num, starttime, endtime))
             return ApplicationConstants.RESPONSE_SUCCESS;

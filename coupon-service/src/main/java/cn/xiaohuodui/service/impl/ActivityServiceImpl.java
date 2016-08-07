@@ -76,6 +76,14 @@ public class ActivityServiceImpl implements ActivityService {
         return activity;
     }
 
+    public boolean deleteActivity(String code) {
+        if (activityMapper.deleteActivity(code)>0){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
 
     //util
     public boolean checkCode(String code) {

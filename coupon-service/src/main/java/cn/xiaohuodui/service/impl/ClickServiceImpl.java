@@ -26,6 +26,7 @@ public class ClickServiceImpl implements ClickService {
     //官方分享的URL被点击后  把点击者信息插入clickinfo表
     public void setInfo(String code, String ip, String browser) {
         Clickinfo clickinfo = new Clickinfo();
+        System.out.println("---"+code.length());
         if (code.length() == 8) {      //官方code8位长， TYPE为0
             clickinfo.setType("0");
         } else if (code.length()==7){

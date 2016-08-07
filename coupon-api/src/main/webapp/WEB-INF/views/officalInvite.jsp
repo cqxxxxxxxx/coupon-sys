@@ -1,4 +1,4 @@
-<html>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
@@ -14,22 +14,25 @@
     <meta content="black" name="apple-mobile-web-app-status-bar-style">
     <title>领取优惠券</title>
     <script src="<c:url value="/resources/js/jquery.js"/>"></script>
-    <style type="text/css">
-        body {
-            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-            width: 100%;
-            position: absolute;
-            font-size: 14px;
-            color: #000;
-            background: #6d4a34;
-        }
 
-        .receive-content {
+    <style>
+
+        body {
+            background: #00ada7 none repeat scroll 0 0;
+            color: #000;
+            font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+            font-size: 14px;
+            margin: 0;
+            padding: 0;
+            position: relative;
             width: 100%;
+        }
+        .receive-content {
             height: 100%;
-            position: absolute;
             left: 0;
+            position: absolute;
             top: 0;
+            width: 100%;
             z-index: 50;
         }
         .receive-button {
@@ -53,10 +56,10 @@
         .receive-info{
             color: #FFFFFF;
             display: block;
-            font-size: 60px;
+            font-size: 50px;
             line-height: 25px;
-            margin-top: 102%;
-            margin-left: 17%;
+            margin-top: 101%;
+            margin-left: 18%;
             font-weight: bold;
             z-index: 100;
             position: absolute;
@@ -66,15 +69,14 @@
             width: 76%;
             margin: 0 auto;
             display: block;
-            height: 180px;
+            height: 131px;
             border-radius: 10px;
             padding: 0;
             border: none;
             -webkit-appearance: none;
-            appearance: none;
             -webkit-box-shadow: none;
             box-shadow: none;
-            font-size: 60px;
+            font-size: 45px;
             text-align: center;
             z-index: 1000;
             position: absolute;
@@ -86,19 +88,11 @@
 </head>
 
 <body>
-<img width="100%" src="/resources/imgs/background0.png">
-<div class="receive-content" style="margin: auto;">
-   <%-- <div class="receive-info">
-        ${name}abcdef
-        </span><br> 邀请您参加<span class="share-title">${activity.getTitle()}</span>活动<br><br>
-    </div>--%>
-    <div class="receive-info">abdEEF</div>
-    <input type="tel" maxlength="11" placeholder="请输入您领取优惠券的手机号" class="tel" id="phone"/>
+<img width="100%"  src="/resources/imgs/background0.png">
+<div class="receive-content">
+    <div class="receive-info">${name}</div>
+    <input type="tel" maxlength="11" placeholder="请输入注册的手机号" class="tel" id="phone"/>
     <div class="receive-button" id="submit"></div>
-
-<%--    <div class="discount-info">
-        <a href="#">优惠说明</a>
-    </div>--%>
 </div>
 
 
@@ -127,7 +121,6 @@
                         if (data == "success") {
                             console.log("success");
                             cleanForm();
-                            alert('领取成功');
                             location.href="/invite/finish"
                         } else {
                             console.log("failed");

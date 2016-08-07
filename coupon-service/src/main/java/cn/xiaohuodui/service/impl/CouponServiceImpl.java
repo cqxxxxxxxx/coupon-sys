@@ -31,6 +31,9 @@ public class CouponServiceImpl implements CouponService {
         }else {
             return false;
         }
+    }
 
+    public boolean checkRemain(String code) {
+        return sendedUtil.checkRemain(code);
     }
 }

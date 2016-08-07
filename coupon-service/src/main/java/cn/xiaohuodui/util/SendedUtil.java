@@ -32,6 +32,14 @@ public class SendedUtil {
         }
     }
 
+    public int getTotalLimit(String code){
+        if (code.length()==7){
+            return organizationMapper.getTotalLimit(code);
+        }else {
+            return activityMapper.getTotalLimit(code);
+        }
+    }
+
     /**
      * @param code
      * @param sended
@@ -44,4 +52,22 @@ public class SendedUtil {
             return activityMapper.updateSended(code, sended);
         }
     }
+
+    public boolean checkRemain(String code){
+        if ((this.getTotalLimit(code)-this.getSended(code))<this.getNum(code)){
+            return false;
+        }else {
+            return true;
+        }
+    }
+
+    public int getNum(String code) {
+
+        if (code.length() == 7) {
+            return organizationMapper.getNum(code);
+        }else{
+            return activityMapper.getNum(code);
+        }
+    }
+
 }

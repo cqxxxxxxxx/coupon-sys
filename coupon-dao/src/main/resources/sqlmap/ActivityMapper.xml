@@ -23,10 +23,19 @@
     des
   </sql>
 
+    <!--查询total_limit-->
+    <select id="getTotalLimit" resultType="java.lang.Integer" parameterType="map">
+        select
+        total_limit
+        from coupon_activity
+        where code = #{code,jdbcType=VARCHAR}
+    </select>
+
     <!--搜索code对应的信息-->
     <select id="selectByCode" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
         SELECT
-        <include refid="Base_Column_List"/>
+        <include refid="Base_Column_List"/>,
+        <include refid="Blob_Column_List"/>
         FROM coupon_activity
         WHERE code = #{code,jdbcType=VARCHAR}
     </select>
@@ -47,7 +56,7 @@
         <include refid="Base_Column_List"/>
         FROM coupon_activity
         <if test="keyword!=null">
-            WHERE des LIKE #{keyword}"%"
+            WHERE title LIKE #{keyword}"%"
         </if>
         ORDER BY created DESC
         LIMIT #{offset},#{limit}
@@ -95,14 +104,17 @@
 
 
     <!--更新活动信息-->
-    <update id="updateActivity" parameterType="cn.xiaohuodui.model.Activity">
+    <update id="updateActivity" parameterType="map">
         UPDATE coupon_activity
         SET
-        <if test="title!=null">
-            title = #{title},
-        </if>
         <if test="des!=null">
             des = #{des},
+        </if>
+        <if test="totalLimit!=null">
+            total_limit = #{totalLimit,jdbcType=INTEGER},
+        </if>
+        <if test="num!=null">
+            num = #{num,jdbcType=INTEGER},
         </if>
         updated = #{updated}
         WHERE code = #{code}
@@ -124,6 +136,12 @@
         from coupon_activity
         where id = #{id,jdbcType=INTEGER}
     </select>
+
+    <delete id="deleteActivity" parameterType="map">
+        DELETE FROM coupon_activity
+        where code = #{code,jdbcType=VARCHAR}
+    </delete>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from coupon_activity
     where id = #{id,jdbcType=INTEGER}

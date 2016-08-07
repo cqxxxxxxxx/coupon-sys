@@ -22,6 +22,14 @@
     des
   </sql>
 
+    <!--查询total_limit-->
+    <select id="getTotalLimit" resultType="java.lang.Integer" parameterType="map">
+        select
+        total_limit
+        from organization
+        where code = #{code,jdbcType=VARCHAR}
+    </select>
+
     <!--获取code对应的信息-->
     <select id="getInfo" parameterType="map" resultMap="ResultMapWithBLOBs">
         SELECT

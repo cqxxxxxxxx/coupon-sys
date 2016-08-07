@@ -42,4 +42,8 @@ public interface ActivityMapper {
     long getEndtime(@Param("code") String code);
 
     long getStarttime(@Param("code") String code);
+
+    int getTotalLimit(@Param("code") String code);
+
+    int deleteActivity(@Param("code") String code);
 }
