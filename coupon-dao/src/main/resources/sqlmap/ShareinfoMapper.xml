@@ -67,7 +67,7 @@
     SELECT
      <include refid="Base_Column_List"/>
     FROM share
-    WHERE phone = #{phone,jdbcType=VARCHAR} AND code = #{code,jdbcType=VARCHAR}
+    WHERE phone = #{phone,jdbcType=VARCHAR}
   </select>
 
   <!--按手机号查询-->
