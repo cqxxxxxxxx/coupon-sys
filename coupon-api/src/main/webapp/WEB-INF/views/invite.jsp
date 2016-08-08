@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
@@ -20,13 +19,14 @@
         body {
             background: #00ada7 none repeat scroll 0 0;
             color: #000;
-            font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
             font-size: 14px;
             margin: 0;
             padding: 0;
             position: relative;
             width: 100%;
         }
+
         .receive-content {
             height: 100%;
             left: 0;
@@ -35,6 +35,7 @@
             width: 100%;
             z-index: 50;
         }
+
         .receive-button {
             width: 60%;
             height: 148px;
@@ -53,7 +54,8 @@
             margin-left: 21%;
             margin-top: 141%;
         }
-        .receive-info{
+
+        .receive-info {
             color: #FFFFFF;
             display: block;
             font-size: 50px;
@@ -67,28 +69,27 @@
 
         input[type='tel'] {
             width: 76%;
-            margin: 0 auto;
             display: block;
-            height: 131px;
+            height: 45px;
             border-radius: 10px;
             padding: 0;
             border: none;
             -webkit-appearance: none;
             -webkit-box-shadow: none;
             box-shadow: none;
-            font-size: 45px;
+            font-size: 18px;
             text-align: center;
             z-index: 1000;
             position: absolute;
-            margin-left: 13%;
-            margin-top: 121%;
+            margin: 121% auto 0 13%;
+            color: #999999;
         }
     </style>
 
 </head>
 
 <body>
-<img width="100%"  src="/resources/imgs/background0.png">
+<img width="100%" src="/resources/imgs/background0.png">
 <div class="receive-content">
     <div class="receive-info">${name}</div>
     <input type="tel" maxlength="11" placeholder="请输入注册的手机号" class="tel" id="phone"/>
@@ -106,10 +107,10 @@
     $(document).ready(function () {
         var code = "${code}";
         var type = "${type}";
-        console.log("locationname:"+location.pathname);
+        console.log("locationname:" + location.pathname);
         $('#submit').click(function () {
             var phone = $('#phone').val();
-            console.log(code+type+phone+":"+validForm());
+            console.log(code + type + phone + ":" + validForm());
             if (isMobile(phone)) {
                 $.ajax({
                     url: "/invite/add",
@@ -121,7 +122,7 @@
                         if (data == "success") {
                             console.log("success");
                             cleanForm();
-                            location.href="/invite/finish"
+                            location.href = "/invite/finish"
                         } else {
                             console.log("failed");
                             alert('领取失败，已经领取过了');
@@ -149,7 +150,6 @@
         }
     });
 </script>
-
 
 
 </body>
