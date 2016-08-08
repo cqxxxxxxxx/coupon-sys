@@ -84,7 +84,6 @@
 
         input[type='tel'] {
             width: 76%;
-            margin: 0 auto;
             display: block;
             height: 50px;
             border-radius: 10px;
@@ -97,8 +96,7 @@
             text-align: center;
             z-index: 1000;
             position: absolute;
-            margin-left: 13%;
-            margin-top: 139%;
+            margin: 139% auto 0 13%;
         }
     </style>
 
