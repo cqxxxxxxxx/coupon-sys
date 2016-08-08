@@ -59,8 +59,8 @@ total_limit | int | 优惠券总数
 sended | int | 已发数
 starttime | bigint | 活动开始时间
 starttime | bigint | 活动截止时间
-created | datetime | 活动新建时间
-updated | datetime | 活动修改时间
+created | bigint | 活动新建时间
+updated | bigint | 活动修改时间
 
 
 #### 企业组织表(organization)
@@ -89,7 +89,7 @@ id | int | 唯一标识 auto_incre, PK
 code | varchar | 邀请码
 type | varchar | 0对应官方分享/1为个人分享/2为企业
 phone | varchar | 获得优惠券的用户的手机号
-created | datetime | 新建时间
+created | bigint | 新建时间
 
 
 
@@ -101,7 +101,7 @@ code | varchar | 邀请码
 type | varchar |  0对应官方/1为个人/2为企业
 ip | varchar | 点击者的IP
 browser | varchar | 点击者使用的浏览器
-created | datetime | 新建时间
+created | bigint | 新建时间
 
 
 
