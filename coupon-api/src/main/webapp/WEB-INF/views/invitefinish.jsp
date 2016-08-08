@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
@@ -17,26 +16,47 @@
 
     <style>
         body {
-            background: #00ada7 none repeat scroll 0 0;
-            color: #000;
-            font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
-            font-size: 14px;
             margin: 0;
             padding: 0;
             position: relative;
             width: 100%;
+        }
+        .content {
+            height: 100%;
+            left: 0;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            z-index: 50;
+        }
+        .QRcode {
+            width: 100%;
+            text-align: center;
+            margin-top: 98%;
+            z-index: 100;
+        }
+        .info{
+            color: #FFFFFF;
+            font-family : 微软雅黑;
+            font-size: 20px;
+            text-align: center;
+            letter-spacing:1.5px;
+            margin-top: 3%;
+            width: inherit;
+            z-index: 100;
+            position: absolute;
         }
     </style>
 
 </head>
 
 <body>
-<img width="100%"  src="/resources/imgs/download.png">
-
-
-
-
-
-
+<img width="100%" src="/resources/imgs/bg0.png">
+<div class="content">
+<div class="QRcode">
+    <img src="/resources/imgs/QRcode0.png" width="230px", height="230px">
+</div>
+<div class="info">扫描下载代码牛APP,&nbsp;立即领取</div>
+</div>
 </body>
 </html>

@@ -1,3 +1,4 @@
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
@@ -19,14 +20,13 @@
         body {
             background: #00ada7 none repeat scroll 0 0;
             color: #000;
-            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+            font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
             font-size: 14px;
             margin: 0;
             padding: 0;
             position: relative;
             width: 100%;
         }
-
         .receive-content {
             height: 100%;
             left: 0;
@@ -35,10 +35,9 @@
             width: 100%;
             z-index: 50;
         }
-
         .receive-button {
             width: 60%;
-            height: 148px;
+            height: 55px;
             line-height: 50px;
             margin: 0 auto;
             text-align: center;
@@ -52,46 +51,63 @@
             z-index: 1000;
             position: absolute;
             margin-left: 21%;
-            margin-top: 141%;
+            margin-top: 158%;
         }
-
-        .receive-info {
+        .receive-info{
+            color: #fa9c50;
+            display: block;
+            font-family : 微软雅黑;
+            font-size: 24px;
+            text-align: center;
+            letter-spacing:1.5px;
+            margin-top: 115%;
+            width: inherit;
+            z-index: 100;
+            position: absolute;
+        }
+        .receive-info span{
+            color: #FFFFFF;
+        }
+        .receive-info1{
             color: #FFFFFF;
             display: block;
-            font-size: 50px;
-            line-height: 25px;
-            margin-top: 101%;
-            margin-left: 18%;
-            font-weight: bold;
+            font-family : 微软雅黑;
+            font-size: 20px;
+            margin-top: 125%;
+            width: inherit;
+            text-align: center;
+            letter-spacing:1.5px;
             z-index: 100;
             position: absolute;
         }
 
         input[type='tel'] {
             width: 76%;
+            margin: 0 auto;
             display: block;
-            height: 45px;
+            height: 50px;
             border-radius: 10px;
             padding: 0;
             border: none;
             -webkit-appearance: none;
             -webkit-box-shadow: none;
             box-shadow: none;
-            font-size: 18px;
+            font-size: 20px;
             text-align: center;
             z-index: 1000;
             position: absolute;
-            margin: 121% auto 0 13%;
-            color: #666666;
+            margin-left: 13%;
+            margin-top: 139%;
         }
     </style>
 
 </head>
 
 <body>
-<img width="100%" src="/resources/imgs/background0.png">
+<img width="100%"  src="/resources/imgs/daimaniubg.png">
 <div class="receive-content">
-    <div class="receive-info">${name}</div>
+    <div class="receive-info">${name}chenqixi<span>&nbsp;邀请你使用代码牛</span></div>
+    <div class="receive-info1">立即注册获得50元优惠券</div>
     <input type="tel" maxlength="11" placeholder="请输入注册的手机号" class="tel" id="phone"/>
     <div class="receive-button" id="submit"></div>
 </div>
@@ -107,10 +123,10 @@
     $(document).ready(function () {
         var code = "${code}";
         var type = "${type}";
-        console.log("locationname:" + location.pathname);
+        console.log("locationname:"+location.pathname);
         $('#submit').click(function () {
             var phone = $('#phone').val();
-            console.log(code + type + phone + ":" + validForm());
+            console.log(code+type+phone+":"+validForm());
             if (isMobile(phone)) {
                 $.ajax({
                     url: "/invite/add",
@@ -122,7 +138,7 @@
                         if (data == "success") {
                             console.log("success");
                             cleanForm();
-                            location.href = "/invite/finish"
+                            location.href="/invite/finish"
                         } else {
                             console.log("failed");
                             alert('领取失败，已经领取过了');
@@ -150,6 +166,7 @@
         }
     });
 </script>
+
 
 
 </body>

@@ -11,6 +11,6 @@
     <title>Title</title>
 </head>
 <body>
-活动已经过期
+活动已经过期或者优惠券已经发完
 </body>
 </html>
