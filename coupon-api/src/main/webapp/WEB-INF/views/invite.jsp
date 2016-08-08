@@ -37,7 +37,7 @@
         }
         .receive-button {
             width: 60%;
-            height: 148px;
+            height: 55px;
             line-height: 50px;
             margin: 0 auto;
             text-align: center;
@@ -51,16 +51,33 @@
             z-index: 1000;
             position: absolute;
             margin-left: 21%;
-            margin-top: 141%;
+            margin-top: 158%;
         }
         .receive-info{
+            color: #fa9c50;
+            display: block;
+            font-family : 微软雅黑;
+            font-size: 24px;
+            text-align: center;
+            letter-spacing:1.5px;
+            margin-top: 115%;
+            width: inherit;
+            z-index: 100;
+            position: absolute;
+        }
+        .receive-info span{
+            color: #FFFFFF;
+            margin-left: auto;
+        }
+        .receive-info1{
             color: #FFFFFF;
             display: block;
-            font-size: 50px;
-            line-height: 25px;
-            margin-top: 101%;
-            margin-left: 18%;
-            font-weight: bold;
+            font-family : 微软雅黑;
+            font-size: 20px;
+            margin-top: 125%;
+            width: inherit;
+            text-align: center;
+            letter-spacing:1.5px;
             z-index: 100;
             position: absolute;
         }
@@ -69,31 +86,34 @@
             width: 76%;
             margin: 0 auto;
             display: block;
-            height: 131px;
+            height: 50px;
             border-radius: 10px;
             padding: 0;
             border: none;
             -webkit-appearance: none;
             -webkit-box-shadow: none;
             box-shadow: none;
-            font-size: 45px;
+            font-size: 20px;
             text-align: center;
             z-index: 1000;
             position: absolute;
             margin-left: 13%;
-            margin-top: 121%;
+            margin-top: 139%;
         }
     </style>
+
 
 </head>
 
 <body>
-<img width="100%"  src="/resources/imgs/background0.png">
+<img width="100%"  src="/resources/imgs/daimaniubg.png">
 <div class="receive-content">
-    <div class="receive-info">${name}</div>
+    <div class="receive-info">${name}<span>&nbsp;邀请你使用代码牛</span></div>
+    <div class="receive-info1">立即注册获得50元优惠券</div>
     <input type="tel" maxlength="11" placeholder="请输入注册的手机号" class="tel" id="phone"/>
     <div class="receive-button" id="submit"></div>
 </div>
+
 
 
 <script>
@@ -120,25 +140,24 @@
                         console.log(data);
                         if (data == "success") {
                             console.log("success");
-                            cleanForm();
                             location.href="/invite/finish"
                         } else {
                             console.log("failed");
-                            alert('领取失败，已经领取过了');
+                            alert('领取失败，您已经领取过该优惠券');
+                            cleanForm();
                         }
                     },
                     error: function (data) {
-                        alert("失败");
+                        alert("系统出错，请联系管理员");
                     }
                 });
             } else {
-                alert('phone格式不对');
+                alert('手机号码格式出错，请重新填写');
             }
         });
 
         function cleanForm() {
-            $('#title').val('');
-            $('#des').val('');
+            $('#phone').val('');
         }
 
         function validForm() {

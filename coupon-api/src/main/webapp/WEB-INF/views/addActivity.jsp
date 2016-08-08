@@ -87,8 +87,8 @@
                                     <input id="num" type="text" class="form-control m-b" required="true">
                                 </div>
                             </div>
-                            <div class="form-group" style="margin-left: 30%">
-                                <div class="col-sm-3">
+                            <div class="form-group" style="margin-left: 15%">
+                                <div class="col-sm-4">
                                     <label class="control-label inline">活动开始日期</label>
                                     <div class="input-group date">
                                         <input id="Starttime" name="Starttime" type="text"
@@ -97,7 +97,7 @@
                                             class="fa fa-clock-o"></i></span>
                                     </div>
                                 </div>
-                                <div class="col-sm-3">
+                                <div class="col-sm-4">
                                     <label class="control-label inline">活动截止日期</label>
                                     <div class="input-group date">
                                         <input id="Endtime" name="Endtime" type="text"

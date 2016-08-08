@@ -46,7 +46,6 @@ public class InviteController {
         String browser = IPUtil.getBrowser(request);
         System.out.println(ip + "---" + browser);
         System.out.println("---" + ref.length());
-
         System.out.println(System.currentTimeMillis());
 
 
@@ -56,7 +55,7 @@ public class InviteController {
             long endtime = deadLineUtil.getEndtime(ref);
 
             //判断时间是否在活动期间内，判断优惠券是否发光
-            if ((System.currentTimeMillis() < starttime || System.currentTimeMillis() > endtime )|| !couponService.checkRemain(ref)) {
+            if ((System.currentTimeMillis() < starttime || System.currentTimeMillis() > endtime) || !couponService.checkRemain(ref)) {
                 System.out.println(starttime + "----" + endtime);
                 return "error";
             }
@@ -65,6 +64,8 @@ public class InviteController {
             System.out.println(couponService.checkRemain(ref));
             long starttime = deadLineUtil.getStarttime(ref);
             long endtime = deadLineUtil.getEndtime(ref);
+
+            //判断时间是否在活动期间内，判断优惠券是否发光
             if (System.currentTimeMillis() < starttime || System.currentTimeMillis() > endtime || !couponService.checkRemain(ref)) {
                 System.out.println(starttime + "----" + endtime);
                 return "error";
