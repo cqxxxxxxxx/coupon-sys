@@ -57,9 +57,9 @@
             color: #fa9c50;
             display: block;
             font-family : 微软雅黑;
-            font-size: 24px;
+            font-size: 22px;
             text-align: center;
-            letter-spacing:1.5px;
+            letter-spacing:1px;
             margin-top: 115%;
             width: inherit;
             z-index: 100;
@@ -77,7 +77,7 @@
             margin-top: 125%;
             width: inherit;
             text-align: center;
-            letter-spacing:1.5px;
+            letter-spacing:1px;
             z-index: 100;
             position: absolute;
         }
