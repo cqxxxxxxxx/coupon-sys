@@ -1,91 +1,123 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.xiaohuodui.dao.AdminMapper" >
-  <resultMap id="BaseResultMap" type="cn.xiaohuodui.model.Admin" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="username" property="username" jdbcType="VARCHAR" />
-    <result column="password" property="password" jdbcType="VARCHAR" />
-    <result column="salt" property="salt" jdbcType="VARCHAR" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.xiaohuodui.dao.AdminMapper">
+  <resultMap id="BaseResultMap" type="cn.xiaohuodui.model.Admin">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="salt" jdbcType="VARCHAR" property="salt" />
+    <result column="role" jdbcType="INTEGER" property="role" />
+    <result column="created" jdbcType="BIGINT" property="created" />
+    <result column="updated" jdbcType="BIGINT" property="updated" />
   </resultMap>
-  <sql id="Base_Column_List" >
-    id, username, password, salt
+  <sql id="Base_Column_List">
+    id, username, password, salt, role, created, updated
   </sql>
-
-  <select id="selectByUsername" resultMap="BaseResultMap" parameterType="map">
+  <select id="selectByUsername" parameterType="map" resultMap="BaseResultMap">
     SELECT
     <include refid="Base_Column_List"/>
-    from admin
-    where username = {#username,jdbcType=VARCHAR}
+    FROM admin
+    where username = #{username,jdbcType=VARCHAR}
   </select>
-
-
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
     <include refid="Base_Column_List" />
     from admin
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from admin
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="cn.xiaohuodui.model.Admin" >
-    insert into admin (id, username, password, 
-      salt)
-    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{salt,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="cn.xiaohuodui.model.Admin">
+    insert into admin (id, username, password,
+    salt, role, created,
+    updated)
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+    #{salt,jdbcType=VARCHAR}, #{role,jdbcType=INTEGER}, #{created,jdbcType=BIGINT},
+    #{updated,jdbcType=BIGINT})
   </insert>
-  <insert id="insertSelective" parameterType="cn.xiaohuodui.model.Admin" >
+  <insert id="insertSelective" parameterType="cn.xiaohuodui.model.Admin">
     insert into admin
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         id,
       </if>
-      <if test="username != null" >
+      <if test="username != null">
         username,
       </if>
-      <if test="password != null" >
+      <if test="password != null">
         password,
       </if>
-      <if test="salt != null" >
+      <if test="salt != null">
         salt,
       </if>
+      <if test="role != null">
+        role,
+      </if>
+      <if test="created != null">
+        created,
+      </if>
+      <if test="updated != null">
+        updated,
+      </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="username != null" >
+      <if test="username != null">
         #{username,jdbcType=VARCHAR},
       </if>
-      <if test="password != null" >
+      <if test="password != null">
         #{password,jdbcType=VARCHAR},
       </if>
-      <if test="salt != null" >
+      <if test="salt != null">
         #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null">
+        #{role,jdbcType=INTEGER},
+      </if>
+      <if test="created != null">
+        #{created,jdbcType=BIGINT},
+      </if>
+      <if test="updated != null">
+        #{updated,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.xiaohuodui.model.Admin" >
+  <update id="updateByPrimaryKeySelective" parameterType="cn.xiaohuodui.model.Admin">
     update admin
-    <set >
-      <if test="username != null" >
+    <set>
+      <if test="username != null">
         username = #{username,jdbcType=VARCHAR},
       </if>
-      <if test="password != null" >
+      <if test="password != null">
         password = #{password,jdbcType=VARCHAR},
       </if>
-      <if test="salt != null" >
+      <if test="salt != null">
         salt = #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null">
+        role = #{role,jdbcType=INTEGER},
+      </if>
+      <if test="created != null">
+        created = #{created,jdbcType=BIGINT},
+      </if>
+      <if test="updated != null">
+        updated = #{updated,jdbcType=BIGINT},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="cn.xiaohuodui.model.Admin" >
+  <update id="updateByPrimaryKey" parameterType="cn.xiaohuodui.model.Admin">
     update admin
     set username = #{username,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
-      salt = #{salt,jdbcType=VARCHAR}
+    password = #{password,jdbcType=VARCHAR},
+    salt = #{salt,jdbcType=VARCHAR},
+    role = #{role,jdbcType=INTEGER},
+    created = #{created,jdbcType=BIGINT},
+    updated = #{updated,jdbcType=BIGINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

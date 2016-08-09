@@ -1,7 +1,7 @@
 package cn.xiaohuodui.model;
 
 public class Admin {
-    private int id;
+    private Integer id;
 
     private String username;
 
@@ -9,11 +9,17 @@ public class Admin {
 
     private String salt;
 
-    public int getId() {
+    private Integer role;
+
+    private Long created;
+
+    private Long updated;
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -40,4 +46,27 @@ public class Admin {
     public void setSalt(String salt) {
         this.salt = salt == null ? null : salt.trim();
     }
-}
+
+    public Integer getRole() {
+        return role;
+    }
+
+    public void setRole(Integer role) {
+        this.role = role;
+    }
+
+    public Long getCreated() {
+        return created;
+    }
+
+    public void setCreated(Long created) {
+        this.created = created;
+    }
+
+    public Long getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(Long updated) {
+        this.updated = updated;
+    }}

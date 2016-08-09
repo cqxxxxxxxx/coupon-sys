@@ -69,15 +69,3 @@
         </ul>
     </div>
 </aside>
-<script type="text/javascript">
-    var path = location.pathname.split('/');
-    var app = path[1];
-    var prefix = "/" + app;
-    $('.logout').click(function (e) {
-        $.post(prefix + '/logout', function (data) {
-            if (data == "success") {
-                window.location.href = prefix + "/login";
-            }
-        });
-    })
-</script>

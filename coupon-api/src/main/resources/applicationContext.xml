@@ -17,6 +17,14 @@
         <property name="prefix" value="/WEB-INF/views/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
+
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="cn.xiaohuodui.interceptors.SignInInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
     <context:component-scan base-package="cn.xiaohuodui.controller"/>
     <context:component-scan base-package="cn.xiaohuodui.rest"/>
     <mvc:annotation-driven/>

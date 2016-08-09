@@ -36,16 +36,17 @@
         </div>
     </nav>
 </div>
-<%--
+
 <script type="text/javascript">
     var path = location.pathname.split('/');
-    var app = path[1];
-    var prefix = "/" + app;
+    var url = path[0]+"/logout";
+    console.log(url);
+
     $('.logout').click(function (e) {
-        $.post(prefix + '/logout', function (data) {
+        $.post(url, function (data) {
             if (data == "success") {
-                window.location.href = prefix + "/login";
+                window.location.href = "/login";
             }
         });
     })
-</script>--%>
+</script>

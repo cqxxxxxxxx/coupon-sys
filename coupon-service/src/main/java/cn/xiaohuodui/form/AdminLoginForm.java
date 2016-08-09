@@ -7,7 +7,24 @@ public class AdminLoginForm {
     private String username;
     private String password;
     private boolean remember;
-    private int root;
+    private int role;
+    private int uid;
+
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
+    }
+
+    public int getUid() {
+        return uid;
+    }
+
+    public void setUid(int uid) {
+        this.uid = uid;
+    }
 
     public String getUsername() { return username;}
 
@@ -29,14 +46,6 @@ public class AdminLoginForm {
 
     public void setRemember(boolean remember) {
         this.remember = remember;
-    }
-
-    public int getRoot() {
-        return root;
-    }
-
-    public void setRoot(int root) {
-        this.root = root;
     }
 
 

@@ -1,5 +1,9 @@
 package cn.xiaohuodui.controller;
 
+import cn.xiaohuodui.exception.BussException;
+import cn.xiaohuodui.form.AdminLoginForm;
+import cn.xiaohuodui.model.Admin;
+import cn.xiaohuodui.service.AdminService;
 import cn.xiaohuodui.utils.ApplicationConstants;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +15,10 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.HandlerMapping;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
@@ -23,100 +29,102 @@ import java.net.URLEncoder;
  */
 @Controller
 public class BaseController {
+    private final Logger logger = Logger.getLogger(BaseController.class);
 
-    /*private final Logger logger = Logger.getLogger(BaseController.class);
     @Autowired
     AdminService adminService;
-    @Autowired
-    IFileUtil iFileUtil;
-
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String index() {
-        return "dashboard";
-    }
-
-    @RequestMapping(value = "/about", method = RequestMethod.GET)
-    public String about() {
-        return "about";
-    }
-
-    @RequestMapping(value = "/404", method = RequestMethod.GET)
-    public String goTo404() {
-        return "404";
-    }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login(HttpSession session, Model model) {
-        if (session.getAttribute(ApplicationConstants.SESSION_SIGNIN_USER) != null) {
-            return "redirect:/";
-        }
+    public String login(HttpServletRequest request, HttpSession session, Model model) {
         model.addAttribute(new AdminLoginForm());
         return "login";
     }
 
-    @RequestMapping(value = "/logout", method = RequestMethod.POST)
-    public
-    @ResponseBody
-    String logout(HttpSession session, HttpServletResponse response) {
-        session.removeAttribute(ApplicationConstants.SESSION_SIGNIN_USER);
-
-        clearCookie(response);
-        return ApplicationConstants.RESPONSE_SUCCESS;
-    }
-
+    /**
+     *
+     * @param adminLoginForm
+     * @param result
+     * @param session
+     * @param response
+     * @return
+     */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String loginIn(AdminLoginForm adminLoginForm, BindingResult result, HttpSession session, HttpServletResponse response) {
+    public String loginIn(AdminLoginForm adminLoginForm, BindingResult result, HttpSession session, HttpServletResponse response){
         Admin admin;
         try {
             admin = adminService.login(adminLoginForm);
         } catch (BussException e) {
             e.printStackTrace();
-            if (e.getHttpStatus().equals(HttpStatus.NOT_FOUND)) {
+           if (e.getHttpStatus().equals(HttpStatus.NOT_FOUND)) {
                 result.addError(new FieldError("adminLoginForm", "username", "用户帐号不存在"));
             } else {
                 result.addError(new FieldError("adminLoginForm", "password", "用户密码不正确"));
             }
             return "login";
         }
-        adminLoginForm.setRoot(admin.getRoot());
+        adminLoginForm.setRole(admin.getRole());
         adminLoginForm.setUid(admin.getId());
+        //登录成功则把name放到session中
         session.setAttribute(ApplicationConstants.SESSION_SIGNIN_USER, adminLoginForm);
-        logger.warn("remember:" + adminLoginForm.isRemember());
-        if (adminLoginForm.isRemember()) {
-            Cookie salt = new Cookie("uc", admin.getSalt());
-            //一周 cookie
-            salt.setMaxAge(604800);
+        //如果选择了记住账号则把username和salt放到Cookie中，设置保存一周，然后把cookie发给浏览器，保存在用户本地
+        if (adminLoginForm.isRemember()){
             Cookie username = null;
+            Cookie salt = null;
             try {
-                username = new Cookie("un", URLEncoder.encode(adminLoginForm.getUsername(), "UTF-8"));
+//                以UTF-8编码信息保存到cookie中，相应的取出cookie中信息时也要utf-8解码信息
+                salt = new Cookie("uc", URLEncoder.encode(admin.getSalt(),"UTF-8"));
+                salt.setMaxAge(604800);  //cookie存在时间1周
+                username = new Cookie("username",URLEncoder.encode(admin.getUsername(),"UTF-8"));
                 username.setMaxAge(604800);
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
-                logger.error("用户名Encode 到Cookie 错误");
+                logger.error("编码出现异常");
+                return "login";
             }
             response.addCookie(salt);
             response.addCookie(username);
+
         }
         return "redirect:/";
     }
 
-    @RequestMapping(value = "/uploadToken", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+    /**
+     * 清除session 和 cookie
+     * @param session
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "/logout", method = RequestMethod.POST)
     public
     @ResponseBody
-    String uploadToken() {
-        UploadTokenVo uploadTokenVo = new UploadTokenVo();
-        uploadTokenVo.setUptoken(iFileUtil.getImageUpdateToken());
-        return JsonUtil.writeObjectAsString(uploadTokenVo);
+    String logout(HttpSession session, HttpServletResponse response) {
+        session.removeAttribute(ApplicationConstants.SESSION_SIGNIN_USER);
+        clearCookie(response);
+        return ApplicationConstants.RESPONSE_SUCCESS;
     }
 
+    /**
+     * 把登出的时候把cookie清除，把内容置为null，保存时间置为0,然后发给浏览器，替换掉以前的cookie
+     * @param response
+     */
     private void clearCookie(HttpServletResponse response) {
-        Cookie un = new Cookie("un", null);
+        Cookie username = new Cookie("username", null);
         Cookie uc = new Cookie("uc", null);
-        un.setMaxAge(0);
+        username.setMaxAge(0);
         uc.setMaxAge(0);
-        response.addCookie(un);
+        response.addCookie(username);
         response.addCookie(uc);
     }
 
-*/
+    @RequestMapping(value = "/getinfo", method = RequestMethod.GET)
+    public String getInfo(HttpServletRequest request) {
+        System.out.println(request.getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE));
+        System.out.println(request.getContextPath());
+        System.out.println(request.getAuthType());
+        System.out.println(request.getMethod());
+        System.out.println(request.getRequestURI());
+        System.out.println(request.getRequestURL());
+        System.out.println(request.getServletPath());
+        return "error";
+    }
 }
