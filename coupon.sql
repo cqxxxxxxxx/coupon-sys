@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50624
 File Encoding         : 65001
 
-Date: 2016-08-08 10:26:55
+Date: 2016-08-10 10:13:30
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -24,12 +24,16 @@ CREATE TABLE `admin` (
   `username` varchar(50) NOT NULL,
   `password` varchar(128) NOT NULL,
   `salt` varchar(50) NOT NULL,
+  `role` int(11) DEFAULT NULL,
+  `created` bigint(20) DEFAULT NULL,
+  `updated` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of admin
 -- ----------------------------
+INSERT INTO `admin` VALUES ('1', 'admin', '$2a$10$8fv83uq2P6C2blbQcEwGD.3yHkOSZhdGk7.WHH8Ra.gw69EudBSwC', '$2a$10$8fv83uq2P6C2blbQcEwGD.', '1', null, null);
 
 -- ----------------------------
 -- Table structure for `click_info`
@@ -43,7 +47,7 @@ CREATE TABLE `click_info` (
   `browser` varchar(255) DEFAULT NULL,
   `created` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=317 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=354 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of click_info
@@ -73,6 +77,43 @@ INSERT INTO `click_info` VALUES ('313', '1002awd', '2', '192.168.0.111', 'Firefo
 INSERT INTO `click_info` VALUES ('314', '100sswr', '2', '192.168.0.111', 'Firefox/47.0', '1470582688498');
 INSERT INTO `click_info` VALUES ('315', '111111qq', '0', '192.168.0.125', 'Firefox/47.0', '1470618080590');
 INSERT INTO `click_info` VALUES ('316', '111111qq', '0', '192.168.0.125', 'Safari/537.36', '1470618882419');
+INSERT INTO `click_info` VALUES ('317', 'ssss1112', '0', '192.168.0.125', 'Firefox/47.0', '1470632312382');
+INSERT INTO `click_info` VALUES ('318', 'ssss1112', '0', '192.168.0.125', 'Safari/537.36', '1470636139179');
+INSERT INTO `click_info` VALUES ('319', 'ssss1112', '0', '192.168.0.125', 'Safari/601.1', '1470636449372');
+INSERT INTO `click_info` VALUES ('320', 'ssss1112', '0', '192.168.0.125', 'Safari/537.36', '1470637319019');
+INSERT INTO `click_info` VALUES ('321', 'ssss1112', '0', '192.168.0.125', 'Safari/537.36', '1470637463699');
+INSERT INTO `click_info` VALUES ('322', 'ssss1112', '0', '192.168.0.125', 'Safari/601.1', '1470637585486');
+INSERT INTO `click_info` VALUES ('323', 'ssss1112', '0', '192.168.0.125', 'Safari/601.1', '1470637600777');
+INSERT INTO `click_info` VALUES ('324', 'ssss1112', '0', '192.168.0.125', 'Safari/601.1', '1470637621011');
+INSERT INTO `click_info` VALUES ('325', 'ssss1112', '0', '192.168.0.125', 'Safari/601.1', '1470637628934');
+INSERT INTO `click_info` VALUES ('326', 'ssss1112', '0', '192.168.0.125', 'Safari/601.1', '1470637669517');
+INSERT INTO `click_info` VALUES ('327', 'ssss1112', '0', '192.168.0.125', 'Safari/601.1', '1470637688075');
+INSERT INTO `click_info` VALUES ('328', 'ssss1112', '0', '192.168.0.125', 'Safari/601.1', '1470637823175');
+INSERT INTO `click_info` VALUES ('329', 'ssss1112', '0', '192.168.0.125', 'Safari/601.1', '1470637936083');
+INSERT INTO `click_info` VALUES ('330', 'ssss1112', '0', '192.168.0.125', 'Safari/601.1', '1470638030713');
+INSERT INTO `click_info` VALUES ('331', 'ssss1112', '0', '192.168.0.125', 'Safari/601.1', '1470638430040');
+INSERT INTO `click_info` VALUES ('332', 'ssss1112', '0', '192.168.0.125', 'Safari/601.1', '1470638794652');
+INSERT INTO `click_info` VALUES ('333', 'ssss1112', '0', '192.168.0.125', 'Safari/601.1', '1470638809701');
+INSERT INTO `click_info` VALUES ('334', 'ssss1112', '0', '192.168.0.125', 'Safari/601.1', '1470639017431');
+INSERT INTO `click_info` VALUES ('335', 'ssss1112', '0', '192.168.0.125', 'Safari/601.1', '1470639045937');
+INSERT INTO `click_info` VALUES ('336', 'ssss1112', '0', '192.168.0.125', 'Safari/601.1', '1470639129041');
+INSERT INTO `click_info` VALUES ('337', 'ssss1112', '0', '192.168.0.125', 'Safari/601.1', '1470639587944');
+INSERT INTO `click_info` VALUES ('338', 'ssss1112', '0', '192.168.0.125', 'Safari/601.1', '1470639753385');
+INSERT INTO `click_info` VALUES ('339', 'ssss1112', '0', '192.168.0.125', 'Safari/601.1', '1470639771335');
+INSERT INTO `click_info` VALUES ('340', 'ssss1112', '0', '192.168.0.125', 'Safari/601.1', '1470639775798');
+INSERT INTO `click_info` VALUES ('341', 'ssss1112', '0', '192.168.0.125', 'Safari/601.1', '1470639783699');
+INSERT INTO `click_info` VALUES ('342', 'ssss1112', '0', '192.168.0.125', 'Safari/601.1', '1470640071049');
+INSERT INTO `click_info` VALUES ('343', 'ssss1112', '0', '192.168.0.125', 'Safari/601.1', '1470640221105');
+INSERT INTO `click_info` VALUES ('344', 'ssss1112', '0', '192.168.0.125', 'Safari/601.1', '1470640685101');
+INSERT INTO `click_info` VALUES ('345', 'ssss1112', '0', '192.168.0.125', 'Safari/601.1', '1470640730165');
+INSERT INTO `click_info` VALUES ('346', 'sss111', '1', '192.168.0.125', 'Safari/601.1', '1470640785370');
+INSERT INTO `click_info` VALUES ('347', 'sss111', '1', '192.168.0.125', 'Safari/601.1', '1470640821289');
+INSERT INTO `click_info` VALUES ('348', 'ssss1112', '0', '192.168.0.125', 'Safari/601.1', '1470642725474');
+INSERT INTO `click_info` VALUES ('349', '111111qq', '0', '192.168.0.125', 'Firefox/47.0', '1470644025744');
+INSERT INTO `click_info` VALUES ('350', '111111qq', '0', '192.168.0.125', 'Safari/537.36', '1470644042123');
+INSERT INTO `click_info` VALUES ('351', '1111qq', '1', '192.168.0.125', 'Safari/601.1', '1470644090577');
+INSERT INTO `click_info` VALUES ('352', 'ssss1112', '0', '192.168.0.125', 'Safari/537.36', '1470645679092');
+INSERT INTO `click_info` VALUES ('353', 'ssss1112', '0', '192.168.0.125', 'Safari/601.1', '1470645910722');
 
 -- ----------------------------
 -- Table structure for `coupon_activity`
@@ -97,8 +138,8 @@ CREATE TABLE `coupon_activity` (
 -- Records of coupon_activity
 -- ----------------------------
 INSERT INTO `coupon_activity` VALUES ('125', 'ssss1111', '安德森', '撒', '1', '1111', '0', '1471968000000', '1472140800000', '1470490504486', '0');
-INSERT INTO `coupon_activity` VALUES ('126', 'ssss1112', '安德森啊啊', '撒', '1', '1111', '0', '1470153600000', '1472140800000', '1470491224768', '0');
-INSERT INTO `coupon_activity` VALUES ('127', '111111qq', 'da', 'ewa', '22', '2222', '0', '1470153600000', '1471449600000', '1470618065143', '0');
+INSERT INTO `coupon_activity` VALUES ('126', 'ssss1112', '安德森啊啊', '撒', '1', '1111', '3', '1470153600000', '1472140800000', '1470491224768', '0');
+INSERT INTO `coupon_activity` VALUES ('127', '111111qq', 'da', 'ewa', '22', '2222', '22', '1470153600000', '1471449600000', '1470618065143', '0');
 
 -- ----------------------------
 -- Table structure for `organization`
@@ -139,7 +180,7 @@ CREATE TABLE `share` (
   `phone` varchar(255) NOT NULL,
   `created` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of share
@@ -171,3 +212,8 @@ INSERT INTO `share` VALUES ('45', '100awd', '1', '15757175965', '1470389215197')
 INSERT INTO `share` VALUES ('46', 'ssss15', '1', '15757176049', '1470491286984');
 INSERT INTO `share` VALUES ('47', '1002awd', '2', '15757817512', '1470539323108');
 INSERT INTO `share` VALUES ('48', '1002awd', '2', '15757175555', '1470582699041');
+INSERT INTO `share` VALUES ('49', 'ssss1112', '0', '15757171234', '1470636462258');
+INSERT INTO `share` VALUES ('50', 'ssss1112', '0', '15757171235', '1470637293267');
+INSERT INTO `share` VALUES ('51', 'sss111', '1', '15757171236', '1470640841416');
+INSERT INTO `share` VALUES ('52', 'ssss1112', '0', '15757171238', '1470642736379');
+INSERT INTO `share` VALUES ('53', '111111qq', '0', '13588382891', '1470644054714');
