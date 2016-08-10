@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
@@ -20,13 +19,14 @@
         body {
             background: #00ada7 none repeat scroll 0 0;
             color: #000;
-            font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
             font-size: 14px;
             margin: 0;
             padding: 0;
             position: relative;
             width: 100%;
         }
+
         .receive-content {
             height: 100%;
             left: 0;
@@ -35,6 +35,7 @@
             width: 100%;
             z-index: 50;
         }
+
         .receive-button {
             width: 60%;
             height: 55px;
@@ -53,31 +54,34 @@
             margin-left: 21%;
             margin-top: 158%;
         }
-        .receive-info{
+
+        .receive-info {
             color: #fa9c50;
             display: block;
-            font-family : 微软雅黑;
+            font-family: 微软雅黑;
             font-size: 22px;
             text-align: center;
-            letter-spacing:1px;
+            letter-spacing: 1px;
             margin-top: 115%;
             width: inherit;
             z-index: 100;
             position: absolute;
         }
-        .receive-info span{
+
+        .receive-info span {
             color: #FFFFFF;
             margin-left: auto;
         }
-        .receive-info1{
+
+        .receive-info1 {
             color: #FFFFFF;
             display: block;
-            font-family : 微软雅黑;
+            font-family: 微软雅黑;
             font-size: 20px;
             margin-top: 125%;
             width: inherit;
             text-align: center;
-            letter-spacing:1px;
+            letter-spacing: 1px;
             z-index: 100;
             position: absolute;
         }
@@ -104,14 +108,13 @@
 </head>
 
 <body>
-<img width="100%"  src="/resources/imgs/daimaniubg.png">
+<img width="100%" src="/resources/imgs/daimaniubg.png">
 <div class="receive-content">
     <div class="receive-info">${name}<span>&nbsp;邀请你使用代码牛</span></div>
     <div class="receive-info1">立即注册获得50元优惠券</div>
     <input type="tel" maxlength="11" placeholder="请输入注册的手机号" class="tel" id="phone"/>
     <div class="receive-button" id="submit"></div>
 </div>
-
 
 
 <script>
@@ -124,13 +127,13 @@
     $(document).ready(function () {
         var code = "${code}";
         var type = "${type}";
-        console.log("locationname:"+location.pathname);
+        console.log("locationname:" + location.pathname);
         $('#submit').click(function () {
             var phone = $('#phone').val();
-            console.log(code+type+phone+":"+validForm());
+            console.log(code + type + phone + ":" + validForm());
             if (isMobile(phone)) {
                 $.ajax({
-                    url: "/invite/add",
+                    url: "/m/invite/add",
                     type: 'POST',
                     data: 'ref=' + code + '&type=' + type + '&phone=' + phone,
                     dataTyp: 'html',
@@ -138,7 +141,7 @@
                         console.log(data);
                         if (data == "success") {
                             console.log("success");
-                            location.href="/invite/finish"
+                            location.href = "/m/invite/finish"
                         } else {
                             console.log("failed");
                             alert('领取失败，您已经领取过该优惠券');
@@ -166,7 +169,6 @@
         }
     });
 </script>
-
 
 
 </body>
