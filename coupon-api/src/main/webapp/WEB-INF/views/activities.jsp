@@ -128,7 +128,7 @@
                     <div class="col-sm-12" style="margin-top: 10px">
                         <div class="row">
                             <div class="col-sm-4">
-                                <button id="addBtn" class="btn  btn-danger" data-toggle="modal" data-target="#myModal1">
+                                <button id="addBtn" class="btn  btn-danger">
                                     <i class="fa fa-plus"></i>&nbsp;&nbsp;新增
                                 </button>
                                 <button id="refresh" class="btn  btn-default"><i class="fa fa-refresh"></i>&nbsp;&nbsp;刷新
@@ -152,43 +152,43 @@
             <div class="col-lg-12 animated-panel zoomIn" style="animation-delay: 0.1s;">
                 <div class="hpanel">
                     <div class="panel-body">
+                        <div>
                             <div>
-                                <div>
-                                    <table class="table table-striped table-bordered  hover"
-                                           id="admin-table">
-                                        <thead>
-                                        <tr role="row">
-                                            <th class="table-id">ID</th>
-                                            <th>活动编号
-                                            </th>
-                                            <th>活动主题
-                                            </th>
-                                            <%-- <th>活动内容
-                                             </th>--%>
-                                            <th>优惠券总数
-                                            </th>
-                                            <th>已发数
-                                            </th>
-                                            <th>单人可领数
-                                            </th>
-                                            <th>活动开始时间
-                                            </th>
-                                            <th>活动截止时间
-                                            </th>
-                                            <th>新建时间
-                                            </th>
-                                            <th>操作</th>
-                                            <th>分享链接
-                                            </th>
-                                            <%-- <th>辅助
-                                             </th>--%>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                <table class="table table-striped table-bordered  hover"
+                                       id="admin-table">
+                                    <thead>
+                                    <tr role="row">
+                                        <th class="table-id">ID</th>
+                                        <th>活动编号
+                                        </th>
+                                        <th>活动主题
+                                        </th>
+                                        <%-- <th>活动内容
+                                         </th>--%>
+                                        <th>优惠券总数
+                                        </th>
+                                        <th>已发数
+                                        </th>
+                                        <th>单人可领数
+                                        </th>
+                                        <th>活动开始时间
+                                        </th>
+                                        <th>活动截止时间
+                                        </th>
+                                        <th>新建时间
+                                        </th>
+                                        <th>分享链接
+                                        </th>
+                                        <th>操作</th>
+                                        <%-- <th>辅助
+                                         </th>--%>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
                             </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -248,7 +248,7 @@
                     <h4 class="modal-title">新建活动</h4>
                 </div>
                 <div class="modal-body">
-                    <form class="form-horizontal" method="get">
+                    <form class="form-horizontal" method="get" id="activityForm">
                         <div class="form-group"><label class="col-sm-2 control-label">活动编号</label>
                             <div class="col-sm-10">
                                 <input id="code1" type="text" class="form-control m-b" placeholder="8位字母或者数字">
@@ -262,11 +262,11 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">优惠券总数</label>
                             <div class="col-sm-3">
-                                <input id="totalLimit1" type="text" class="form-control m-b" placeholder="例如:5000">
+                                <input id="totalLimit1" type="number" class="form-control m-b" placeholder="例如:5000">
                             </div>
                             <label class="col-sm-3 control-label">每人分发数量</label>
                             <div class="col-sm-3">
-                                <input id="num1" type="text" class="form-control m-b" placeholder="例如:5">
+                                <input id="num1" type="number" class="form-control m-b" placeholder="例如:5">
                             </div>
                         </div>
                         <div class="form-group"><label class="col-sm-2 control-label">简介</label>
@@ -310,6 +310,7 @@
 <script src="<c:url value="/resources/js/jquery.dataTables.js"/>"></script>
 <script src="<c:url value="/resources/js/date/bootstrap-datepicker.min.js"/>"></script>
 <script src="<c:url value="/resources/js/date/bootstrap-datepicker.zh-CN.min.js"/>"></script>
+<script src="<c:url value="/resources/js/jquery.form.js"/>"></script>
 <script type="text/javascript">
     var path = location.pathname.split('/');
     var app = path[1];
@@ -348,15 +349,15 @@
     }
 
     function validForm1() {
-        if ($('#code1').val().trim().length!=8){
+        if ($('#code1').val().trim().length != 8) {
             toastr.error("code长度必须为8位数");
             return false;
         }
-        if ($('#name1').val().trim()==""){
+        if ($('#name1').val().trim() == "") {
             toastr.error("活动名不能为空");
             return false;
         }
-        if ($('#des1').val().trim()==""){
+        if ($('#des1').val().trim() == "") {
             toastr.error("活动简介不能为空");
             return false;
         }
@@ -402,15 +403,8 @@
     /****表单提交**/
     function resetForm() {
         $('#activityForm').resetForm();
-        var $textareas = $('#activityForm textarea');
-        $.each($textareas, function (key, value) {
-            $(this).html("");
-        });
         $('#id').val("0");
-        blankImgList(images);
-        setPermission("")
     }
-
 
 
     $(document).ready(function () {
@@ -419,11 +413,13 @@
         var title;
         loadData();
         var $modal = $('#myModal');
+        var $addModal = $('#myModal1');
+
         $("#addBtn").click(function (e) {
             e.preventDefault();
-            // resetForm();
+            resetForm();
             $('#activity-title').html("新增活动");
-            $('#addActivity').modal('show');
+            $addModal.modal('show');
         });
 
         $('#search').click(function (e) {
@@ -486,19 +482,19 @@
                             return renderDate(time);
                         }
                     },
-                    {
-                        "mDataProp": "code",  //利用code再新建一列
-                        "bSortable": false,
-                        "mRender": function (data, type, full) {
-                            return generateOp(data);     //把code的值传进去
-                        }
-                    },
 
                     {
                         "mDataProp": "code",  //利用code再新建一列
                         "bSortable": false,
                         "mRender": function (data, type, full) {
                             return generateUrl(data);     //把code的值传进去
+                        }
+                    },
+                    {
+                        "mDataProp": "code",  //利用code再新建一列
+                        "bSortable": false,
+                        "mRender": function (data, type, full) {
+                            return generateOp(data);     //把code的值传进去
                         }
                     },
                 ],
@@ -560,10 +556,12 @@
         oTable.find('tbody').on('click', ' tr button.delete', function (e) {
             var code = $(this).attr("id");
             console.log(code);
-            $thisTr = $(this).closest("tr");
+            var tr = $(this).parents("tr");
+            var data = oTable.fnGetData(tr[0]);
+            var id = data['id'];
             e.preventDefault();
             swal({
-                        title: "删除活动",
+                        title: "删除活动 [" + data['title'] + "]",
                         text: "",
                         type: "warning",
                         showCancelButton: true,
@@ -581,7 +579,7 @@
                                 success: function (data) {
                                     if (data == "success") {
                                         toastr.success('删除成功');
-                                        location.reload();
+                                        tr.remove();
                                     } else {
                                         toastr.warning('删除失败');
                                     }
@@ -625,7 +623,7 @@
             var num = $('#num1').val();
             var starttime = $('#Starttime').val().replace("年", "-").replace("月", "-").replace("日", "");
             var endtime = $('#Endtime').val().replace("年", "-").replace("月", "-").replace("日", "")
-            console.log("sdafasd---"+$('#totalLimit1').val());
+            console.log("sdafasd---" + $('#totalLimit1').val());
             if (validForm1()) {
                 $.ajax({
                     url: prefix + "/add",
@@ -633,6 +631,8 @@
                     data: "title=" + title + '&des=' + des + '&code=' + code + '&total_limit=' + totalLimit + '&num=' + num + "&starttime=" + starttime + "&endtime=" + endtime,
                     success: function (data) {
                         toastr.success("添加成功");
+                        $addModal.modal('toggle');
+                        refreshTable();
                     },
                     error: function () {
                         toastr.error("失败,请联系管理员");

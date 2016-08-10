@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * Date   :2016-08-02 17:10.
  */
 @Controller
-
 public class InviteApi {
     @Autowired
     ShareService shareService;
@@ -31,7 +30,4 @@ public class InviteApi {
     InviteinfoVo query(@RequestParam("phone") String phone) {
         return shareService.getInviteinfoVoByPhone(phone);
     }
-
-
-
 }

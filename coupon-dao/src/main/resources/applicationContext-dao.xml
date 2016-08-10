@@ -11,7 +11,7 @@
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url" value="#{dbConfig['jdbc.url']}"/>
         <property name="username" value="#{dbConfig['jdbc.username']}"/>
-        <property name="password" value="123456"/>
+        <property name="password" value="#{dbConfig['jdbc.password']}"/>
     </bean>
 
     <!--mybatis的sqlSessionFactory-->
@@ -22,29 +22,29 @@
     </bean>
 
     <!--自动扫描mapper对应的接口 并实现接口 注册BEAN 也可以手动写-->
-<!--   <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-         <property name="basePackage" value="cn.xiaohuodui.dao"/>
-    </bean>-->
+    <!--   <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+             <property name="basePackage" value="cn.xiaohuodui.dao"/>
+        </bean>-->
 
-  <!--手写注册生成接口实现类-->
-   <bean id="ActivityMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
-          <property name="mapperInterface" value="cn.xiaohuodui.dao.ActivityMapper"/>
-          <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    <!--手写注册生成接口实现类-->
+    <bean id="ActivityMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="cn.xiaohuodui.dao.ActivityMapper"/>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
 
-      </bean>
-      <bean id="ClickinfoMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
-          <property name="mapperInterface" value="cn.xiaohuodui.dao.ClickinfoMapper"/>
-          <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
+    <bean id="ClickinfoMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="cn.xiaohuodui.dao.ClickinfoMapper"/>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
 
-      </bean>
-      <bean id="ShareinfoMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
-          <property name="mapperInterface" value="cn.xiaohuodui.dao.ShareinfoMapper"/>
-          <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
-      </bean>
-      <bean id="OrganizationMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
-          <property name="mapperInterface" value="cn.xiaohuodui.dao.OrganizationMapper"/>
-          <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
-      </bean>
+    </bean>
+    <bean id="ShareinfoMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="cn.xiaohuodui.dao.ShareinfoMapper"/>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
+    <bean id="OrganizationMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="cn.xiaohuodui.dao.OrganizationMapper"/>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
     <bean id="AdminMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
         <property name="mapperInterface" value="cn.xiaohuodui.dao.AdminMapper"/>
         <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
@@ -54,6 +54,4 @@
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
     </bean>
-
-
 </beans>
