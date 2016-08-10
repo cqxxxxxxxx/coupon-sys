@@ -53,6 +53,12 @@
             margin-left: 21%;
             margin-top: 158%;
         }
+        .logo{
+            margin-top: 38%;
+            margin-left: 57%;
+            z-index: 100;
+            position: absolute;
+        }
         .receive-info{
             color: #fa9c50;
             display: block;
@@ -72,7 +78,7 @@
             color: #FFFFFF;
             display: block;
             font-family : 微软雅黑;
-            font-size: 20px;
+            font-size: 18px;
             margin-top: 125%;
             width: inherit;
             text-align: center;
@@ -104,10 +110,13 @@
 </head>
 
 <body>
-<img width="100%"  src="/resources/imgs/daimaniubg.png">
+<img width="100%"  src="/resources/imgs/orgbg1.png">
 <div class="receive-content">
-    <div class="receive-info">${name}chenqixi<span>&nbsp;邀请你使用代码牛</span></div>
-    <div class="receive-info1">立即注册获得50元优惠券</div>
+    <div class="logo">
+        <img src="${logo}" width="110px" height="143px">
+    </div>
+    <div class="receive-info">代码牛<span>&nbsp;&nbsp;联合&nbsp;&nbsp;</span>${name}</div>
+    <div class="receive-info1">邀请您使用代码牛,并送您￥50优惠券</div>
     <input type="tel" maxlength="11" placeholder="请输入注册的手机号" class="tel" id="phone"/>
     <div class="receive-button" id="submit"></div>
 </div>
@@ -138,7 +147,7 @@
                         if (data == "success") {
                             console.log("success");
                             cleanForm();
-                            location.href="m/invite/finish"
+                            location.href="m/invite/orgfinish"
                         } else {
                             console.log("failed");
                             alert('领取失败，已经领取过了');

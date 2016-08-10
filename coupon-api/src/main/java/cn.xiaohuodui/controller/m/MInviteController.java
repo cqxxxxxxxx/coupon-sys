@@ -1,12 +1,10 @@
 package cn.xiaohuodui.controller.m;
 
-import cn.xiaohuodui.service.ActivityService;
-import cn.xiaohuodui.service.ClickService;
-import cn.xiaohuodui.service.CouponService;
-import cn.xiaohuodui.service.ShareService;
+import cn.xiaohuodui.service.*;
 import cn.xiaohuodui.util.DeadLineUtil;
 import cn.xiaohuodui.utils.ApplicationConstants;
 import cn.xiaohuodui.utils.IPUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +33,9 @@ public class MInviteController {
     @Resource(name = "CouponService")
     CouponService couponService;
 
+    @Autowired
+    OrganizationService organizationService;
+
     @Resource(name = "DeadLineUtil")
     DeadLineUtil deadLineUtil;
 
@@ -54,9 +55,10 @@ public class MInviteController {
         System.out.println(ip + "---" + browser);
         System.out.println("---" + ref.length());
         System.out.println(System.currentTimeMillis());
-
+        System.out.println(ref.length());
 
         if (ref.length() == 8) {
+
             System.out.println(couponService.checkRemain(ref));
             long starttime = deadLineUtil.getStarttime(ref);
             long endtime = deadLineUtil.getEndtime(ref);
@@ -67,7 +69,12 @@ public class MInviteController {
                 return "error";
             }
             model.addAttribute("type", "0");    //官方的url进来的
+            model.addAttribute("code", ref);
+            clickService.setInfo(ref, ip, browser);
+            return "officalInvite";
+
         } else if (ref.length() == 7) {
+
             System.out.println(couponService.checkRemain(ref));
             long starttime = deadLineUtil.getStarttime(ref);
             long endtime = deadLineUtil.getEndtime(ref);
@@ -77,19 +84,26 @@ public class MInviteController {
                 System.out.println(starttime + "----" + endtime);
                 return "error";
             }
+
+            model.addAttribute("logo", organizationService.getinfo(ref).getLogo());
+            model.addAttribute("name", organizationService.getinfo(ref).getName());
+            System.out.println("name:"+ organizationService.getinfo(ref).getName());
             model.addAttribute("type", "2");    //企业的url进来的
-        } else {
-            model.addAttribute("type", "1");    //个人的url进来的
-        }
-        model.addAttribute("code", ref);
-        if (name == null) {
+            model.addAttribute("code", ref);
             clickService.setInfo(ref, ip, browser);
-            return "officalInvite";
+            return "orgInvite";
+
         } else {
+
+            model.addAttribute("type", "1");    //个人的url进来的
             model.addAttribute("name", name);
             clickService.setInfo(ref, ip, browser);
             return "invite";
         }
+
+
+
+
     }
 
     /**
@@ -116,6 +130,11 @@ public class MInviteController {
     
     @RequestMapping(value = "/finish", method = RequestMethod.GET)
     public String redirect() {
-        return "invitefinish";
+        return "regFinish";
+    }
+
+    @RequestMapping(value = "/orgfinish", method = RequestMethod.GET)
+    public String redirect1() {
+        return "orgRegFinish";
     }
 }
