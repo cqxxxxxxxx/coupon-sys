@@ -37,9 +37,9 @@ phone | String | 手机号(@Size(min = 11, max = 11))
 {
   "ref": "1000awd",
   "phone": "13175060952",
-  "type": 2
-  "num": 5
-  "created": 1470217456833,
+  "type": 2,
+  "num": 5,
+  "created": 1470217456833
 }
 ```
 

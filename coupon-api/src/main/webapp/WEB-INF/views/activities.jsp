@@ -389,8 +389,7 @@
 
     function generateUrl(id) {   //button的ID就是对应的code
         var code = id;
-        var url = "/invite/" + code;
-        return '<p>' + 'http://localhost:8080/invite?ref=' + code + '</p>';
+        return '<p>' + 'http://i.daimaniu.cn/m/invite?ref=' + code + '</p>';
     }
 
     function generateOp(id) {

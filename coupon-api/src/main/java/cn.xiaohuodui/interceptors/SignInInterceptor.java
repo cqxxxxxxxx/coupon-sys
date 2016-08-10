@@ -30,12 +30,12 @@ public class SignInInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String login = "/login";
         String logout = "/logout";
-        System.out.println("-----------------拦截器启动------------------");
         //如果请求为 /login  404  或者包含resources的资源请求则放过，不拦截
         if (request.getRequestURI().endsWith(logout) || request.getRequestURI().endsWith(login) || request.getRequestURI().endsWith("404") || request.getRequestURI().contains("resources")) {
-            logger.debug("inteceptor:请求为"+request.getRequestURI());
+            logger.debug("inteceptor:请求为" + request.getRequestURI());
             return true;
         }
+        logger.debug("-----------------拦截器启动------------------");
         HttpSession session = request.getSession();  //得到当前session，如果是null则创建一个
         AdminLoginForm adminLoginForm = SessionUtil.getSignInUser(session);
 
@@ -92,7 +92,7 @@ public class SignInInterceptor extends HandlerInterceptorAdapter {
             if (cookie.getName().equals("username")) {
                 try { //从cookie中取出username对应的值，以utf-8解码
                     username = URLDecoder.decode(cookie.getValue(), "UTF-8");
-                    logger.debug("Cookie中username："+username);
+                    logger.debug("Cookie中username：" + username);
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                     logger.error("解析Cookie出错");
@@ -101,7 +101,7 @@ public class SignInInterceptor extends HandlerInterceptorAdapter {
             }
             if (cookie.getName().equals("uc")) {  //cookie中的salt
                 salt = cookie.getValue();
-                logger.debug("Cookie中salt："+salt);
+                logger.debug("Cookie中salt：" + salt);
             }
         }
         if (username == null) {  //如果cookie中没有用户信息，返回null

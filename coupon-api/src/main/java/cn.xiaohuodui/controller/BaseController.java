@@ -40,8 +40,12 @@ public class BaseController {
         return "login";
     }
 
+    @RequestMapping(value = {"/", ""}, method = RequestMethod.GET)
+    public String index() {
+        return "redirect:/activities";
+    }
+
     /**
-     *
      * @param adminLoginForm
      * @param result
      * @param session
@@ -49,13 +53,13 @@ public class BaseController {
      * @return
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String loginIn(AdminLoginForm adminLoginForm, BindingResult result, HttpSession session, HttpServletResponse response){
+    public String loginIn(AdminLoginForm adminLoginForm, BindingResult result, HttpSession session, HttpServletResponse response) {
         Admin admin;
         try {
             admin = adminService.login(adminLoginForm);
         } catch (BussException e) {
             e.printStackTrace();
-           if (e.getHttpStatus().equals(HttpStatus.NOT_FOUND)) {
+            if (e.getHttpStatus().equals(HttpStatus.NOT_FOUND)) {
                 result.addError(new FieldError("adminLoginForm", "username", "用户帐号不存在"));
             } else {
                 result.addError(new FieldError("adminLoginForm", "password", "用户密码不正确"));
@@ -67,14 +71,14 @@ public class BaseController {
         //登录成功则把name放到session中
         session.setAttribute(ApplicationConstants.SESSION_SIGNIN_USER, adminLoginForm);
         //如果选择了记住账号则把username和salt放到Cookie中，设置保存一周，然后把cookie发给浏览器，保存在用户本地
-        if (adminLoginForm.isRemember()){
+        if (adminLoginForm.isRemember()) {
             Cookie username = null;
             Cookie salt = null;
             try {
 //                以UTF-8编码信息保存到cookie中，相应的取出cookie中信息时也要utf-8解码信息
-                salt = new Cookie("uc", URLEncoder.encode(admin.getSalt(),"UTF-8"));
+                salt = new Cookie("uc", URLEncoder.encode(admin.getSalt(), "UTF-8"));
                 salt.setMaxAge(604800);  //cookie存在时间1周
-                username = new Cookie("username",URLEncoder.encode(admin.getUsername(),"UTF-8"));
+                username = new Cookie("username", URLEncoder.encode(admin.getUsername(), "UTF-8"));
                 username.setMaxAge(604800);
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
@@ -90,6 +94,7 @@ public class BaseController {
 
     /**
      * 清除session 和 cookie
+     *
      * @param session
      * @param response
      * @return
@@ -105,6 +110,7 @@ public class BaseController {
 
     /**
      * 把登出的时候把cookie清除，把内容置为null，保存时间置为0,然后发给浏览器，替换掉以前的cookie
+     *
      * @param response
      */
     private void clearCookie(HttpServletResponse response) {
