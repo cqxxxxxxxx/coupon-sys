@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
  * Date   :2016-08-10 14:27.
  */
 @Controller
-@RequestMapping(value = "/m/invites")
+@RequestMapping(value = "/m/invite")
 public class MInviteController {
     @Resource(name = "ActivityService")
     ActivityService activityService;
