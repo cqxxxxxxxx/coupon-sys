@@ -21,6 +21,7 @@
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/v1/*"/>
             <bean class="cn.xiaohuodui.interceptors.SignInInterceptor"></bean>
         </mvc:interceptor>
     </mvc:interceptors>
