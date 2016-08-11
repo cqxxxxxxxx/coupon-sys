@@ -70,6 +70,7 @@ public class MInviteController {
                 System.out.println(starttime + "----" + endtime);
                 return "error";
             }
+            model.addAttribute("name", activityService.getinfo(ref).getTitle());
             model.addAttribute("type", "0");    //官方的url进来的
             model.addAttribute("code", ref);
             clickService.setInfo(ref, ip, browser);

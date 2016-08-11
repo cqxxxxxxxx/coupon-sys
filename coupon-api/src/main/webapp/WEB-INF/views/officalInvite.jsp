@@ -110,7 +110,7 @@
 <body>
 <img width="100%" src="/resources/imgs/daimaniubg.png">
 <div class="receive-content">
-    <div class="receive-info">${name}chenqixi<span>&nbsp;邀请你使用代码牛</span></div>
+    <div class="receive-info">${name}活动</div>
     <div class="receive-info1">立即注册获得50元优惠券</div>
     <input type="tel" maxlength="11" placeholder="请输入注册的手机号" class="tel" id="phone"/>
     <div class="receive-button" id="submit"></div>
