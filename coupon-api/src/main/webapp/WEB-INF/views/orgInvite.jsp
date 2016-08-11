@@ -125,7 +125,7 @@
     </div>
     <div class="logo">
         <%--<img src="${logo}" width="110px" height="143px">--%>
-            <img src="/resources/imgs/ubulogo.png" width="120px" height="120px">
+            <img src="${logo}" width="120px" height="120px">
     </div>
     <div class="receive-info">代码牛<span>&nbsp;&nbsp;联合&nbsp;&nbsp;</span>${name}</div>
     <div class="receive-info1">邀请您使用代码牛,并送您￥50优惠券</div>
