@@ -99,8 +99,12 @@ public class OrganizationController {
     public
     @ResponseBody
     String addOrganization(@ModelAttribute OrganizationCreateForm form) throws ParseException {
-        organizationService.createOrganization(form);
-        return ApplicationConstants.RESPONSE_SUCCESS;
+        if (organizationService.createOrganization(form)){
+            return ApplicationConstants.RESPONSE_SUCCESS;
+        }else {
+            return ApplicationConstants.RESPONSE_FAIL;
+        }
+
     }
 
     // 查询信息
@@ -111,6 +115,18 @@ public class OrganizationController {
    /*     Organization organization = organizationService.getinfo(code);
         OrganizationVo organizationVo = new OrganizationVo(organization);*/
         return JsonUtil.writeObjectAsString(organizationService.getinfo(code));
+    }
+
+    // 查看code是否存在
+    @RequestMapping(value = "{code}/check", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    String checkcode(@PathVariable(value = "code") String code){
+        if (organizationService.checkCode(code)){
+            return ApplicationConstants.RESPONSE_SUCCESS;
+        }else {
+            return ApplicationConstants.RESPONSE_FAIL;
+        }
     }
 
     //更新信息

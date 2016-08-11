@@ -136,7 +136,8 @@
 
 <script>
     var path = location.pathname.split('/');
-
+    prefix = path[0];
+    prefix1 = path[1];
     function isMobile(str) {
         var reg = /^[1][34578]\d{9}$/;
         return reg.test(str);
@@ -146,12 +147,14 @@
         var code = "${code}";
         var type = "${type}";
         console.log("locationname:"+location.pathname);
+        console.log(prefix);
+        console.log(prefix1);
         $('#submit').click(function () {
             var phone = $('#phone').val();
             console.log(code+type+phone+":"+validForm());
             if (isMobile(phone)) {
                 $.ajax({
-                    url: "invite/add",
+                    url: prefix+"/m/invite/add",
                     type: 'POST',
                     data: 'ref=' + code + '&type=' + type + '&phone=' + phone,
                     dataTyp: 'html',
@@ -160,7 +163,7 @@
                         if (data == "success") {
                             console.log("success");
                             cleanForm();
-                            location.href="invite/finish?type=2"
+                            location.href=prefix+"/m/invite/finish?type=2"
                         } else {
                             console.log("failed");
                             alert('领取失败，已经领取过了');

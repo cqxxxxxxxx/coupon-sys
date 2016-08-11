@@ -69,7 +69,7 @@
 
                             <div class="form-group"><label class="col-sm-2 control-label">活动编号</label>
                                 <div class="col-sm-10">
-                                    <input id="code" type="text" class="form-control m-b" placeholder="请输入7位字母或者数字">
+                                    <input id="code"  type="text" class="form-control m-b" placeholder="数字或字母，不能为6位">
                                 </div>
                             </div>
 
@@ -97,27 +97,28 @@
                             </div>
                             <div class="form-group"><label class="col-sm-2 control-label">开始时间</label>
                                 <div class=" col-sm-3">
-                                <div class="input-group date">
-                                    <input id="Starttime" name="Starttime" type="text"
-                                           class="form-control"><span
-                                        class="input-group-addon"><i
-                                        class="fa fa-clock-o"></i></span>
-                                </div>
+                                    <div class="input-group date">
+                                        <input id="Starttime" name="Starttime" type="text"
+                                               class="form-control"><span
+                                            class="input-group-addon"><i
+                                            class="fa fa-clock-o"></i></span>
+                                    </div>
                                 </div>
                                 <label class="col-sm-2 control-label">结束时间</label>
                                 <div class="col-sm-3">
-                                <div class="input-group date ">
-                                    <input id="Endtime" name="Endtime" type="text"
-                                           class="form-control"><span
-                                        class="input-group-addon"><i
-                                        class="fa fa-clock-o"></i></span>
-                                </div>
+                                    <div class="input-group date ">
+                                        <input id="Endtime" name="Endtime" type="text"
+                                               class="form-control"><span
+                                            class="input-group-addon"><i
+                                            class="fa fa-clock-o"></i></span>
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="form-group"><label class="col-sm-2 control-label">当前LOGO</label>
                                 <div class="col-sm-10">
-                                    <img id="preview" width="100px" height="100px" src="<c:url value="/resources/imgs/logo.png"/> ">
+                                    <img id="preview" width="100px" height="100px"
+                                         src="<c:url value="/resources/imgs/logo.png"/> ">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -175,6 +176,38 @@
         console.log(prefix + $('#uptoken_url').val());
         console.log($('#preview').attr('src'));
 
+       /* function checkcode(){
+            var code = $('#code').val();
+            $.ajax({
+                url: prefix + "/" + code + "/check",
+                type: 'GET',
+                data: 'code=' + code,
+                success: function (data) {
+                    if (data == "success") {
+                        toastr.success('编号可用')
+                    } else {
+                        toastr.error('编号已存在，请换个编号');
+                    }
+                }
+            })
+        }*/
+
+       /* $('#code').onchange(function () {
+            var code = $('#code').val();
+            $.ajax({
+                url: prefix + "/" + code + "/check",
+                type: 'GET',
+                data: 'code=' + code,
+                success: function (data) {
+                    if (data == "success") {
+                        toastr.success('编号可用')
+                    } else {
+                        toastr.error('编号已存在，请换个编号');
+                    }
+                }
+            })
+        })*/
+
         $('#submit').click(function (e) {
             e.preventDefault();
             var code = $('#code').val();
@@ -196,7 +229,7 @@
                             cleanForm();
                             toastr.success('新建' + name + '成功')
                         } else {
-                            toastr.error('新建失败!请联系管理员');
+                            toastr.error('新建失败!code重复，请换个code');
                         }
                     }
                 });
@@ -281,7 +314,7 @@
             $('#name').val('');
             $('#des').val('');
             $('#preview').attr('src', '/resources/imgs/logo.png');
-           $('#total_limit').val('');
+            $('#total_limit').val('');
             $('#num').val('');
             $('#Starttime').val('');
             $('#Endtime').val('');
@@ -289,8 +322,8 @@
         }
 
         function validForm() {
-            if ($('#code').val().trim().length!=7) {
-                toastr.error('code长度必须为7位');
+            if ($('#code').val().trim().length == 6) {
+                toastr.error('code长度不能6位');
                 return false;
             }
             if ($('#name').val().trim() == "") {

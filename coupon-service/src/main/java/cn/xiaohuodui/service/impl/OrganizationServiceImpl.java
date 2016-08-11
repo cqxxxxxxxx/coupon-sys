@@ -3,8 +3,10 @@ package cn.xiaohuodui.service.impl;
 import cn.xiaohuodui.dao.OrganizationMapper;
 import cn.xiaohuodui.form.OrganizationCreateForm;
 import cn.xiaohuodui.model.Organization;
+import cn.xiaohuodui.service.ActivityService;
 import cn.xiaohuodui.service.OrganizationService;
 import cn.xiaohuodui.util.DateUtil;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +22,14 @@ public class OrganizationServiceImpl implements OrganizationService {
     @Autowired
     OrganizationMapper organizationMapper;
 
+    @Autowired
+    ActivityService activityService;
+
+    private final Logger logger = Logger.getLogger(OrganizationServiceImpl.class);
+
     public boolean createOrganization(OrganizationCreateForm form) throws ParseException {
-        if (checkCode(form.getCode())){
+        //活动表和企业表中都没有该code 则可以进行注册
+        if (checkCode(form.getCode()) && activityService.checkCode(form.getCode())) {
             Organization organization = new Organization();
             organization.setCode(form.getCode());
             organization.setName(form.getName());
@@ -33,13 +41,14 @@ public class OrganizationServiceImpl implements OrganizationService {
             organization.setEndtime(DateUtil.stringToTimeStamp(form.getEndtime()));
             organizationMapper.insert(organization);
             return true;
-        }else {
+        } else {
+            logger.debug("code已存在");
             return false;
         }
     }
 
     public boolean checkCode(String code) {
-        if (organizationMapper.exist(code) == null) {
+        if (organizationMapper.exist(code) == null) {  //不存在返回true
             return true;
         } else {
             return false;
@@ -56,7 +65,7 @@ public class OrganizationServiceImpl implements OrganizationService {
     }
 
     public Organization getinfo(String code) {
-        return  organizationMapper.getInfo(code);
+        return organizationMapper.getInfo(code);
     }
 
     public boolean updateInfo(Organization organization) {
@@ -66,17 +75,19 @@ public class OrganizationServiceImpl implements OrganizationService {
         System.out.println(organization.getId());
 
 
-        if (organizationMapper.updateInfo(organization)>0){
+        if (organizationMapper.updateInfo(organization) > 0) {
             return true;
-        }else {
+        } else {
+            logger.debug("更新失败");
             return false;
         }
     }
 
     public boolean deleteOrganization(String code) {
-        if (organizationMapper.deleteOrganization(code)>0){
+        if (organizationMapper.deleteOrganization(code) > 0) {
             return true;
-        }else {
+        } else {
+            logger.debug("删除失败");
             return false;
         }
     }

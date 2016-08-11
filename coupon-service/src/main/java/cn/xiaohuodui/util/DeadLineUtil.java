@@ -2,6 +2,7 @@ package cn.xiaohuodui.util;
 
 import cn.xiaohuodui.dao.ActivityMapper;
 import cn.xiaohuodui.dao.OrganizationMapper;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -9,7 +10,7 @@ import javax.annotation.Resource;
 /**
  * Created by cqxxxxx on 2016/8/3.
  */
-@Service("DeadLineUtil")
+@Component("DeadLineUtil")
 public class DeadLineUtil {
 
     @Resource(name="ActivityMapper")
@@ -24,7 +25,7 @@ public class DeadLineUtil {
      * @return
      */
     public long getStarttime(String code){
-        if (code.length() == 7) {
+        if (organizationMapper.exist(code)!=null) {
             return organizationMapper.getStarttime(code);
         }else {
             return activityMapper.getStarttime(code);
@@ -37,7 +38,7 @@ public class DeadLineUtil {
      * @return
      */
     public long getEndtime(String code){
-        if (code.length() == 7) {
+        if (organizationMapper.exist(code)!=null) {
             return organizationMapper.getEndtime(code);
         }else {
             return activityMapper.getEndtime(code);

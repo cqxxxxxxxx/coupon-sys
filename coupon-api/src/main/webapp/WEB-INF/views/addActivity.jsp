@@ -60,7 +60,7 @@
 
                                 <div class="col-sm-10">
                                     <input id="code" type="text" class="form-control m-b" required="true"
-                                           placeholder="8位字母或者数字">
+                                           placeholder="数字或字母，不能为6位">
                                 </div>
                             </div>
                             <div class="form-group"><label class="col-sm-2 control-label">活动主题</label>
@@ -175,7 +175,7 @@
                             toastr.success('添加成功');
                         } else {
                             console.log("failed");
-                            toastr.error('code被占用');
+                            toastr.error('code被占用，请换个code');
                         }
                     }
                 });
@@ -192,8 +192,8 @@
         }
 
         function validForm() {
-            if ($('#code').val().trim().length!=8) {
-                toastr.error('code长度必须为8位');
+            if ($('#code').val().trim().length==6) {
+                toastr.error('code长度不能6位');
                 return false;
             }
             if ($('#title').val().trim() == "") {

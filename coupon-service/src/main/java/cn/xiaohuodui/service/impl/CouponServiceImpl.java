@@ -1,7 +1,6 @@
 package cn.xiaohuodui.service.impl;
 
 import cn.xiaohuodui.service.CouponService;
-import cn.xiaohuodui.util.NumUtil;
 import cn.xiaohuodui.util.SendedUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,8 +14,7 @@ public class CouponServiceImpl implements CouponService {
     @Autowired
     SendedUtil sendedUtil;
 
-    @Autowired
-    NumUtil numUtil;
+
 
     /**
      * 手机号注册后进行sended的相应的更新
@@ -25,7 +23,7 @@ public class CouponServiceImpl implements CouponService {
      */
     public boolean updateSended(String code) {
         int sended = sendedUtil.getSended(code);
-        sended += numUtil.getNum(code);
+        sended += sendedUtil.getNum(code);
         if (sendedUtil.updateSended(code,sended)>0){
             return true;
         }else {

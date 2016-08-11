@@ -5,8 +5,11 @@ import cn.xiaohuodui.dao.ClickinfoMapper;
 import cn.xiaohuodui.form.ClickQueryForm;
 import cn.xiaohuodui.model.Clickinfo;
 import cn.xiaohuodui.model.IpGroup;
+import cn.xiaohuodui.service.ActivityService;
 import cn.xiaohuodui.service.ClickService;
+import cn.xiaohuodui.service.OrganizationService;
 import cn.xiaohuodui.util.DateUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -22,18 +25,21 @@ public class ClickServiceImpl implements ClickService {
     @Resource
     private ClickinfoMapper clickinfoMapper;
 
+    @Autowired
+    private ActivityService activityService;
 
     //官方分享的URL被点击后  把点击者信息插入clickinfo表
     public void setInfo(String code, String ip, String browser) {
         Clickinfo clickinfo = new Clickinfo();
-        System.out.println("---"+code.length());
-        if (code.length() == 8) {      //官方code8位长， TYPE为0
-            clickinfo.setType("0");
-        } else if (code.length()==7){
-            clickinfo.setType("2"); //企业code为7位， TYPE2
-        }else {
-            clickinfo.setType("1"); //个人code为6位 type1
+
+        if (code.length() == 6) {
+            clickinfo.setType("1");                     //来自个人code type1
+        } else if (!activityService.checkCode(code)) {
+            clickinfo.setType("0");                     //来自官方的code， TYPE为0
+        } else {
+            clickinfo.setType("2");                     //来自企业code， TYPE2
         }
+
         clickinfo.setCreated(System.currentTimeMillis());
         clickinfo.setBrowser(browser);
         clickinfo.setCode(code);

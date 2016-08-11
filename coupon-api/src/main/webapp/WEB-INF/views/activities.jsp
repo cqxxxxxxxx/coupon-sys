@@ -251,7 +251,7 @@
                     <form class="form-horizontal" method="get" id="activityForm">
                         <div class="form-group"><label class="col-sm-2 control-label">活动编号</label>
                             <div class="col-sm-10">
-                                <input id="code1" type="text" class="form-control m-b" placeholder="8位字母或者数字">
+                                <input id="code1" type="text" class="form-control m-b" placeholder="数字或字母，不能为6位">
                             </div>
                         </div>
                         <div class="form-group"><label class="col-sm-2 control-label">活动名称</label>
@@ -349,8 +349,8 @@
     }
 
     function validForm1() {
-        if ($('#code1').val().trim().length != 8) {
-            toastr.error("code长度必须为8位数");
+        if ($('#code1').val().trim().length == 6) {
+            toastr.error("code长度不能为6位数");
             return false;
         }
         if ($('#name1').val().trim() == "") {
@@ -629,9 +629,14 @@
                     type: "POST",
                     data: "title=" + title + '&des=' + des + '&code=' + code + '&total_limit=' + totalLimit + '&num=' + num + "&starttime=" + starttime + "&endtime=" + endtime,
                     success: function (data) {
-                        toastr.success("添加成功");
-                        $addModal.modal('toggle');
-                        refreshTable();
+                        if(data == "success"){
+                            toastr.success("添加成功");
+                            $addModal.modal('toggle');
+                            refreshTable();
+                        }else{
+                            toastr.success("添加失败,code重复");
+                        }
+
                     },
                     error: function () {
                         toastr.error("失败,请联系管理员");

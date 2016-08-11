@@ -112,6 +112,19 @@ public class ActivityController {
         return JsonUtil.writeObjectAsString(results);
     }
 
+    // 查看code是否存在
+    @RequestMapping(value = "{code}/check", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    String checkcode(@PathVariable(value = "code") String code){
+        if (activityService.checkCode(code)){
+            return ApplicationConstants.RESPONSE_SUCCESS;
+        }else {
+            return ApplicationConstants.RESPONSE_FAIL;
+        }
+    }
+
+
     //  添加页面的跳转
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String addActivity() {

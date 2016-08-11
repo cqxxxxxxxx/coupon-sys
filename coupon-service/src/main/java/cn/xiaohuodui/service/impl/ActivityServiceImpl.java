@@ -4,7 +4,10 @@ package cn.xiaohuodui.service.impl;
 import cn.xiaohuodui.dao.ActivityMapper;
 import cn.xiaohuodui.model.Activity;
 import cn.xiaohuodui.service.ActivityService;
+import cn.xiaohuodui.service.OrganizationService;
 import cn.xiaohuodui.util.DateUtil;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -22,6 +25,10 @@ public class ActivityServiceImpl implements ActivityService {
     @Resource(name = "ActivityMapper")
     private ActivityMapper activityMapper;
 
+    @Autowired
+    private OrganizationService organizationService;
+
+    private final Logger logger = Logger.getLogger(ActivityServiceImpl.class);
 
     //分页版本 map中需要 offset limit  keyword可选
     public List<Activity> getActivities(String keyword, int limit, int offset) {
@@ -48,11 +55,12 @@ public class ActivityServiceImpl implements ActivityService {
         activity.setCreated(time);
         activity.setStarttime(st);
         activity.setEndtime(et);
-        if (this.checkCode(code)) {
+        organizationService.checkCode(code);
+        if (this.checkCode(code) && organizationService.checkCode(code)) {
             activityMapper.insert(activity);
             return true;        //注册成功
         } else {
-            System.out.println("code重复");
+            logger.debug("code已存在，注册失败");
             return false;
         }
     }
@@ -77,9 +85,9 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     public boolean deleteActivity(String code) {
-        if (activityMapper.deleteActivity(code)>0){
+        if (activityMapper.deleteActivity(code) > 0) {
             return true;
-        }else {
+        } else {
             return false;
         }
     }

@@ -1,5 +1,6 @@
 package cn.xiaohuodui.controller.m;
 
+import cn.xiaohuodui.model.Organization;
 import cn.xiaohuodui.service.*;
 import cn.xiaohuodui.util.DeadLineUtil;
 import cn.xiaohuodui.utils.ApplicationConstants;
@@ -53,13 +54,13 @@ public class MInviteController {
     public String invite(HttpServletRequest request, String ref, String name, Model model) {
         String ip = IPUtil.getIpAddr(request);
         String browser = IPUtil.getBrowser(request);
-        System.out.println(ip + "---" + browser);
-        System.out.println("---" + ref.length());
-        System.out.println(System.currentTimeMillis());
-        System.out.println(ref.length());
 
-        if (ref.length() == 8) {
-
+        if (ref.length() == 6) {
+            model.addAttribute("type", "1");    //个人的url进来的
+            model.addAttribute("name", name);
+            clickService.setInfo(ref, ip, browser);
+            return "invite";
+        } else if (!activityService.checkCode(ref)) {  //官方活动URL进来的
             System.out.println(couponService.checkRemain(ref));
             long starttime = deadLineUtil.getStarttime(ref);
             long endtime = deadLineUtil.getEndtime(ref);
@@ -74,37 +75,21 @@ public class MInviteController {
             clickService.setInfo(ref, ip, browser);
             return "officalInvite";
 
-        } else if (ref.length() == 7) {
-
-            System.out.println(couponService.checkRemain(ref));
+        } else {
             long starttime = deadLineUtil.getStarttime(ref);
             long endtime = deadLineUtil.getEndtime(ref);
-
             //判断时间是否在活动期间内，判断优惠券是否发光
             if (System.currentTimeMillis() < starttime || System.currentTimeMillis() > endtime || !couponService.checkRemain(ref)) {
-                System.out.println(starttime + "----" + endtime);
                 return "error";
             }
-
-            model.addAttribute("logo", organizationService.getinfo(ref).getLogo());
-            model.addAttribute("name", organizationService.getinfo(ref).getName());
-            System.out.println("name:"+ organizationService.getinfo(ref).getName());
+            Organization organization = organizationService.getinfo(ref);
+            model.addAttribute("logo", organization.getLogo());
+            model.addAttribute("name", organization.getName());
             model.addAttribute("type", "2");    //企业的url进来的
             model.addAttribute("code", ref);
             clickService.setInfo(ref, ip, browser);
             return "orgInvite";
-
-        } else {
-
-            model.addAttribute("type", "1");    //个人的url进来的
-            model.addAttribute("name", name);
-            clickService.setInfo(ref, ip, browser);
-            return "invite";
         }
-
-
-
-
     }
 
     /**
@@ -119,7 +104,6 @@ public class MInviteController {
     public
     @ResponseBody
     String addInfo(String ref, String type, String phone) {
-        System.out.println("code:" + ref + "type:" + type + "phone:" + phone);
         if (ref.length() == 6 && shareService.setInfo(ref, phone, type)) {
             return ApplicationConstants.RESPONSE_SUCCESS;
         } else if (shareService.setInfo(ref, phone, type) && couponService.updateSended(ref)) {
@@ -128,17 +112,15 @@ public class MInviteController {
             return ApplicationConstants.RESPONSE_FAIL;
         }
     }
-    
+
+
     @RequestMapping(value = "/finish", method = RequestMethod.GET)
-    public String redirect(@RequestParam(value = "type", required = false)String type) {
-        System.out.println(type);
-        if (type==null){
+    public String redirect(@RequestParam(value = "type", required = false) String type) {
+        if (type == null) {
             return "regFinish";
-        }else {
+        } else {
             return "orgRegFinish";
         }
-
-
     }
 
 
