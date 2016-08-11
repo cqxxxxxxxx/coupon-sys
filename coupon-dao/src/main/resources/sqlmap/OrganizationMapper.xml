@@ -111,30 +111,41 @@
     </update>
 
     <!--更新企业信息-->
+<!--    <update id="updateInfo" parameterType="map">
+        UPDATE organization
+        SET
+        <if test="des != null">
+            des = #{des,jdbcType=VARCHAR},
+        </if>
+        <if test="logo != null">
+            logo = #{logo,jdbcType=VARCHAR},
+        </if>
+        <if test="num != null">
+            num = #{num},
+        </if>
+        <if test="totalLimit != null">
+            total_limit = #{totalLimit},
+        </if>
+        WHERE code = #{code, jdbcType=VARCHAR}
+    </update>-->
+    <!--更新活动信息-->
     <update id="updateInfo" parameterType="map">
         UPDATE organization
         SET
         <if test="des!=null">
-            des = #{des,jdbcType=VARCHAR},
+            des = #{des},
         </if>
-        <if test="logo!=null">
+        <if test="logo != null">
             logo = #{logo,jdbcType=VARCHAR},
         </if>
-        <if test="num!=null">
-            num = #{num},
-        </if>
         <if test="totalLimit!=null">
-            total_limit = #{totalLimit},
+            total_limit = #{totalLimit,jdbcType=INTEGER},
         </if>
-        <if test="starttime!=null">
-            starttime = #{starttime},
+        <if test="num!=null">
+            num = #{num,jdbcType=INTEGER}
         </if>
-        <if test="endtime!=null">
-            endtime = #{endtime}
-        </if>
-        WHERE code = #{code, jdbcType=VARCHAR}
+        WHERE code = #{code}
     </update>
-
 
     <select id="selectByPrimarycode" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
         select

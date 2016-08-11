@@ -31,7 +31,7 @@ public class SignInInterceptor extends HandlerInterceptorAdapter {
         String login = "/login";
         String logout = "/logout";
         //如果请求为 /login  404  或者包含resources的资源请求则放过，不拦截
-        if (request.getRequestURI().endsWith(logout) || request.getRequestURI().endsWith(login) || request.getRequestURI().endsWith("404") || request.getRequestURI().contains("resources")) {
+        if (request.getRequestURI().endsWith(logout) || request.getRequestURI().endsWith(login) || request.getRequestURI().endsWith("404") || request.getRequestURI().contains("resources") ||request.getRequestURI().contains("invite")) {
             logger.debug("inteceptor:请求为" + request.getRequestURI());
             return true;
         }
@@ -41,7 +41,6 @@ public class SignInInterceptor extends HandlerInterceptorAdapter {
 
 //        如果Session中 没有用户信息，则查看cookie中是否存在
         if (adminLoginForm == null) {
-            System.out.println("--------------Session中没有，前往Cookie-----------");
             logger.debug("Session无效:Session中没有用户信息");
             //getCookies返回一个本网站的cookies数组
             Cookie[] cookies = request.getCookies();

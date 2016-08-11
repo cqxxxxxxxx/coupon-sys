@@ -32,7 +32,7 @@
         .QRcode {
             width: 100%;
             text-align: center;
-            margin-top: 98%;
+            margin-top: 87%;
             z-index: 100;
         }
         .info{
@@ -41,7 +41,7 @@
             font-size: 20px;
             text-align: center;
             letter-spacing:1.5px;
-            margin-top: 3%;
+            margin-top: 8%;
             width: inherit;
             z-index: 100;
             position: absolute;

@@ -9,15 +9,15 @@ public class Organization {
 
     private String logo;
 
-    private int num;
+    private Integer num;
 
-    private int totalLimit;
+    private Integer totalLimit;
 
     private int sended;
 
-    private long starttime;
+    private Long starttime;
 
-    private long endtime;
+    private Long endtime;
 
     private String des;
 
@@ -54,19 +54,19 @@ public class Organization {
         this.logo = logo == null ? null : logo.trim();
     }
 
-    public int getNum() {
+    public Integer getNum() {
         return num;
     }
 
-    public void setNum(int num) {
+    public void setNum(Integer num) {
         this.num = num;
     }
 
-    public int getTotalLimit() {
+    public Integer getTotalLimit() {
         return totalLimit;
     }
 
-    public void setTotalLimit(int totalLimit) {
+    public void setTotalLimit(Integer totalLimit) {
         this.totalLimit = totalLimit;
     }
 
@@ -78,19 +78,19 @@ public class Organization {
         this.sended = sended;
     }
 
-    public long getStarttime() {
+    public Long getStarttime() {
         return starttime;
     }
 
-    public void setStarttime(long starttime) {
+    public void setStarttime(Long starttime) {
         this.starttime = starttime;
     }
 
-    public long getEndtime() {
+    public Long getEndtime() {
         return endtime;
     }
 
-    public void setEndtime(long endtime) {
+    public void setEndtime(Long endtime) {
         this.endtime = endtime;
     }
 

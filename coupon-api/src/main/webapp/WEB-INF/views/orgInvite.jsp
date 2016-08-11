@@ -51,11 +51,19 @@
             z-index: 1000;
             position: absolute;
             margin-left: 21%;
-            margin-top: 158%;
+            margin-top: 152%;
         }
+
         .logo{
+            float: right;
             margin-top: 38%;
-            margin-left: 57%;
+            margin-right: 10%;
+            z-index: 100;
+            position: relative;
+        }
+        .logo0{
+            margin-top: 38%;
+            margin-left: 10%;
             z-index: 100;
             position: absolute;
         }
@@ -66,7 +74,7 @@
             font-size: 22px;
             text-align: center;
             letter-spacing:1px;
-            margin-top: 115%;
+            margin-top: 108%;
             width: inherit;
             z-index: 100;
             position: absolute;
@@ -79,7 +87,7 @@
             display: block;
             font-family : 微软雅黑;
             font-size: 18px;
-            margin-top: 125%;
+            margin-top: 120%;
             width: inherit;
             text-align: center;
             letter-spacing:1px;
@@ -103,7 +111,7 @@
             z-index: 1000;
             position: absolute;
             margin-left: 13%;
-            margin-top: 139%;
+            margin-top: 134%;
         }
     </style>
 
@@ -112,8 +120,12 @@
 <body>
 <img width="100%"  src="/resources/imgs/orgbg1.png">
 <div class="receive-content">
+    <div class="logo0">
+        <img src="/resources/imgs/daimaniulogo.png" width="120px" height="120px">
+    </div>
     <div class="logo">
-        <img src="${logo}" width="110px" height="143px">
+        <%--<img src="${logo}" width="110px" height="143px">--%>
+            <img src="/resources/imgs/ubulogo.png" width="120px" height="120px">
     </div>
     <div class="receive-info">代码牛<span>&nbsp;&nbsp;联合&nbsp;&nbsp;</span>${name}</div>
     <div class="receive-info1">邀请您使用代码牛,并送您￥50优惠券</div>
@@ -123,6 +135,7 @@
 
 
 <script>
+    var path = location.pathname.split('/');
 
     function isMobile(str) {
         var reg = /^[1][34578]\d{9}$/;
@@ -138,7 +151,7 @@
             console.log(code+type+phone+":"+validForm());
             if (isMobile(phone)) {
                 $.ajax({
-                    url: "m/invite/add",
+                    url: "invite/add",
                     type: 'POST',
                     data: 'ref=' + code + '&type=' + type + '&phone=' + phone,
                     dataTyp: 'html',
@@ -147,7 +160,7 @@
                         if (data == "success") {
                             console.log("success");
                             cleanForm();
-                            location.href="m/invite/orgfinish"
+                            location.href="invite/finish?type=2"
                         } else {
                             console.log("failed");
                             alert('领取失败，已经领取过了');

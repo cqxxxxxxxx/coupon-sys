@@ -29,16 +29,24 @@
             width: 100%;
             z-index: 50;
         }
+
         .logo{
+            float: right;
             margin-top: 38%;
-            margin-left: 57%;
+            margin-right: 10%;
+            z-index: 100;
+            position: relative;
+        }
+        .logo0{
+            margin-top: 38%;
+            margin-left: 10%;
             z-index: 100;
             position: absolute;
         }
         .QRcode {
             width: 100%;
             text-align: center;
-            margin-top: 98%;
+            margin-top: 87%;
             z-index: 100;
         }
         .info{
@@ -47,7 +55,7 @@
             font-size: 20px;
             text-align: center;
             letter-spacing:1.5px;
-            margin-top: 3%;
+            margin-top: 8%;
             width: inherit;
             z-index: 100;
             position: absolute;
@@ -59,8 +67,12 @@
 <body>
 <img width="100%" src="/resources/imgs/orgbg2.png">
 <div class="content">
+    <div class="logo0">
+        <img src="/resources/imgs/daimaniulogo.png" width="120px" height="120px">
+    </div>
     <div class="logo">
-        <img src="/resources/imgs/orglogo.png" width="110px" height="143px">
+        <%--<img src="${logo}" width="110px" height="143px">--%>
+        <img src="/resources/imgs/ubulogo.png" width="120px" height="120px">
     </div>
     <div class="QRcode">
         <img src="/resources/imgs/QRcode0.png" width="230px", height="230px">

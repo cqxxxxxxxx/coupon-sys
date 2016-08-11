@@ -211,7 +211,7 @@
                         <div class="form-group"><label class="col-sm-2 control-label">当前LOGO</label>
 
                             <div class="col-sm-10">
-                                <img id="preview" src="<c:url value="/resources/imgs/web.jpg"/> ">
+                                <img id="preview" width="100px" height="100px" src="<c:url value="/resources/imgs/web.jpg"/> ">
                             </div>
                         </div>
                         <div class="form-group"><label class="col-sm-2 control-label">LOGO</label>

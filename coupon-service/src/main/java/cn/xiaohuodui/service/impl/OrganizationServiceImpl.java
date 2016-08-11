@@ -60,6 +60,12 @@ public class OrganizationServiceImpl implements OrganizationService {
     }
 
     public boolean updateInfo(Organization organization) {
+        System.out.println(organization.getCode());
+        System.out.println(organization.getDes());
+        System.out.println(organization.getStarttime());
+        System.out.println(organization.getId());
+
+
         if (organizationMapper.updateInfo(organization)>0){
             return true;
         }else {
