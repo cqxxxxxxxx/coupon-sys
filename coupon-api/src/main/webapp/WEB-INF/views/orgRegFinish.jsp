@@ -72,7 +72,7 @@
     </div>
     <div class="logo">
         <%--<img src="${logo}" width="110px" height="143px">--%>
-        <img src="/resources/imgs/ubulogo.png" width="120px" height="120px">
+        <img src="${logo}" width="120px" height="120px">
     </div>
     <div class="QRcode">
         <img src="/resources/imgs/QRcode0.png" width="230px", height="230px">

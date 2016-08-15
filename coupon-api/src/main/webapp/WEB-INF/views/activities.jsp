@@ -229,6 +229,26 @@
                                               placeholder="活动简介."></textarea>
                             </div>
                         </div>
+                        <div class="form-group" style="margin-left: 15%">
+                            <div class="col-sm-5">
+                                <label class="control-label inline">活动开始日期</label>
+                                <div class="input-group date">
+                                    <input id="Starttime1" name="Starttime" type="text"
+                                           class="form-control"><span
+                                        class="input-group-addon"><i
+                                        class="fa fa-clock-o"></i></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-5">
+                                <label class="control-label inline">活动截止日期</label>
+                                <div class="input-group date">
+                                    <input id="Endtime1" name="Endtime" type="text"
+                                           class="form-control"><span
+                                        class="input-group-addon"><i
+                                        class="fa fa-clock-o"></i></span>
+                                </div>
+                            </div>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -596,15 +616,19 @@
             var des = $('#des').val();
             var totalLimit = $('#totalLimit').val();
             var num = $('#num').val();
+            var starttime = $('#Starttime1').val().replace("年", "-").replace("月", "-").replace("日", "");
+            var endtime = $('#Endtime1').val().replace("年", "-").replace("月", "-").replace("日", "");
             console.log(code + "--" + des + "--" + totalLimit + "--" + num);
             if (validForm()) {
                 $.ajax({
                     url: prefix + "/update",
                     type: 'POST',
-                    data: 'des=' + des + '&code=' + code + '&totalLimit=' + totalLimit + '&num=' + num,
+                    data: 'des=' + des + '&code=' + code + '&totalLimit=' + totalLimit + '&num=' + num + "&starttime=" + starttime + "&endtime=" + endtime,
                     success: function (data) {
                         if (data == "success") {
-                            toastr.success('更新成功')
+                            toastr.success('更新成功');
+                            $modal.modal('toggle');
+                            refreshTable();
                         } else {
                             toastr.error('更新失败!请联系管理员');
                         }

@@ -2,6 +2,7 @@ package cn.xiaohuodui.controller;
 
 import cn.xiaohuodui.model.Activity;
 import cn.xiaohuodui.service.ActivityService;
+import cn.xiaohuodui.util.DateUtil;
 import cn.xiaohuodui.utils.ApplicationConstants;
 import cn.xiaohuodui.utils.JsonUtil;
 import org.springframework.stereotype.Controller;
@@ -54,12 +55,14 @@ public class ActivityController {
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public
     @ResponseBody
-    String updateActivity(String code, int num, String des, int totalLimit) {
+    String updateActivity(String code, int num, String des, int totalLimit, String starttime, String endtime) throws ParseException {
         Activity activity = new Activity();
         activity.setNum(num);
         activity.setDes(des);
         activity.setTotalLimit(totalLimit);
         activity.setCode(code);
+        activity.setStarttime(DateUtil.stringToTimeStamp(starttime));
+        activity.setEndtime(DateUtil.stringToTimeStamp(endtime));
         if (activityService.updateActivity(activity))
             return ApplicationConstants.RESPONSE_SUCCESS;
         return ApplicationConstants.RESPONSE_FAIL;

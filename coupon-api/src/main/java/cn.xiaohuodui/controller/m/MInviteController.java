@@ -54,6 +54,7 @@ public class MInviteController {
     public String invite(HttpServletRequest request, String ref, String name, Model model) {
         String ip = IPUtil.getIpAddr(request);
         String browser = IPUtil.getBrowser(request);
+        System.out.println(ref);
 
         if (ref.length() == 6) {
             model.addAttribute("type", "1");    //个人的url进来的
@@ -66,9 +67,15 @@ public class MInviteController {
             long endtime = deadLineUtil.getEndtime(ref);
 
             //判断时间是否在活动期间内，判断优惠券是否发光
-            if ((System.currentTimeMillis() < starttime || System.currentTimeMillis() > endtime) || !couponService.checkRemain(ref)) {
-                System.out.println(starttime + "----" + endtime);
-                return "error";
+            if (System.currentTimeMillis() < starttime || System.currentTimeMillis() > endtime ) {
+                model.addAttribute("timeout", 1);
+            }else {
+                model.addAttribute("timeout", 2);
+            }
+            if(!couponService.checkRemain(ref)){
+                model.addAttribute("remain", 1);
+            }else {
+                model.addAttribute("remain", 2);
             }
             model.addAttribute("name", activityService.getinfo(ref).getTitle());
             model.addAttribute("type", "0");    //官方的url进来的
@@ -80,8 +87,15 @@ public class MInviteController {
             long starttime = deadLineUtil.getStarttime(ref);
             long endtime = deadLineUtil.getEndtime(ref);
             //判断时间是否在活动期间内，判断优惠券是否发光
-            if (System.currentTimeMillis() < starttime || System.currentTimeMillis() > endtime || !couponService.checkRemain(ref)) {
-                return "error";
+            if (System.currentTimeMillis() < starttime || System.currentTimeMillis() > endtime ) {
+                model.addAttribute("timeout", 1);  //1代表活动结束
+            }else {
+                model.addAttribute("timeout", 2);
+            }
+            if(!couponService.checkRemain(ref)){
+                model.addAttribute("remain", 1);    //1代表优惠券发光
+            }else {
+                model.addAttribute("remain", 2);
             }
             Organization organization = organizationService.getinfo(ref);
             model.addAttribute("logo", organization.getLogo());
@@ -116,10 +130,12 @@ public class MInviteController {
 
 
     @RequestMapping(value = "/finish", method = RequestMethod.GET)
-    public String redirect(@RequestParam(value = "type", required = false) String type) {
+    public String redirect(@RequestParam(value = "type", required = false) String type, @RequestParam(value = "logo", required = false) String logo, Model model) {
         if (type == null) {
             return "regFinish";
         } else {
+            System.out.println(logo);
+            model.addAttribute("logo", logo);
             return "orgRegFinish";
         }
     }

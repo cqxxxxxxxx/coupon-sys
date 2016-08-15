@@ -20,9 +20,6 @@
             width: 100%;
         }
 
-        .project-action {
-            margin-top: 0;;
-        }
     </style>
 </head>
 <body class="fixed-navbar fixed-sidebar">
@@ -115,10 +112,10 @@
                                 </div>
                             </div>
 
-                            <div class="form-group"><label class="col-sm-2 control-label">当前LOGO</label>
-                                <div class="col-sm-10">
+                            <div class="form-group"><label class="col-sm-2 control-label ">当前LOGO</label>
+                                <div class="col-sm-10 ">
                                     <img id="preview" width="100px" height="100px"
-                                         src="<c:url value="/resources/imgs/logo.png"/> ">
+                                         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNcvHh+PQAGPAJmNT5JDwAAAABJRU5ErkJggg==">
                                 </div>
                             </div>
                             <div class="form-group">

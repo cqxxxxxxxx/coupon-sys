@@ -3,6 +3,7 @@ package cn.xiaohuodui.controller;
 import cn.xiaohuodui.form.OrganizationCreateForm;
 import cn.xiaohuodui.model.Organization;
 import cn.xiaohuodui.service.OrganizationService;
+import cn.xiaohuodui.util.DateUtil;
 import cn.xiaohuodui.util.IFileUtil;
 import cn.xiaohuodui.utils.ApplicationConstants;
 import cn.xiaohuodui.utils.JsonUtil;
@@ -133,7 +134,7 @@ public class OrganizationController {
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public
     @ResponseBody
-    String updateOrganizationInfo(String code, String des, String logo, int num, int totalLimit) throws ParseException {
+    String updateOrganizationInfo(String code, String des, String logo, int num, int totalLimit, String starttime, String endtime) throws ParseException {
 
         Organization organization = new Organization();
         organization.setCode(code);
@@ -141,7 +142,8 @@ public class OrganizationController {
         organization.setNum(num);
         organization.setLogo(logo);
         organization.setTotalLimit(totalLimit);
-
+        organization.setStarttime(DateUtil.stringToTimeStamp(starttime));
+        organization.setEndtime(DateUtil.stringToTimeStamp(endtime));
         System.out.println("org:" + organization);
 
         if (organizationService.updateInfo(organization)) {

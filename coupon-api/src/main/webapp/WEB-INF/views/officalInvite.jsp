@@ -129,6 +129,18 @@
     $(document).ready(function () {
         var code = "${code}";
         var type = "${type}";
+
+        if(${timeout}=='1') {
+            alert("活动已经过期，请下次在来");
+            location.href=prefix+"/m/invite/finish";
+
+        }
+        if(${remain}=='1') {
+            alert("优惠券已经发完，请下次在来");
+            location.href=prefix+"/m/invite/finish";
+        }
+
+
         console.log("locationname:" + location.pathname);
         console.log("prefix:" + prefix);
         $('#submit').click(function () {

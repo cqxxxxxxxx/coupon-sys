@@ -14,7 +14,7 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
+    <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap-datepicker3.min.css"/>">
     <!--page title-->
     <title>活动列表</title>
     <jsp:include page="/WEB-INF/views/comp/header.include.jsp"/>
@@ -208,16 +208,36 @@
                                               placeholder="企业简介."></textarea>
                             </div>
                         </div>
+                        <div class="form-group" style="margin-left: 15%">
+                            <div class="col-sm-5">
+                                <label class="control-label inline">活动开始日期</label>
+                                <div class="input-group date">
+                                    <input id="Starttime" name="Starttime" type="text"
+                                           class="form-control"><span
+                                        class="input-group-addon"><i
+                                        class="fa fa-clock-o"></i></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-5">
+                                <label class="control-label inline">活动截止日期</label>
+                                <div class="input-group date">
+                                    <input id="Endtime" name="Endtime" type="text"
+                                           class="form-control"><span
+                                        class="input-group-addon"><i
+                                        class="fa fa-clock-o"></i></span>
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-group"><label class="col-sm-2 control-label">当前LOGO</label>
 
                             <div class="col-sm-10">
-                                <img id="preview" width="100px" height="100px" src="<c:url value="/resources/imgs/web.jpg"/> ">
+                                <img id="preview" width="100px" height="100px" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNcvHh+PQAGPAJmNT5JDwAAAABJRU5ErkJggg==">
                             </div>
                         </div>
-                        <div class="form-group"><label class="col-sm-2 control-label">LOGO</label>
+                        <div class="form-group"><label class="col-sm-2 control-label"></label>
 
                             <div id="container" class="col-sm-5">
-                                <button id="pickfiles" class="btn btn-primary btn-block">上传图片</button>
+                                <button id="pickfiles" class="btn btn-primary btn-block">上传LOGO</button>
                             </div>
                         </div>
                     </form>
@@ -238,12 +258,16 @@
 <script src="<c:url value="/resources/js/qiniu.min.js"/>"></script>
 <script src="<c:url value="/resources/js/plupload.full.min.js"/>"></script>
 <script src="<c:url value="/resources/js/ui.js"/>"></script>
+<script src="<c:url value="/resources/js/date/bootstrap-datepicker.min.js"/>"></script>
+<script src="<c:url value="/resources/js/date/bootstrap-datepicker.zh-CN.min.js"/>"></script>
 <script type="text/javascript">
     var path = location.pathname.split('/');
     var prefix0 = path[0];
     var app = path[1];
     var prefix = "/" + app;
-
+    $('.date').datepicker({
+        language: 'zh-CN'
+    });
     toastr.options = {
         "closeButton": true,
         "debug": false,
@@ -262,16 +286,24 @@
         "hideMethod": "fadeOut"
     }
 
+
+
     function renderDate(time) {
         var date = new Date(time);
         return date.getFullYear() + "-" + (date.getMonth() + 1) + "-"
                 + date.getDate();
         /* + "  " + date.getHours() + ":" + date.getMinutes()*/
     }
+    function renderDate1(time) {
+        var date = new Date(time);
+        return date.getFullYear() + "年" + (date.getMonth() + 1) + "月"
+                + date.getDate()+"日";
+        /* + "  " + date.getHours() + ":" + date.getMinutes()*/
+    }
 
     function generateOp(id) {   //button的ID就是对应的code
         var code = id;
-        return '<p>' + 'http://localhost:8080/m/invite?ref=' + code + '</p>';
+        return '<p>' + 'http://i.daimaniu.cn/m/invite?ref=' + code + '</p>';
     }
 
     function generateButton(id) {
@@ -320,6 +352,8 @@
                     $('#num').val(data.num);
                     $('#totalLimit').val(data.totalLimit);
                     $('#preview').attr('src', data.logo);
+                    $('#Starttime').val(renderDate1(data.starttime));
+                    $('#Endtime').val(renderDate1(data.endtime));
                     $modal.modal('toggle');
                 }
             });
@@ -368,15 +402,20 @@
             var totalLimit = $('#totalLimit').val();
             var num = $('#num').val();
             var logo = $('#preview').attr('src');      //预览图的src
+            var starttime = $('#Starttime').val().replace("年", "-").replace("月", "-").replace("日", "");
+            var endtime = $('#Endtime').val().replace("年", "-").replace("月", "-").replace("日", "");
+
             console.log(logo);
             if (validForm()) {
                 $.ajax({
                     url: prefix + "/update",
                     type: 'POST',
-                    data: 'des=' + des + '&code=' + code + '&totalLimit=' + totalLimit + '&num=' + num + '&logo=' + logo,
+                    data: 'des=' + des + '&code=' + code + '&totalLimit=' + totalLimit + '&num=' + num + '&logo=' + logo + "&starttime=" + starttime + "&endtime=" + endtime,
                     success: function (data) {
                         if (data == "success") {
-                            toastr.success('更新成功')
+                            toastr.success('更新成功');
+                            $modal.modal("toggle");
+                            refreshTable();
                         } else {
                             toastr.error('更新失败!请联系管理员');
                         }
@@ -555,6 +594,13 @@
             }
         });
 
+        function refreshTable() {
+            $('#keyword').val("");
+            var table = oTable.dataTable();
+            table.fnDestroy();
+            loadData();
+            $("table").css("width", "100%");
+        }
 
         function generateSrc(up, info) {
             var url;
@@ -586,6 +632,8 @@
             $('#container').addClass('draging');
             e.stopPropagation();
         });
+
+
 
     })
 </script>

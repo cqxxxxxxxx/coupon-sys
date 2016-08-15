@@ -142,7 +142,13 @@
             total_limit = #{totalLimit,jdbcType=INTEGER},
         </if>
         <if test="num!=null">
-            num = #{num,jdbcType=INTEGER}
+            num = #{num,jdbcType=INTEGER},
+        </if>
+        <if test="starttime!=null">
+            starttime = #{starttime,jdbcType=BIGINT},
+        </if>
+        <if test="endtime!=null">
+            endtime = #{endtime,jdbcType=BIGINT}
         </if>
         WHERE code = #{code}
     </update>

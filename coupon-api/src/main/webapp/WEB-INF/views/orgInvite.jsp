@@ -144,6 +144,17 @@
     }
 
     $(document).ready(function () {
+
+        if(${timeout}=='1') {
+            alert("活动已经过期，请下次在来");
+            location.href=prefix+"/m/invite/finish";
+
+        }
+        if(${remain}=='1') {
+            alert("优惠券已经发完，请下次在来");
+            location.href=prefix+"/m/invite/finish";
+        }
+
         var code = "${code}";
         var type = "${type}";
         console.log("locationname:"+location.pathname);
@@ -163,7 +174,7 @@
                         if (data == "success") {
                             console.log("success");
                             cleanForm();
-                            location.href=prefix+"/m/invite/finish?type=2"
+                            location.href=prefix+"/m/invite/finish?type=2&logo=${logo}";
                         } else {
                             console.log("failed");
                             alert('领取失败，已经领取过了');
