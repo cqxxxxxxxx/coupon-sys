@@ -22,7 +22,7 @@
 <!--Aside Menu -->
 <jsp:include page="/WEB-INF/views/comp/siderbar.jsp">
     <jsp:param name="index" value="info"/>
-    <jsp:param name="index1" value="shareinfo"/>
+    <jsp:param name="index1" value="Shareinfo"/>
 </jsp:include>
 
 <div id="wrapper">

@@ -29,8 +29,8 @@
 
 <!--Aside Menu -->
 <jsp:include page="/WEB-INF/views/comp/siderbar.jsp">
-    <jsp:param name="index" value="service"/>
-    <jsp:param name="index1" value="addService"/>
+    <jsp:param name="index" value="org"/>
+    <jsp:param name="index1" value="addorg"/>
 </jsp:include>
 
 <!-- Main Wrapper -->

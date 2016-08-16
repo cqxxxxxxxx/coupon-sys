@@ -61,9 +61,26 @@
             z-index: 100;
             position: relative;
         }
-        .logo0{
+        .logodes{
+
+            color: #c7fffd;
+            font-size: 17px;
+
+            letter-spacing: 5px;
+            text-align: center;
+            margin-top: 15%;
+            z-index: 100;
+            position: relative;
+        }
+        .daimaniu{
             margin-top: 38%;
             margin-left: 10%;
+            z-index: 100;
+            position: absolute;
+        }
+        .daimaniudes{
+            margin-top: 75%;
+            margin-left: 6%;
             z-index: 100;
             position: absolute;
         }
@@ -120,13 +137,17 @@
 <body>
 <img width="100%"  src="/resources/imgs/orgbg1.png">
 <div class="receive-content">
-    <div class="logo0">
+    <div class="daimaniu">
         <img src="/resources/imgs/daimaniulogo.png" width="120px" height="120px">
     </div>
-    <div class="logo">
-        <%--<img src="${logo}" width="110px" height="143px">--%>
-            <img src="${logo}" width="120px" height="120px">
+    <div class="daimaniudes">
+        <img src="/resources/imgs/daimaniudes.png" width="140px" height="35px">
     </div>
+    <div class="logo">
+            <img src="${logo}" width="120px" height="120px">
+              <div id="logodes" class="logodes">${name}</div>
+    </div>
+
     <div class="receive-info">代码牛<span>&nbsp;&nbsp;联合&nbsp;&nbsp;</span>${name}</div>
     <div class="receive-info1">邀请您使用代码牛,并送您￥50优惠券</div>
     <input type="tel" maxlength="11" placeholder="请输入注册的手机号" class="tel" id="phone"/>
@@ -143,7 +164,22 @@
         return reg.test(str);
     }
 
+    function check(data) {
+        var str = /[_a-zA-Z]/;
+        alert(str.test(data));
+        alert(data);
+        if (str.test(data)){
+            $('#logodes').css("font-family", "Corbel");
+        }else{
+            $('#logodes').css("font-family", "微软雅黑");
+        }
+    }
+
     $(document).ready(function () {
+
+        var logodes = '${name}';
+        check(logodes);
+
 
         if(${timeout}=='1') {
             alert("活动已经过期，请下次在来");
