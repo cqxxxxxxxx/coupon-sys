@@ -399,6 +399,12 @@
         }
         return true;
     }
+    function renderDate1(time) {
+        var date = new Date(time);
+        return date.getFullYear() + "年" + (date.getMonth() + 1) + "月"
+                + date.getDate()+"日";
+        /* + "  " + date.getHours() + ":" + date.getMinutes()*/
+    }
 
     function renderDate(time) {
         var date = new Date(time);
@@ -563,6 +569,8 @@
                     $('#des').val(data.des);
                     $('#num').val(data.num);
                     $('#totalLimit').val(data.totalLimit);
+                    $('#Starttime1').val(renderDate1(data.starttime));
+                    $('#Endtime1').val(renderDate1(data.endtime));
                     console.log(data);
                     $modal.modal('toggle');
                 },
