@@ -128,6 +128,7 @@
         var code = "${code}";
         var type = "${type}";
         console.log("locationname:" + location.pathname);
+        console.log("code:" + code);
         $('#submit').click(function () {
             var phone = $('#phone').val();
             console.log(code + type + phone + ":" + validForm());

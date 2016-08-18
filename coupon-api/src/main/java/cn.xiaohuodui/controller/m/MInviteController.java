@@ -59,6 +59,7 @@ public class MInviteController {
         if (ref.length() == 6) {
             model.addAttribute("type", "1");    //个人的url进来的
             model.addAttribute("name", name);
+            model.addAttribute("code", ref);
             clickService.setInfo(ref, ip, browser);
             return "invite";
         } else if (!activityService.checkCode(ref)) {  //官方活动URL进来的
@@ -119,6 +120,9 @@ public class MInviteController {
     public
     @ResponseBody
     String addInfo(String ref, String type, String phone) {
+        System.out.println(ref);
+        System.out.println(type);
+        System.out.println(phone);
         if (ref.length() == 6 && shareService.setInfo(ref, phone, type)) {
             return ApplicationConstants.RESPONSE_SUCCESS;
         } else if (shareService.setInfo(ref, phone, type) && couponService.updateSended(ref)) {

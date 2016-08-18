@@ -166,8 +166,6 @@
 
     function check(data) {
         var str = /[_a-zA-Z]/;
-        alert(str.test(data));
-        alert(data);
         if (str.test(data)){
             $('#logodes').css("font-family", "Corbel");
         }else{
