@@ -51,7 +51,7 @@
             z-index: 1000;
             position: absolute;
             margin-left: 21%;
-            margin-top: 158%;
+            margin-top: 140%;
         }
 
         .receive-info {
@@ -61,7 +61,7 @@
             font-size: 22px;
             text-align: center;
             /*letter-spacing: 1px;*/
-            margin-top: 115%;
+            margin-top: 98%;
             width: inherit;
             z-index: 100;
             position: absolute;
@@ -78,7 +78,7 @@
             display: block;
             font-family: 微软雅黑;
             font-size: 20px;
-            margin-top: 125%;
+            margin-top: 108%;
             width: inherit;
             text-align: center;
             letter-spacing: 1px;
@@ -100,13 +100,13 @@
             text-align: center;
             z-index: 1000;
             position: absolute;
-            margin: 139% auto 0 13%;
+            margin: 122% auto 0 13%;
         }
     </style>
 </head>
 
 <body>
-<img width="100%" src="http://cdn.jiying.mobi/invite/daimaniubg.png">
+<img width="100%" src="http://cdn.jiying.mobi/invite/background0.png">
 <div class="receive-content">
     <p class="receive-info">${name}<span>&nbsp;邀请你使用代码牛</span>
         <br><span>立即注册获得问答体验券</span></p>

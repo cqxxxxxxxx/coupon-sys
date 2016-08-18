@@ -50,7 +50,7 @@
             z-index: 1000;
             position: absolute;
             margin-left: 21%;
-            margin-top: 158%;
+            margin-top: 140%;
         }
 
         .receive-info {
@@ -59,8 +59,8 @@
             font-family: 微软雅黑;
             font-size: 22px;
             text-align: center;
-            letter-spacing: 1px;
-            margin-top: 115%;
+            /*letter-spacing: 1px;*/
+            margin-top: 98%;
             width: inherit;
             z-index: 100;
             position: absolute;
@@ -68,6 +68,8 @@
 
         .receive-info span {
             color: #FFFFFF;
+            margin-left: auto;
+            font-size: 20px;
         }
 
         .receive-info1 {
@@ -75,7 +77,7 @@
             display: block;
             font-family: 微软雅黑;
             font-size: 20px;
-            margin-top: 125%;
+            margin-top: 108%;
             width: inherit;
             text-align: center;
             letter-spacing: 1px;
@@ -85,7 +87,6 @@
 
         input[type='tel'] {
             width: 76%;
-            margin: 0 auto;
             display: block;
             height: 50px;
             border-radius: 10px;
@@ -98,15 +99,14 @@
             text-align: center;
             z-index: 1000;
             position: absolute;
-            margin-left: 13%;
-            margin-top: 139%;
+            margin: 122% auto 0 13%;
         }
     </style>
 
 </head>
 
 <body>
-<img width="100%" src="http://cdn.jiying.mobi/invite/daimaniubg.png">
+<img width="100%" src="http://cdn.jiying.mobi/invite/background0.png">
 <div class="receive-content">
     <div class="receive-info">${name}活动</div>
     <div class="receive-info1">立即注册获得问答体验券</div>
