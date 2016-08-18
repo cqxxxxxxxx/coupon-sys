@@ -46,7 +46,7 @@ ADD  docker/settings.xml $MAVEN_HOME/conf/settings.xml
 ADD pom.xml /tmp/build/
 #
 ADD coupon-api /tmp/build/coupon-api
-ADD coupon-dao/tmp/build/coupon-dao
+ADD coupon-dao /tmp/build/coupon-dao
 ADD coupon-service /tmp/build/coupon-service
 
 # 编译代码
