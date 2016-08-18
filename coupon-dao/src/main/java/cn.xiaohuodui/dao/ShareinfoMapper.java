@@ -24,7 +24,7 @@ public interface ShareinfoMapper {
     //分页版本 信息查询
     List<Shareinfo> listPage(@Param("code") String code, @Param("phone") String phone, @Param("keyword") String keyword, @Param("limit") int limit, @Param("offset") int offset, @Param("starttime") Long starttime, @Param("endtime") Long endtime);
 
-    int countAll( @Param("code") String code, @Param("phone") String phone,@Param("keyword") String keyword, @Param("starttime") Long starttime, @Param("endtime") Long endtime);
+    int countAll(@Param("code") String code, @Param("phone") String phone, @Param("keyword") String keyword, @Param("starttime") Long starttime, @Param("endtime") Long endtime);
 
     Shareinfo selectByPhone(@Param("phone") String phone);
 }

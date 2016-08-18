@@ -3,13 +3,13 @@ package cn.xiaohuodui.service.impl;
 import cn.xiaohuodui.dao.ActivityMapper;
 import cn.xiaohuodui.dao.OrganizationMapper;
 import cn.xiaohuodui.dao.ShareinfoMapper;
+import cn.xiaohuodui.form.PhoneForm;
 import cn.xiaohuodui.form.ShareQueryForm;
 import cn.xiaohuodui.model.Shareinfo;
 import cn.xiaohuodui.service.ShareService;
 import cn.xiaohuodui.util.DateUtil;
 import cn.xiaohuodui.vo.InviteVo;
 import cn.xiaohuodui.vo.InviteinfoVo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -104,17 +104,31 @@ public class ShareServiceImpl implements ShareService {
             inviteinfoVo.setRef(shareinfo.getCode());
             inviteinfoVo.setType(shareinfo.getType());
             inviteinfoVo.setCreated(shareinfo.getCreated());
-            if (shareinfo.getCode().length()==7){
+            if (shareinfo.getCode().length() == 7) {
                 inviteinfoVo.setNum(organizationMapper.getNum(shareinfo.getCode()));
-            }else if (shareinfo.getCode().length()==8){
+            } else if (shareinfo.getCode().length() == 8) {
                 inviteinfoVo.setNum(activityMapper.getNum(shareinfo.getCode()));
-            }else {
+            } else {
                 inviteinfoVo.setNum(0);
             }
             return inviteinfoVo;
-        }else {
+        } else {
             return inviteinfoVo;
         }
+    }
 
+    /**
+     * 反馈该 手机号分享已经 注册了
+     *
+     * @param phoneForm
+     */
+    public void markReg(PhoneForm phoneForm) {
+        Shareinfo shareinfo = shareinfoMapper.selectByPhone(phoneForm.getPhone());
+        if (shareinfo != null) {
+            shareinfo.setChecked(1);
+            shareinfo.setCheckedTime(System.currentTimeMillis());
+
+            shareinfoMapper.updateByPrimaryKey(shareinfo);
+        }
     }
 }

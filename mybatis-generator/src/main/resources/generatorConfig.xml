@@ -37,25 +37,25 @@
             <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
 
-      <!--  <table tableName="click_info" domainObjectName="clickinfo"
-               enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
-               enableSelectByExample="false" selectByExampleQueryId="false">
-        </table>
-        <table tableName="coupon_activity" domainObjectName="activity"
-               enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
-               enableSelectByExample="false" selectByExampleQueryId="false">
-        </table>
+        <!--  <table tableName="click_info" domainObjectName="clickinfo"
+                 enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+                 enableSelectByExample="false" selectByExampleQueryId="false">
+          </table>
+          <table tableName="coupon_activity" domainObjectName="activity"
+                 enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+                 enableSelectByExample="false" selectByExampleQueryId="false">
+          </table>
+          <table tableName="organization" domainObjectName="organization"
+                 enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+                 enableSelectByExample="false" selectByExampleQueryId="false">
+          </table>-->
+        <!--<table tableName="admin" domainObjectName="Admin" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"-->
+        <!--enableSelectByExample="false" selectByExampleQueryId="false">-->
+
+        <!--</table>-->
         <table tableName="share" domainObjectName="shareinfo"
                enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" selectByExampleQueryId="false">
-        </table>
-        <table tableName="organization" domainObjectName="organization"
-               enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
-               enableSelectByExample="false" selectByExampleQueryId="false">
-        </table>-->
-        <table tableName="admin" domainObjectName="Admin" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
-               enableSelectByExample="false" selectByExampleQueryId="false">
-
         </table>
     </context>
 </generatorConfiguration>

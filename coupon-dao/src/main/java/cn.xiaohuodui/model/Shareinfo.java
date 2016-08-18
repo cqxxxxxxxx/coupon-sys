@@ -9,6 +9,10 @@ public class Shareinfo {
 
     private String phone;
 
+    private int checked;
+
+    private long checkedTime;
+
     private long created;
 
     public int getId() {
@@ -49,5 +53,21 @@ public class Shareinfo {
 
     public void setCreated(long created) {
         this.created = created;
+    }
+
+    public int getChecked() {
+        return checked;
+    }
+
+    public void setChecked(int checked) {
+        this.checked = checked;
+    }
+
+    public long getCheckedTime() {
+        return checkedTime;
+    }
+
+    public void setCheckedTime(long checkedTime) {
+        this.checkedTime = checkedTime;
     }
 }

@@ -1,160 +1,184 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.xiaohuodui.dao.ShareinfoMapper" >
-  <resultMap id="BaseResultMap" type="cn.xiaohuodui.model.Shareinfo" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="code" property="code" jdbcType="VARCHAR" />
-    <result column="type" property="type" jdbcType="VARCHAR" />
-    <result column="phone" property="phone" jdbcType="VARCHAR" />
-    <result column="created" property="created" jdbcType="BIGINT" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    id, code, type, phone, created
+<mapper namespace="cn.xiaohuodui.dao.ShareinfoMapper">
+    <resultMap id="BaseResultMap" type="cn.xiaohuodui.model.Shareinfo">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="code" property="code" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="VARCHAR"/>
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
+        <result column="checked" property="checked" jdbcType="INTEGER"/>
+        <result column="checked_time" property="checkedTime" jdbcType="BIGINT"/>
+        <result column="created" property="created" jdbcType="BIGINT"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, code, type, phone, checked, checked_time, created
   </sql>
 
-  <!--分页的SQL语句-->
-  <select id="listPage" resultMap="BaseResultMap" parameterType="java.util.Map">
-    SELECT
-    <include refid="Base_Column_List"/>
-    FROM share
-    <where>
-      <if test="code!=null">
-        code = #{code,jdbcType=VARCHAR}
-      </if>
-      <if test="phone!=null">
-        AND phone = #{phone,jdbcType=VARCHAR}
-      </if>
-      <if test="keyword!=null">
-        AND code LIKE #{keyword}"%"
-      </if>
-      <if test="endtime!=null">
-        AND created &lt; #{endtime,jdbcType=TIMESTAMP}
-      </if>
-      <if test="starttime!=null">
-        AND created &gt; #{starttime,jdbcType=TIMESTAMP}
-      </if>
-    </where>
-    ORDER BY created DESC
-    LIMIT #{offset},#{limit}
-  </select>
+    <!--分页的SQL语句-->
+    <select id="listPage" resultMap="BaseResultMap" parameterType="java.util.Map">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM share
+        <where>
+            <if test="code!=null">
+                code = #{code,jdbcType=VARCHAR}
+            </if>
+            <if test="phone!=null">
+                AND phone = #{phone,jdbcType=VARCHAR}
+            </if>
+            <if test="keyword!=null">
+                AND code LIKE #{keyword}"%"
+            </if>
+            <if test="endtime!=null">
+                AND created &lt; #{endtime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="starttime!=null">
+                AND created &gt; #{starttime,jdbcType=TIMESTAMP}
+            </if>
+        </where>
+        ORDER BY created DESC
+        LIMIT #{offset},#{limit}
+    </select>
 
-  <!--获取数据总数-->
-  <select id="countAll" parameterType="map" resultType="java.lang.Integer">
-    select
-    COUNT(id)
-    from share
-    <where>
-      <if test="code!=null">
-        code = #{code,jdbcType=VARCHAR}
-      </if>
-      <if test="phone!=null">
-        AND phone = #{phone,jdbcType=VARCHAR}
-      </if>
-      <if test="keyword!=null">
-        AND code LIKE #{keyword}"%"
-      </if>
-      <if test="endtime!=null">
-        AND created &lt; #{endtime,jdbcType=TIMESTAMP}
-      </if>
-      <if test="starttime!=null">
-        AND created &gt; #{starttime,jdbcType=TIMESTAMP}
-      </if>
-    </where>
-  </select>
+    <!--获取数据总数-->
+    <select id="countAll" parameterType="map" resultType="java.lang.Integer">
+        select
+        COUNT(id)
+        from share
+        <where>
+            <if test="code!=null">
+                code = #{code,jdbcType=VARCHAR}
+            </if>
+            <if test="phone!=null">
+                AND phone = #{phone,jdbcType=VARCHAR}
+            </if>
+            <if test="keyword!=null">
+                AND code LIKE #{keyword}"%"
+            </if>
+            <if test="endtime!=null">
+                AND created &lt; #{endtime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="starttime!=null">
+                AND created &gt; #{starttime,jdbcType=TIMESTAMP}
+            </if>
+        </where>
+    </select>
 
-  <!--查询是否已经领取了  检测手机号是否存在-->
-  <select id="exist" parameterType="cn.xiaohuodui.model.Shareinfo" resultMap="BaseResultMap">
-    SELECT
-     <include refid="Base_Column_List"/>
-    FROM share
-    WHERE phone = #{phone,jdbcType=VARCHAR}
-  </select>
+    <!--查询是否已经领取了  检测手机号是否存在-->
+    <select id="exist" parameterType="cn.xiaohuodui.model.Shareinfo" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM share
+        WHERE phone = #{phone,jdbcType=VARCHAR}
+    </select>
 
-  <!--按手机号查询-->
-  <select id="selectByPhone" resultMap="BaseResultMap" parameterType="map">
-    select
-    <include refid="Base_Column_List"/>
-    from share
-    where phone = #{phone,jdbcType=INTEGER}
-  </select>
+    <!--按手机号查询-->
+    <select id="selectByPhone" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        from share
+        where phone = #{phone}
+    </select>
 
 
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from share
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from share
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from share
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="cn.xiaohuodui.model.Shareinfo" >
+    <insert id="insert" parameterType="cn.xiaohuodui.model.Shareinfo">
     insert into share (id, code, type, 
-      phone, created)
+      phone, checked, checked_time, 
+      created)
     values (#{id,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
-      #{phone,jdbcType=VARCHAR}, #{created,jdbcType=BIGINT})
+      #{phone,jdbcType=VARCHAR}, #{checked,jdbcType=INTEGER}, #{checkedTime,jdbcType=BIGINT}, 
+      #{created,jdbcType=BIGINT})
   </insert>
-  <insert id="insertSelective" parameterType="cn.xiaohuodui.model.Shareinfo" >
-    insert into share
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="code != null" >
-        code,
-      </if>
-      <if test="type != null" >
-        type,
-      </if>
-      <if test="phone != null" >
-        phone,
-      </if>
-      <if test="created != null" >
-        created,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="code != null" >
-        #{code,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null" >
-        #{type,jdbcType=VARCHAR},
-      </if>
-      <if test="phone != null" >
-        #{phone,jdbcType=VARCHAR},
-      </if>
-      <if test="created != null" >
-        #{created,jdbcType=BIGINT},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.xiaohuodui.model.Shareinfo" >
-    update share
-    <set >
-      <if test="code != null" >
-        code = #{code,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null" >
-        type = #{type,jdbcType=VARCHAR},
-      </if>
-      <if test="phone != null" >
-        phone = #{phone,jdbcType=VARCHAR},
-      </if>
-      <if test="created != null" >
-        created = #{created,jdbcType=BIGINT},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="cn.xiaohuodui.model.Shareinfo" >
+    <insert id="insertSelective" parameterType="cn.xiaohuodui.model.Shareinfo">
+        insert into share
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="code != null">
+                code,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="phone != null">
+                phone,
+            </if>
+            <if test="checked != null">
+                checked,
+            </if>
+            <if test="checkedTime != null">
+                checked_time,
+            </if>
+            <if test="created != null">
+                created,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="code != null">
+                #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="checked != null">
+                #{checked,jdbcType=INTEGER},
+            </if>
+            <if test="checkedTime != null">
+                #{checkedTime,jdbcType=BIGINT},
+            </if>
+            <if test="created != null">
+                #{created,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.xiaohuodui.model.Shareinfo">
+        update share
+        <set>
+            <if test="code != null">
+                code = #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                phone = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="checked != null">
+                checked = #{checked,jdbcType=INTEGER},
+            </if>
+            <if test="checkedTime != null">
+                checked_time = #{checkedTime,jdbcType=BIGINT},
+            </if>
+            <if test="created != null">
+                created = #{created,jdbcType=BIGINT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.xiaohuodui.model.Shareinfo">
     update share
     set code = #{code,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
+      checked = #{checked,jdbcType=INTEGER},
+      checked_time = #{checkedTime,jdbcType=BIGINT},
       created = #{created,jdbcType=BIGINT}
     where id = #{id,jdbcType=INTEGER}
   </update>

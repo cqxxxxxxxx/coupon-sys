@@ -25,6 +25,10 @@
             <mvc:exclude-mapping path="/m/**"/>
             <bean class="cn.xiaohuodui.interceptors.SignInInterceptor"></bean>
         </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/v1/**"/>
+            <bean class="cn.xiaohuodui.auth.AuthenticationInterceptor"/>
+        </mvc:interceptor>
     </mvc:interceptors>
 
     <context:component-scan base-package="cn.xiaohuodui.controller"/>
