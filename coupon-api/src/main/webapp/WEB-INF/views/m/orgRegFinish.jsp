@@ -11,8 +11,7 @@
           name="viewport">
     <meta content="yes" name="apple-mobile-web-app-capable">
     <meta content="black" name="apple-mobile-web-app-status-bar-style">
-    <title>领取优惠券</title>
-    <script src="<c:url value="/resources/js/jquery.js"/>"></script>
+    <title>已领优惠券,请注册使用</title>
 
     <style>
         body {
@@ -21,6 +20,7 @@
             position: relative;
             width: 100%;
         }
+
         .content {
             height: 100%;
             left: 0;
@@ -30,32 +30,35 @@
             z-index: 50;
         }
 
-        .logo{
+        .logo {
             float: right;
             margin-top: 38%;
             margin-right: 10%;
             z-index: 100;
             position: relative;
         }
-        .logo0{
+
+        .logo0 {
             margin-top: 38%;
             margin-left: 10%;
             z-index: 100;
             position: absolute;
         }
+
         .QRcode {
             width: 100%;
             text-align: center;
             margin-top: 87%;
             z-index: 100;
         }
-        .info{
+
+        .info {
             color: #FFFFFF;
-            font-family : 微软雅黑;
+            font-family: 微软雅黑;
             font-size: 20px;
             text-align: center;
-            letter-spacing:1.5px;
-            margin-top: 8%;
+            letter-spacing: 1.5px;
+            margin-top: 10px;
             width: inherit;
             z-index: 100;
             position: absolute;
@@ -65,17 +68,17 @@
 </head>
 
 <body>
-<img width="100%" src="/resources/imgs/orgbg2.png">
+<img width="100%" src="http://cdn.jiying.mobi/invite/orgbg2.png">
 <div class="content">
     <div class="logo0">
-        <img src="/resources/imgs/daimaniulogo.png" width="120px" height="120px">
+        <img src="http://cdn.jiying.mobi/invite/daimaniulogo.png" width="120px" height="120px">
     </div>
     <div class="logo">
         <%--<img src="${logo}" width="110px" height="143px">--%>
         <img src="${logo}" width="120px" height="120px">
     </div>
     <div class="QRcode">
-        <img src="/resources/imgs/QRcode0.png" width="230px", height="230px">
+        <img src="http://cdn.jiying.mobi/invite/QRcode0.png" width="200px" , height="200px">
     </div>
     <div class="info">扫描下载代码牛APP,&nbsp;立即领取</div>
 </div>

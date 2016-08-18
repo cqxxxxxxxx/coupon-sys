@@ -61,7 +61,7 @@ public class MInviteController {
             model.addAttribute("name", name);
             model.addAttribute("code", ref);
             clickService.setInfo(ref, ip, browser);
-            return "invite";
+            return "m/invite";
         } else if (!activityService.checkCode(ref)) {  //官方活动URL进来的
             System.out.println(couponService.checkRemain(ref));
             long starttime = deadLineUtil.getStarttime(ref);
@@ -82,7 +82,7 @@ public class MInviteController {
             model.addAttribute("type", "0");    //官方的url进来的
             model.addAttribute("code", ref);
             clickService.setInfo(ref, ip, browser);
-            return "officalInvite";
+            return "m/officalInvite";
 
         } else {
             long starttime = deadLineUtil.getStarttime(ref);
@@ -104,7 +104,7 @@ public class MInviteController {
             model.addAttribute("type", "2");    //企业的url进来的
             model.addAttribute("code", ref);
             clickService.setInfo(ref, ip, browser);
-            return "orgInvite";
+            return "m/orgInvite";
         }
     }
 
@@ -136,11 +136,11 @@ public class MInviteController {
     @RequestMapping(value = "/finish", method = RequestMethod.GET)
     public String redirect(@RequestParam(value = "type", required = false) String type, @RequestParam(value = "logo", required = false) String logo, Model model) {
         if (type == null) {
-            return "regFinish";
+            return "m/regFinish";
         } else {
             System.out.println(logo);
             model.addAttribute("logo", logo);
-            return "orgRegFinish";
+            return "m/orgRegFinish";
         }
     }
 

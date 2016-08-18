@@ -11,11 +11,9 @@
           name="viewport">
     <meta content="yes" name="apple-mobile-web-app-capable">
     <meta content="black" name="apple-mobile-web-app-status-bar-style">
-    <title>领取优惠券</title>
-    <script src="<c:url value="/resources/js/jquery.js"/>"></script>
+    <title>${name}活动 - 代码牛问答邀请函</title>
 
     <style>
-
         body {
             background: #00ada7 none repeat scroll 0 0;
             color: #000;
@@ -70,7 +68,6 @@
 
         .receive-info span {
             color: #FFFFFF;
-            margin-left: auto;
         }
 
         .receive-info1 {
@@ -88,6 +85,7 @@
 
         input[type='tel'] {
             width: 76%;
+            margin: 0 auto;
             display: block;
             height: 50px;
             border-radius: 10px;
@@ -100,25 +98,26 @@
             text-align: center;
             z-index: 1000;
             position: absolute;
-            margin: 139% auto 0 13%;
+            margin-left: 13%;
+            margin-top: 139%;
         }
     </style>
-
 
 </head>
 
 <body>
-<img width="100%" src="/resources/imgs/daimaniubg.png">
+<img width="100%" src="http://cdn.jiying.mobi/invite/daimaniubg.png">
 <div class="receive-content">
-    <div class="receive-info">${name}<span>&nbsp;邀请你使用代码牛</span></div>
-    <div class="receive-info1">立即注册获得50元优惠券</div>
+    <div class="receive-info">${name}活动</div>
+    <div class="receive-info1">立即注册获得问答体验券</div>
     <input type="tel" maxlength="11" placeholder="请输入注册的手机号" class="tel" id="phone"/>
     <div class="receive-button" id="submit"></div>
 </div>
 
-
+<script src="//cdn.bootcss.com/zepto/1.1.6/zepto.min.js"></script>
 <script>
-
+    var path = location.pathname.split('/');
+    prefix = path[0];
     function isMobile(str) {
         var reg = /^[1][34578]\d{9}$/;
         return reg.test(str);
@@ -127,14 +126,30 @@
     $(document).ready(function () {
         var code = "${code}";
         var type = "${type}";
+
+        if (${timeout}=='1'
+        )
+        {
+            alert("活动已经过期，请下次在来");
+            location.href = prefix + "/m/invite/finish";
+
+        }
+        if (${remain}=='1'
+        )
+        {
+            alert("优惠券已经发完，请下次在来");
+            location.href = prefix + "/m/invite/finish";
+        }
+
+
         console.log("locationname:" + location.pathname);
-        console.log("code:" + code);
+        console.log("prefix:" + prefix);
         $('#submit').click(function () {
             var phone = $('#phone').val();
             console.log(code + type + phone + ":" + validForm());
             if (isMobile(phone)) {
                 $.ajax({
-                    url: "/m/invite/add",
+                    url: prefix + "/m/invite/add",
                     type: 'POST',
                     data: 'ref=' + code + '&type=' + type + '&phone=' + phone,
                     dataTyp: 'html',
@@ -142,24 +157,25 @@
                         console.log(data);
                         if (data == "success") {
                             console.log("success");
-                            location.href = "/m/invite/finish"
+                            cleanForm();
+                            location.href = prefix + "/m/invite/finish"
                         } else {
                             console.log("failed");
-                            alert('领取失败，您已经领取过该优惠券');
-                            cleanForm();
+                            alert('领取失败，已经领取过了');
                         }
                     },
                     error: function (data) {
-                        alert("系统出错，请联系管理员");
+                        alert("失败");
                     }
                 });
             } else {
-                alert('手机号码格式出错，请重新填写');
+                alert('phone格式不对');
             }
         });
 
         function cleanForm() {
-            $('#phone').val('');
+            $('#title').val('');
+            $('#des').val('');
         }
 
         function validForm() {
