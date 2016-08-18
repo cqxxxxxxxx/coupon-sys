@@ -1,0 +1,65 @@
+
+FROM java:openjdk-7-jdk
+
+MAINTAINER kison@xiaohuodui
+#aliyun 优化版本
+
+#tomcat7
+ENV CATALINA_HOME /usr/local/tomcat
+ENV PATH $CATALINA_HOME/bin:$PATH
+RUN mkdir -p "$CATALINA_HOME"
+WORKDIR $CATALINA_HOME
+
+
+ENV TOMCAT_MAJOR 7
+ENV TOMCAT_VERSION 7.0.70
+#优化 tomcat7 下载
+ENV TOMCAT_TGZ_URL http://mirrors.aliyun.com/apache/tomcat/tomcat-$TOMCAT_MAJOR/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz
+
+RUN set -x \
+	&& curl -fSL "$TOMCAT_TGZ_URL" -o tomcat.tar.gz \
+	&& tar -xvf tomcat.tar.gz --strip-components=1 \
+	&& rm bin/*.bat \
+	&& rm tomcat.tar.gz*
+
+#替换server.xml
+RUN  rm $CATALINA_HOME/conf/server.xml
+ADD  docker/server.xml $CATALINA_HOME/conf/server.xml
+
+##maven
+ENV MAVEN_VERSION 3.1.1
+
+RUN mkdir -p /usr/share/maven \
+  && curl -fsSL http://mirrors.aliyun.com/apache/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz \
+    | tar -xzC /usr/share/maven --strip-components=1 \
+  && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
+
+ENV MAVEN_HOME /usr/share/maven
+
+VOLUME /root/.m2
+
+##替换maven 的 配置文件
+RUN  rm $MAVEN_HOME/conf/settings.xml
+ADD  docker/settings.xml $MAVEN_HOME/conf/settings.xml
+
+##mvn 编译代码
+ADD pom.xml /tmp/build/
+#
+ADD coupon-api /tmp/build/coupon-api
+ADD coupon-dao/tmp/build/coupon-dao
+ADD coupon-service /tmp/build/coupon-service
+
+# 编译代码
+RUN cd /tmp/build && mvn clean package -Pdev -Dmaven.test.skip=true
+
+##执行tomcat7
+
+RUN     rm -rf $CATALINA_HOME/webapps/* \
+        && rm -rf $CATALINA_HOME/work/*
+
+RUN cp /tmp/build/coupon-api/target/*.war $CATALINA_HOME/webapps/ROOT.war
+
+RUN cd $CATALINA_HOME/webapps && ls -al
+
+EXPOSE 8080
+CMD ["catalina.sh", "run"]
