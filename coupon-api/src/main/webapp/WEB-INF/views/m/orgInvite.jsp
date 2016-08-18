@@ -94,7 +94,7 @@
             font-size: 22px;
             text-align: center;
             letter-spacing: 1px;
-            margin-top: 108%;
+            margin-top: 102%;
             width: inherit;
             z-index: 100;
             position: absolute;
@@ -109,7 +109,7 @@
             display: block;
             font-family: 微软雅黑;
             font-size: 18px;
-            margin-top: 120%;
+            margin-top: 115%;
             width: inherit;
             text-align: center;
             letter-spacing: 1px;
@@ -144,17 +144,18 @@
 <div class="receive-content">
     <div class="daimaniu">
         <img src="http://cdn.jiying.mobi/invite/daimaniulogo.png" width="120px" height="120px">
+        <div id="dmn" class="logodes">代码牛</div>
     </div>
-    <div class="daimaniudes">
-        <img src="http://cdn.jiying.mobi/invite/daimaniudes.png" width="140px" height="35px">
-    </div>
+    <%--<div class="daimaniudes">--%>
+    <%--<img src="http://cdn.jiying.mobi/invite/daimaniudes.png" width="140px" height="35px">--%>
+    <%--</div>--%>
     <div class="logo">
         <img src="${logo}" width="120px" height="120px">
         <div id="logodes" class="logodes">${name}</div>
     </div>
 
     <div class="receive-info">代码牛<span>&nbsp;&nbsp;联合&nbsp;&nbsp;</span>${name}</div>
-    <div class="receive-info1">邀请您参与代码牛问答公测,并送您若干体验券</div>
+    <div class="receive-info1">邀请您参与代码牛技术问答公测<br>注册并领取体验券</div>
     <input type="tel" maxlength="11" placeholder="请输入注册的手机号" class="tel" id="phone"/>
     <div class="receive-button" id="submit"></div>
 </div>
