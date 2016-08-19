@@ -15,7 +15,7 @@
 
     <style>
         body {
-            background: #00ada7 none repeat scroll 0 0;
+           /* background: #00ada7 none repeat scroll 0 0;*/
             color: #000;
             font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
             font-size: 14px;
@@ -37,7 +37,7 @@
         .receive-button {
             width: 60%;
             height: 55px;
-            line-height: 50px;
+
             margin: 0 auto;
             text-align: center;
             -webkit-border-radius: 10px;
@@ -106,12 +106,22 @@
 </head>
 
 <body>
-<img width="100%" src="http://cdn.jiying.mobi/invite/background0.png">
+<%--<img width="100%" src="http://cdn.jiying.mobi/invite/background0.png">
 <div class="receive-content">
     <div class="receive-info">${name}活动</div>
     <div class="receive-info1">立即注册获得问答体验券</div>
     <input type="tel" maxlength="11" placeholder="请输入注册的手机号" class="tel" id="phone"/>
     <div class="receive-button" id="submit"></div>
+</div>
+
+<script src="//cdn.bootcss.com/zepto/1.1.6/zepto.min.js"></script>--%>
+
+<img width="100%" src="/resources/imgs/daimaniubg.png">
+<div class="receive-content">
+    <div class="receive-info">${name}活动</div>
+    <div class="receive-info1">立即注册获得问答体验券</div>
+    <input type="tel" maxlength="11" placeholder="请输入注册的手机号" class="tel" id="phone"/>
+    <img class="receive-button" id="submit" src="/resources/imgs/registerButton.png"/>
 </div>
 
 <script src="//cdn.bootcss.com/zepto/1.1.6/zepto.min.js"></script>
@@ -161,15 +171,15 @@
                             location.href = prefix + "/m/invite/finish"
                         } else {
                             console.log("failed");
-                            alert('领取失败，已经领取过了');
+                            alert('领取失败，您已经领取过该优惠券');
                         }
                     },
                     error: function (data) {
-                        alert("失败");
+                        alert("系统出错，请联系管理员");
                     }
                 });
             } else {
-                alert('phone格式不对');
+                alert('手机号码格式出错，请重新填写');
             }
         });
 

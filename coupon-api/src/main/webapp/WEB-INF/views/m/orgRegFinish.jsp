@@ -30,21 +30,6 @@
             z-index: 50;
         }
 
-        .logo {
-            float: right;
-            margin-top: 38%;
-            margin-right: 10%;
-            z-index: 100;
-            position: relative;
-        }
-
-        .logo0 {
-            margin-top: 38%;
-            margin-left: 10%;
-            z-index: 100;
-            position: absolute;
-        }
-
         .QRcode {
             width: 100%;
             text-align: center;
@@ -63,19 +48,60 @@
             z-index: 100;
             position: absolute;
         }
+
+        .logo {
+            float: right;
+            margin-top: 22%;
+            margin-right: 10%;
+            z-index: 100;
+            position: relative;
+        }
+
+        .logodes {
+
+            color: #c7fffd;
+            font-size: 17px;
+            letter-spacing: 5px;
+            text-align: center;
+            margin-top: 15%;
+            z-index: 100;
+            position: relative;
+        }
+
+        .daimaniu {
+            margin-top: 22%;
+            margin-left: 10%;
+            z-index: 100;
+            position: absolute;
+        }
+
+        .daimaniudes {
+            color: #c7fffd;
+            font-size: 17px;
+            font-family: 微软雅黑;
+            letter-spacing: 5px;
+            text-align: center;
+            margin-top: 15%;
+            z-index: 100;
+            position: relative;
+        }
     </style>
 
 </head>
 
 <body>
-<img width="100%" src="http://cdn.jiying.mobi/invite/orgbg2.png">
+<img width="100%" src="/resources/imgs/orgInvitebg.png">
 <div class="content">
-    <div class="logo0">
+    <div class="daimaniu">
         <img src="http://cdn.jiying.mobi/invite/daimaniulogo.png" width="120px" height="120px">
+
     </div>
+    <%--<div class="daimaniudes">--%>
+    <%--<img src="http://cdn.jiying.mobi/invite/daimaniudes.png" width="140px" height="35px">--%>
+    <%--</div>--%>
     <div class="logo">
-        <%--<img src="${logo}" width="110px" height="143px">--%>
         <img src="${logo}" width="120px" height="120px">
+
     </div>
     <div class="QRcode">
         <img src="http://cdn.jiying.mobi/invite/QRcode0.png" width="200px" , height="200px">

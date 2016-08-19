@@ -15,7 +15,7 @@
     <style>
 
         body {
-            background: #00ada7 none repeat scroll 0 0;
+           /* background: #00ada7 none repeat scroll 0 0;*/
             color: #000;
             font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
             font-size: 14px;
@@ -50,12 +50,12 @@
             z-index: 1000;
             position: absolute;
             margin-left: 21%;
-            margin-top: 152%;
+            margin-top: 136%;
         }
 
         .logo {
             float: right;
-            margin-top: 38%;
+            margin-top: 22%;
             margin-right: 10%;
             z-index: 100;
             position: relative;
@@ -65,7 +65,6 @@
 
             color: #c7fffd;
             font-size: 17px;
-
             letter-spacing: 5px;
             text-align: center;
             margin-top: 15%;
@@ -74,17 +73,21 @@
         }
 
         .daimaniu {
-            margin-top: 38%;
+            margin-top: 22%;
             margin-left: 10%;
             z-index: 100;
             position: absolute;
         }
 
         .daimaniudes {
-            margin-top: 75%;
-            margin-left: 6%;
+            color: #c7fffd;
+            font-size: 17px;
+            font-family: 微软雅黑;
+            letter-spacing: 5px;
+            text-align: center;
+            margin-top: 15%;
             z-index: 100;
-            position: absolute;
+            position: relative;
         }
 
         .receive-info {
@@ -94,7 +97,7 @@
             font-size: 22px;
             text-align: center;
             letter-spacing: 1px;
-            margin-top: 102%;
+            margin-top: 90%;
             width: inherit;
             z-index: 100;
             position: absolute;
@@ -109,7 +112,7 @@
             display: block;
             font-family: 微软雅黑;
             font-size: 18px;
-            margin-top: 115%;
+            margin-top: 101%;
             width: inherit;
             text-align: center;
             letter-spacing: 1px;
@@ -133,18 +136,18 @@
             z-index: 1000;
             position: absolute;
             margin-left: 13%;
-            margin-top: 134%;
+            margin-top: 118%;
         }
     </style>
 
 </head>
 
 <body>
-<img width="100%" src="http://cdn.jiying.mobi/invite/orgbg1.png">
+<img width="100%" src="/resources/imgs/orgInvitebg.png">
 <div class="receive-content">
     <div class="daimaniu">
         <img src="http://cdn.jiying.mobi/invite/daimaniulogo.png" width="120px" height="120px">
-        <div id="dmn" class="logodes">代码牛</div>
+        <div id="dmn" class="daimaniudes">代码牛</div>
     </div>
     <%--<div class="daimaniudes">--%>
     <%--<img src="http://cdn.jiying.mobi/invite/daimaniudes.png" width="140px" height="35px">--%>
@@ -157,7 +160,7 @@
     <div class="receive-info">代码牛<span>&nbsp;&nbsp;联合&nbsp;&nbsp;</span>${name}</div>
     <div class="receive-info1">邀请您参与代码牛技术问答公测<br>注册并领取体验券</div>
     <input type="tel" maxlength="11" placeholder="请输入注册的手机号" class="tel" id="phone"/>
-    <div class="receive-button" id="submit"></div>
+    <img class="receive-button" id="submit" src="/resources/imgs/registerButton.png"/>
 </div>
 
 <script src="//cdn.bootcss.com/zepto/1.1.6/zepto.min.js"></script>
@@ -221,15 +224,15 @@
                             location.href = prefix + "/m/invite/finish?type=2&logo=${logo}";
                         } else {
                             console.log("failed");
-                            alert('领取失败，已经领取过了');
+                            alert('领取失败，您已经领取过该优惠券');
                         }
                     },
                     error: function (data) {
-                        alert("失败");
+                        alert("系统出错，请联系管理员");
                     }
                 });
             } else {
-                alert('phone格式不对');
+                alert('手机号码格式出错，请重新填写');
             }
         });
 
