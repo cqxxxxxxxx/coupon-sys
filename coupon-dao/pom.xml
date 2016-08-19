@@ -33,6 +33,12 @@
                 <env>prod</env>
             </properties>
         </profile>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <env>dev</env>
+            </properties>
+        </profile>
     </profiles>
     <build>
         <filters>

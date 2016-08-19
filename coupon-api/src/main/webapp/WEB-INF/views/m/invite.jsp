@@ -16,7 +16,7 @@
     <style>
 
         body {
-            background: #00ada7 none repeat scroll 0 0;
+          /*  background: #00ada7 none repeat scroll 0 0;*/
             color: #000;
             font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
             font-size: 14px;
@@ -106,13 +106,12 @@
 </head>
 
 <body>
-<img width="100%" src="http://cdn.jiying.mobi/invite/background0.png">
+<img width="100%" src="http://cdn.jiying.mobi/invite/daimaniu_bg.png">
 <div class="receive-content">
     <p class="receive-info">${name}<span>&nbsp;邀请你使用代码牛</span>
         <br><span>立即注册获得问答体验券</span></p>
-    <%--<div class="receive-info1">立即注册获得问答体验券</div>--%>
     <input type="tel" maxlength="11" placeholder="请输入注册的手机号" class="tel" id="phone"/>
-    <div class="receive-button" id="submit"></div>
+    <img class="receive-button" id="submit" src="http://cdn.jiying.mobi/invite/registerButton.png"/>
 </div>
 
 <script src="//cdn.bootcss.com/zepto/1.1.6/zepto.min.js"></script>
