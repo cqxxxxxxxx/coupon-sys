@@ -143,7 +143,7 @@
 </head>
 
 <body>
-<img width="100%" src="/resources/imgs/orgInvitebg.png">
+<img width="100%" src="http://cdn.jiying.mobi/invite/orgInvitebg.png">
 <div class="receive-content">
     <div class="daimaniu">
         <img src="http://cdn.jiying.mobi/invite/daimaniulogo.png" width="120px" height="120px">
@@ -160,7 +160,7 @@
     <div class="receive-info">代码牛<span>&nbsp;&nbsp;联合&nbsp;&nbsp;</span>${name}</div>
     <div class="receive-info1">邀请您参与代码牛技术问答公测<br>注册并领取体验券</div>
     <input type="tel" maxlength="11" placeholder="请输入注册的手机号" class="tel" id="phone"/>
-    <img class="receive-button" id="submit" src="/resources/imgs/registerButton.png"/>
+    <img class="receive-button" id="submit" src="http://cdn.jiying.mobi/invite/registerButton.png"/>
 </div>
 
 <script src="//cdn.bootcss.com/zepto/1.1.6/zepto.min.js"></script>

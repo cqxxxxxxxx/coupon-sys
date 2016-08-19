@@ -90,7 +90,7 @@
 </head>
 
 <body>
-<img width="100%" src="/resources/imgs/orgInvitebg.png">
+<img width="100%" src="http://cdn.jiying.mobi/invite/orgInvitebg.png">
 <div class="content">
     <div class="daimaniu">
         <img src="http://cdn.jiying.mobi/invite/daimaniulogo.png" width="120px" height="120px">

@@ -106,12 +106,12 @@
 </head>
 
 <body>
-<img width="100%" src="/resources/imgs/daimaniubg.png">
+<img width="100%" src="http://cdn.jiying.mobi/invite/daimaniu_bg.png">
 <div class="receive-content">
     <p class="receive-info">${name}<span>&nbsp;邀请你使用代码牛</span>
         <br><span>立即注册获得问答体验券</span></p>
     <input type="tel" maxlength="11" placeholder="请输入注册的手机号" class="tel" id="phone"/>
-    <img class="receive-button" id="submit" src="/resources/imgs/registerButton.png"/>
+    <img class="receive-button" id="submit" src="http://cdn.jiying.mobi/invite/registerButton.png"/>
 </div>
 
 <script src="//cdn.bootcss.com/zepto/1.1.6/zepto.min.js"></script>

@@ -53,7 +53,7 @@
 </head>
 
 <body>
-<img width="100%" src="/resources/imgs/daimaniubg.png">
+<img width="100%" src="http://cdn.jiying.mobi/invite/daimaniu_bg.png">
 <div class="content">
     <div class="QRcode">
         <img src="http://cdn.jiying.mobi/invite/QRcode0.png" width="200px" , height="200px">
