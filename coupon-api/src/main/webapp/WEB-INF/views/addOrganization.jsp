@@ -310,7 +310,7 @@
             $('#code').val('');
             $('#name').val('');
             $('#des').val('');
-            $('#preview').attr('src', '/resources/imgs/logo.png');
+            $('#preview').attr('src', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNcvHh+PQAGPAJmNT5JDwAAAABJRU5ErkJggg==');
             $('#total_limit').val('');
             $('#num').val('');
             $('#Starttime').val('');
