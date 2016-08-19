@@ -3,18 +3,25 @@ package cn.xiaohuodui.service.impl;
 
 import cn.xiaohuodui.dao.ClickinfoMapper;
 import cn.xiaohuodui.form.ClickQueryForm;
+import cn.xiaohuodui.form.ViewsQueryForm;
 import cn.xiaohuodui.model.Clickinfo;
 import cn.xiaohuodui.model.IpGroup;
 import cn.xiaohuodui.service.ActivityService;
 import cn.xiaohuodui.service.ClickService;
 import cn.xiaohuodui.service.OrganizationService;
+import cn.xiaohuodui.util.ChartDataUtil;
 import cn.xiaohuodui.util.DateUtil;
+import cn.xiaohuodui.util.FormHelper;
+import org.apache.http.client.fluent.Form;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.text.ParseException;
+import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by cqxxxxx on 2016/7/20.
@@ -96,5 +103,57 @@ public class ClickServiceImpl implements ClickService {
         List<IpGroup> list = clickinfoMapper.countIpAll(keyword);
         return list.size();
     }
+
+
+    /**
+     * 查询独立IP的访问量  code可选
+     * @param viewsQueryForm
+     * @return key为日期  value为当天访问量
+     */
+    public Map getViewsDistinctIp(ViewsQueryForm viewsQueryForm) throws ParseException {
+        ViewsQueryForm vqf = FormHelper.validateViewsQueryForm(viewsQueryForm);
+        String code = vqf.getCode();
+        Long begin = vqf.getBegin();
+        Long  end = vqf.getEnd();
+        List<Clickinfo> clickinfos = clickinfoMapper.getViewsDistinctIp(code, begin, end);
+        return mapTransfer(clickinfos);
+    }
+
+    /**
+     * 查询总的访问量  code可选
+     * @param viewsQueryForm
+     * @return key为日期  value为当天访问量
+     */
+    public Map getViews(ViewsQueryForm viewsQueryForm) throws ParseException {
+        ViewsQueryForm vqf = FormHelper.validateViewsQueryForm(viewsQueryForm);
+        String code = vqf.getCode();
+        Long begin = vqf.getBegin();
+        Long  end = vqf.getEnd();
+        List<Clickinfo> clickinfos = clickinfoMapper.getViews(code, begin, end);
+        return mapTransfer(clickinfos);
+    }
+
+
+    /**
+     * 把list转为map  key为日期String   value为数量int
+     * @param clickinfos
+     * @return
+     */
+    public Map mapTransfer(List<Clickinfo> clickinfos){
+
+        Map<String, Integer> map = new ChartDataUtil().getOriginMap(clickinfos);
+
+        //判断是否是同一天，是则num+1
+        for (Clickinfo clickinfo: clickinfos){
+            String date = DateUtil.getMMdd(clickinfo.getCreated());
+            if (map.containsKey(date)){
+                int num = map.get(date);
+                map.put(date, num + 1);
+            }
+        }
+        return map;
+    }
+
+
 
 }

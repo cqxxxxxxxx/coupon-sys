@@ -5,16 +5,22 @@ import cn.xiaohuodui.dao.OrganizationMapper;
 import cn.xiaohuodui.dao.ShareinfoMapper;
 import cn.xiaohuodui.form.PhoneForm;
 import cn.xiaohuodui.form.ShareQueryForm;
+import cn.xiaohuodui.form.ViewsQueryForm;
+import cn.xiaohuodui.model.Clickinfo;
 import cn.xiaohuodui.model.Shareinfo;
 import cn.xiaohuodui.service.ShareService;
 import cn.xiaohuodui.util.DateUtil;
+import cn.xiaohuodui.util.FormHelper;
 import cn.xiaohuodui.vo.InviteVo;
 import cn.xiaohuodui.vo.InviteinfoVo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by cqxxxxx on 2016/7/20.
@@ -131,4 +137,52 @@ public class ShareServiceImpl implements ShareService {
             shareinfoMapper.updateByPrimaryKey(shareinfo);
         }
     }
+
+    public Map getRegistrations(ViewsQueryForm viewsQueryForm) throws ParseException {
+        ViewsQueryForm vqf = FormHelper.validateViewsQueryForm(viewsQueryForm);
+        String code = vqf.getCode();
+        Long begin = vqf.getBegin();
+        Long  end = vqf.getEnd();
+        List<Shareinfo> shareinfos = shareinfoMapper.getRegistrations(code, begin, end);
+        return mapTransfer(shareinfos);
+    }
+
+    public Map getAppRegistrations(ViewsQueryForm viewsQueryForm) throws ParseException {
+        ViewsQueryForm vqf = FormHelper.validateViewsQueryForm(viewsQueryForm);
+        String code = vqf.getCode();
+        Long begin = vqf.getBegin();
+        Long  end = vqf.getEnd();
+        List<Shareinfo> shareinfos = shareinfoMapper.getAppRegistrations(code, begin, end);
+        return mapTransfer(shareinfos);
+
+    }
+
+
+
+    /**
+     * 把list转为map  key为日期String   value为数量int
+     * @param shareinfos
+     * @return
+     */
+    public Map mapTransfer(List<Shareinfo> shareinfos){
+        Map<String, Integer> map = new LinkedHashMap<String, Integer>();
+        Shareinfo theFirst = shareinfos.get(0);
+        long unixTime = theFirst.getCreated();
+
+        //取第一个最小的日期，把他跟之后6天一共七天放到map的key中
+        for(int i=0; i<7; i++){
+            String date = DateUtil.getMMdd(unixTime);  //获取时间MM-dd的形式
+            map.put(date, 0);
+            unixTime += 60 * 60 * 24 * 1000;
+        }
+        for (Shareinfo shareinfo: shareinfos){
+            String date = DateUtil.getMMdd(shareinfo.getCreated());
+            if (map.containsKey(date)){
+                int num = map.get(date);
+                map.put(date, num + 1);
+            }
+        }
+        return map;
+    }
+
 }

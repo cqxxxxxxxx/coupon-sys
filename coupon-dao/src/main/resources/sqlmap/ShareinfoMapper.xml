@@ -14,6 +14,38 @@
     id, code, type, phone, checked, checked_time, created
   </sql>
 
+    <!--查询该code下注册数-->
+    <select id="getRegistrations" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM share
+        WHERE
+        code = #{code}
+        <if test="begin!=null">
+            AND created &gt; #{begin, jdbcType=BIGINT}
+        </if>
+        <if test="end!=null">
+            AND created &gt; #{end, jdbcType=BIGINT}
+        </if>
+        ORDER BY created ASC
+    </select>
+
+    <!--查询该code下注册且在APP上注册过的数量-->
+    <select id="getRegistrations" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM share
+        WHERE
+        code = #{code} AND checked = 1
+        <if test="begin!=null">
+            AND created &gt; #{begin, jdbcType=BIGINT}
+        </if>
+        <if test="end!=null">
+            AND created &gt; #{end, jdbcType=BIGINT}
+        </if>
+        ORDER BY created ASC
+    </select>
+
     <!--分页的SQL语句-->
     <select id="listPage" resultMap="BaseResultMap" parameterType="java.util.Map">
         SELECT

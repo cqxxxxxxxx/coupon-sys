@@ -2,6 +2,7 @@ package cn.xiaohuodui.service;
 
 
 import cn.xiaohuodui.form.ClickQueryForm;
+import cn.xiaohuodui.form.ViewsQueryForm;
 import cn.xiaohuodui.model.Clickinfo;
 import cn.xiaohuodui.model.IpGroup;
 
@@ -14,14 +15,20 @@ import java.util.Map;
  */
 public interface ClickService {
 
-    public void setInfo(String code, String ip, String browser);   //设置个人分享的点击者的信息
+     void setInfo(String code, String ip, String browser);   //设置个人分享的点击者的信息
 
-    public List<Clickinfo> getClickInfos(ClickQueryForm form) throws ParseException;
+     List<Clickinfo> getClickInfos(ClickQueryForm form) throws ParseException;
 
-    public int countAll(ClickQueryForm form) throws ParseException;
+     int countAll(ClickQueryForm form) throws ParseException;
 
-    public List<IpGroup> getIpGroup(int offset, int limit, String keyword);
+     List<IpGroup> getIpGroup(int offset, int limit, String keyword);
 
-    public int countAllIpGroup(String keyword);
+     int countAllIpGroup(String keyword);
+
+     Map getViewsDistinctIp(ViewsQueryForm viewsQueryForm) throws ParseException;
+
+     Map getViews(ViewsQueryForm viewsQueryForm) throws ParseException;
+
+
 
 }

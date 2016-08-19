@@ -17,17 +17,17 @@ public interface ActivityService {
      * @param des
      * @return
      */
-    public boolean createActivity(String code, String title, String des, int total_limit, int num, String starttime, String endtime) throws ParseException;
+     boolean createActivity(String code, String title, String des, int total_limit, int num, String starttime, String endtime) throws ParseException;
 
-    public boolean checkCode(String code);
+     boolean checkCode(String code);
 
-    public List<Activity> getActivities(String keyword, int limit, int offset); //分页版本
+     List<Activity> getActivities(String keyword, int limit, int offset); //分页版本
 
-    public boolean updateActivity(Activity activity);     //update
+     boolean updateActivity(Activity activity);     //update
 
-    public int countAll(String keyword);
+     int countAll(String keyword);
 
-    public Activity getinfo(String code);
+     Activity getinfo(String code);
 
-    public boolean deleteActivity(String code);
+     boolean deleteActivity(String code);
 }

@@ -3,12 +3,14 @@ package cn.xiaohuodui.service;
 
 import cn.xiaohuodui.form.PhoneForm;
 import cn.xiaohuodui.form.ShareQueryForm;
+import cn.xiaohuodui.form.ViewsQueryForm;
 import cn.xiaohuodui.model.Shareinfo;
 import cn.xiaohuodui.vo.InviteVo;
 import cn.xiaohuodui.vo.InviteinfoVo;
 
 import java.text.ParseException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by cqxxxxx on 2016/7/20.
@@ -32,4 +34,8 @@ public interface ShareService {
     InviteinfoVo getInviteinfoVoByPhone(String phone);
 
     void markReg(PhoneForm phoneForm);
+
+    Map<String, Integer> getRegistrations(ViewsQueryForm viewsQueryForm) throws ParseException;
+
+    Map<String, Integer> getAppRegistrations(ViewsQueryForm viewsQueryForm) throws ParseException;
 }

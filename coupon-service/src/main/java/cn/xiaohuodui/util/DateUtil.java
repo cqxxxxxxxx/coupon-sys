@@ -21,15 +21,18 @@ public class DateUtil {
         return simpleDateFormat.format(date);
     }
 
+    public static String getMMdd(long timeStamp) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-dd");
+        Date date = new Date(timeStamp);
+        return simpleDateFormat.format(date);
+    }
+
 
     public static void main(String[] args) {
-        String strDate = "2016-11-04";
-        try {
-            System.out.println(DateUtil.stringToTimeStamp(strDate));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        System.out.println(DateUtil.timeStampToString(System.currentTimeMillis()));
+
+
+            System.out.println(DateUtil.getMMdd(System.currentTimeMillis()));
+
 
     }
 }

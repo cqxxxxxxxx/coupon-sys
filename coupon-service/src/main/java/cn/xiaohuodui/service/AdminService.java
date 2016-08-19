@@ -9,7 +9,7 @@ import cn.xiaohuodui.model.Admin;
  * Created by cqxxxxx on 2016/8/3.
  */
 public interface AdminService {
-    public Admin login(AdminLoginForm adminLoginForm) throws BussException;
+     Admin login(AdminLoginForm adminLoginForm) throws BussException;
 
-    public void add(AdminForm adminForm);
+     void add(AdminForm adminForm);
 }

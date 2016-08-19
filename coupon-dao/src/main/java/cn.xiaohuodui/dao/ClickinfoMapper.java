@@ -31,4 +31,10 @@ public interface ClickinfoMapper {
 
     //    查询分组数量
     List<IpGroup> countIpAll(@Param("keyword") String keyword);
+
+    //查询独立IP的访问量 code可选 时间限定可选
+    List<Clickinfo> getViewsDistinctIp(@Param("code") String code, @Param("begin") Long begin, @Param("end") Long end);
+
+    //查询总的访问量 code可选 时间限定可选
+    List<Clickinfo> getViews(@Param("code") String code, @Param("begin") Long begin, @Param("end") Long end);
 }

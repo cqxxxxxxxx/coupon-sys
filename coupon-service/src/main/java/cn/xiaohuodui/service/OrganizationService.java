@@ -11,17 +11,17 @@ import java.util.List;
  */
 public interface OrganizationService {
 
-    public boolean createOrganization(OrganizationCreateForm form) throws ParseException;
+     boolean createOrganization(OrganizationCreateForm form) throws ParseException;
 
-    public boolean checkCode(String code);
+     boolean checkCode(String code);
 
-    public List<Organization> getOrganizations(String keyword, int limit, int offset); //分页版本
+     List<Organization> getOrganizations(String keyword, int limit, int offset); //分页版本
 
-    public int countAll(String keyword);
+     int countAll(String keyword);
 
-    public Organization getinfo(String code);
+     Organization getinfo(String code);
 
-    public boolean updateInfo(Organization organization);
+     boolean updateInfo(Organization organization);
 
-    public boolean deleteOrganization(String code);
+     boolean deleteOrganization(String code);
 }

@@ -27,4 +27,10 @@ public interface ShareinfoMapper {
     int countAll(@Param("code") String code, @Param("phone") String phone, @Param("keyword") String keyword, @Param("starttime") Long starttime, @Param("endtime") Long endtime);
 
     Shareinfo selectByPhone(@Param("phone") String phone);
+
+    //查询指定code下注册数量 时间限定可选
+    List<Shareinfo> getRegistrations(@Param("code") String code, @Param("begin") Long begin, @Param("end") Long end);
+
+    //查询指定code下填过手机号且APP上注册过的数量，即字段checked=1 时间限定可选
+    List<Shareinfo> getAppRegistrations(@Param("code") String code, @Param("begin") Long begin, @Param("end") Long end);
 }
