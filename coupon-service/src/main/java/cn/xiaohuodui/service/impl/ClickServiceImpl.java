@@ -8,18 +8,14 @@ import cn.xiaohuodui.model.Clickinfo;
 import cn.xiaohuodui.model.IpGroup;
 import cn.xiaohuodui.service.ActivityService;
 import cn.xiaohuodui.service.ClickService;
-import cn.xiaohuodui.service.OrganizationService;
 import cn.xiaohuodui.util.ChartDataUtil;
 import cn.xiaohuodui.util.DateUtil;
 import cn.xiaohuodui.util.FormHelper;
-import org.apache.http.client.fluent.Form;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.text.ParseException;
-import java.util.Date;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,10 +29,14 @@ public class ClickServiceImpl implements ClickService {
     private ClickinfoMapper clickinfoMapper;
 
     @Autowired
+    ChartDataUtil chartDataUtil;
+
+
+    @Autowired
     private ActivityService activityService;
 
     //官方分享的URL被点击后  把点击者信息插入clickinfo表
-    public void setInfo(String code, String ip, String browser) {
+    public void setInfo(String code, String ip, String browser, Long timestamp) {
         Clickinfo clickinfo = new Clickinfo();
 
         if (code.length() == 6) {
@@ -46,7 +46,7 @@ public class ClickServiceImpl implements ClickService {
         } else {
             clickinfo.setType("2");                     //来自企业code， TYPE2
         }
-
+        clickinfo.setSendTime(timestamp);
         clickinfo.setCreated(System.currentTimeMillis());
         clickinfo.setBrowser(browser);
         clickinfo.setCode(code);
@@ -107,6 +107,7 @@ public class ClickServiceImpl implements ClickService {
 
     /**
      * 查询独立IP的访问量  code可选
+     *
      * @param viewsQueryForm
      * @return key为日期  value为当天访问量
      */
@@ -114,13 +115,15 @@ public class ClickServiceImpl implements ClickService {
         ViewsQueryForm vqf = FormHelper.validateViewsQueryForm(viewsQueryForm);
         String code = vqf.getCode();
         Long begin = vqf.getBegin();
-        Long  end = vqf.getEnd();
+        Long end = vqf.getEnd();
         List<Clickinfo> clickinfos = clickinfoMapper.getViewsDistinctIp(code, begin, end);
-        return mapTransfer(clickinfos);
+        Map originMap = chartDataUtil.getOriginMap(vqf);
+        return chartDataUtil.clickMapTransfer(originMap, clickinfos);
     }
 
     /**
      * 查询总的访问量  code可选
+     *
      * @param viewsQueryForm
      * @return key为日期  value为当天访问量
      */
@@ -128,17 +131,55 @@ public class ClickServiceImpl implements ClickService {
         ViewsQueryForm vqf = FormHelper.validateViewsQueryForm(viewsQueryForm);
         String code = vqf.getCode();
         Long begin = vqf.getBegin();
-        Long  end = vqf.getEnd();
+        Long end = vqf.getEnd();
         List<Clickinfo> clickinfos = clickinfoMapper.getViews(code, begin, end);
-        return mapTransfer(clickinfos);
+        Map originMap = chartDataUtil.getOriginMap(vqf);
+        return chartDataUtil.clickMapTransfer(originMap, clickinfos);
+    }
+
+    /**
+     * 查询每天有几个人分享，即一个人多次分享链接也只算一个
+     *
+     * @param viewsQueryForm
+     * @return
+     * @throws ParseException
+     */
+    public Map getPersonalInvites(ViewsQueryForm viewsQueryForm) throws ParseException {
+        ViewsQueryForm vqf = FormHelper.validateViewsQueryForm(viewsQueryForm);
+        String code = vqf.getCode();
+        Long begin = vqf.getBegin();
+        Long end = vqf.getEnd();
+        List<Clickinfo> clickinfos = clickinfoMapper.getPersonalInvites(code, begin, end);
+        Map originMap = chartDataUtil.getOriginMap(vqf);
+        return chartDataUtil.clickMapTransfer(originMap, clickinfos);
+    }
+
+    /**
+     * 查询每天个人分享的链接数，即一个人多次分享链接也以多次计算
+     *
+     * @param viewsQueryForm
+     * @return
+     * @throws ParseException
+     */
+    public Map getDistinctPersonalInvites(ViewsQueryForm viewsQueryForm) throws ParseException {
+        ViewsQueryForm vqf = FormHelper.validateViewsQueryForm(viewsQueryForm);
+        String code = vqf.getCode();
+        Long begin = vqf.getBegin();
+        Long end = vqf.getEnd();
+        List<Clickinfo> clickinfos = clickinfoMapper.getDistinctPersonalInvites(code, begin, end);
+        Map originMap = chartDataUtil.getOriginMap(vqf);
+        return chartDataUtil.clickMapTransfer(originMap, clickinfos);
     }
 
 
-    /**
-     * 把list转为map  key为日期String   value为数量int
-     * @param clickinfos
-     * @return
-     */
+/*
+    */
+/**
+ * 把list转为map  key为日期String   value为数量int
+ * @param clickinfos
+ * @return
+ *//*
+
     public Map mapTransfer(List<Clickinfo> clickinfos){
 
         Map<String, Integer> map = new ChartDataUtil().getOriginMap(clickinfos);
@@ -153,7 +194,7 @@ public class ClickServiceImpl implements ClickService {
         }
         return map;
     }
-
+*/
 
 
 }

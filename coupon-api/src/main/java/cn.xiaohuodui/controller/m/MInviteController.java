@@ -51,16 +51,21 @@ public class MInviteController {
      * @return
      */
     @RequestMapping(method = RequestMethod.GET)
-    public String invite(HttpServletRequest request, String ref, String name, Model model) {
+    public String invite(HttpServletRequest request, String ref, String name, String timestamp, Model model) {
         String ip = IPUtil.getIpAddr(request);
         String browser = IPUtil.getBrowser(request);
-        System.out.println(ref);
+        Long ts = null;
+        if (timestamp != null){
+            ts = Long.parseLong(timestamp.replace(",", ""));
+        }
 
         if (ref.length() == 6) {
+
             model.addAttribute("type", "1");    //个人的url进来的
             model.addAttribute("name", name);
             model.addAttribute("code", ref);
-            clickService.setInfo(ref, ip, browser);
+
+            clickService.setInfo(ref, ip, browser, ts);
             return "m/invite";
         } else if (!activityService.checkCode(ref)) {  //官方活动URL进来的
             System.out.println(couponService.checkRemain(ref));
@@ -68,34 +73,34 @@ public class MInviteController {
             long endtime = deadLineUtil.getEndtime(ref);
 
             //判断时间是否在活动期间内，判断优惠券是否发光
-            if (System.currentTimeMillis() < starttime || System.currentTimeMillis() > endtime ) {
+            if (System.currentTimeMillis() < starttime || System.currentTimeMillis() > endtime) {
                 model.addAttribute("timeout", 1);
-            }else {
+            } else {
                 model.addAttribute("timeout", 2);
             }
-            if(!couponService.checkRemain(ref)){
+            if (!couponService.checkRemain(ref)) {
                 model.addAttribute("remain", 1);
-            }else {
+            } else {
                 model.addAttribute("remain", 2);
             }
             model.addAttribute("name", activityService.getinfo(ref).getTitle());
             model.addAttribute("type", "0");    //官方的url进来的
             model.addAttribute("code", ref);
-            clickService.setInfo(ref, ip, browser);
+            clickService.setInfo(ref, ip, browser, ts);
             return "m/officalInvite";
 
         } else {
             long starttime = deadLineUtil.getStarttime(ref);
             long endtime = deadLineUtil.getEndtime(ref);
             //判断时间是否在活动期间内，判断优惠券是否发光
-            if (System.currentTimeMillis() < starttime || System.currentTimeMillis() > endtime ) {
+            if (System.currentTimeMillis() < starttime || System.currentTimeMillis() > endtime) {
                 model.addAttribute("timeout", 1);  //1代表活动结束
-            }else {
+            } else {
                 model.addAttribute("timeout", 2);
             }
-            if(!couponService.checkRemain(ref)){
+            if (!couponService.checkRemain(ref)) {
                 model.addAttribute("remain", 1);    //1代表优惠券发光
-            }else {
+            } else {
                 model.addAttribute("remain", 2);
             }
             Organization organization = organizationService.getinfo(ref);
@@ -103,9 +108,17 @@ public class MInviteController {
             model.addAttribute("name", organization.getName());
             model.addAttribute("type", "2");    //企业的url进来的
             model.addAttribute("code", ref);
-            clickService.setInfo(ref, ip, browser);
+            clickService.setInfo(ref, ip, browser, ts);
             return "m/orgInvite";
         }
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/personal")
+    public String personalInvite(HttpServletRequest request, String ref, String name) {
+        System.out.println(ref + "==" + name + "==" + request.getParameter("timestamp"));
+        Long ts = Long.parseLong(request.getParameter("timestamp").replace(",", ""));
+        System.out.println(ts);
+        return "error";
     }
 
     /**

@@ -22,7 +22,7 @@
 <!--Aside Menu -->
 <jsp:include page="/WEB-INF/views/comp/siderbar.jsp">
     <jsp:param name="index" value="info"/>
-    <jsp:param name="index1" value="Shareinfo"/>
+    <jsp:param name="index1" value="shareInfo"/>
 </jsp:include>
 
 <div id="wrapper">
@@ -99,6 +99,8 @@
                                         <th>手机号
                                         </th>
                                         <th>领取时间
+                                        </th>
+                                        <th>APP是否注册
                                         </th>
                                     </tr>
                                     </thead>
@@ -188,6 +190,13 @@
                 return "企业"
             }
         }
+        function checkReg(data){
+            if (data == "0") {
+                return "未注册"
+            } else if(data=="1"){
+                return "已注册"
+            }
+        }
 
         function loadData() {
             oTable.dataTable({
@@ -216,6 +225,13 @@
                             return renderDate(time);
                         }
                     },
+                    {
+                        "mDataProp": "checked",
+                        "bSortable": false,
+                        "mRender": function (data) {
+                            return checkReg(data);
+                        }
+                    }
                 ],
                 "bFilter": true,
                 "bServerSide": true,

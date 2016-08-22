@@ -37,4 +37,10 @@ public interface ClickinfoMapper {
 
     //查询总的访问量 code可选 时间限定可选
     List<Clickinfo> getViews(@Param("code") String code, @Param("begin") Long begin, @Param("end") Long end);
+
+    //查询每天有几个人分享，即一个人多次分享链接也只算一个
+    List<Clickinfo> getPersonalInvites(@Param("code") String code, @Param("begin") Long begin, @Param("end") Long end);
+
+    //查询每天个人分享的链接数，即一个人多次分享链接也以多次计算
+    List<Clickinfo> getDistinctPersonalInvites(@Param("code") String code, @Param("begin") Long begin, @Param("end") Long end);
 }

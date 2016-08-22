@@ -19,29 +19,35 @@
         SELECT
         <include refid="Base_Column_List"/>
         FROM share
-        WHERE
-        code = #{code}
-        <if test="begin!=null">
-            AND created &gt; #{begin, jdbcType=BIGINT}
-        </if>
-        <if test="end!=null">
-            AND created &gt; #{end, jdbcType=BIGINT}
-        </if>
+        <where>
+            <if test="code!=null">
+                code = #{code}
+            </if>
+            <if test="begin!=null">
+                AND created &gt;= #{begin, jdbcType=BIGINT}
+            </if>
+            <if test="end!=null">
+                AND created &lt;= #{end, jdbcType=BIGINT}
+            </if>
+        </where>
         ORDER BY created ASC
     </select>
 
     <!--查询该code下注册且在APP上注册过的数量-->
-    <select id="getRegistrations" resultMap="BaseResultMap" parameterType="map">
+    <select id="getAppRegistrations" resultMap="BaseResultMap" parameterType="map">
         SELECT
         <include refid="Base_Column_List"/>
         FROM share
         WHERE
-        code = #{code} AND checked = 1
+        checked = 1
+        <if test="code!=null">
+            AND code = #{code}
+        </if>
         <if test="begin!=null">
-            AND created &gt; #{begin, jdbcType=BIGINT}
+            AND created &gt;= #{begin, jdbcType=BIGINT}
         </if>
         <if test="end!=null">
-            AND created &gt; #{end, jdbcType=BIGINT}
+            AND created &lt;= #{end, jdbcType=BIGINT}
         </if>
         ORDER BY created ASC
     </select>

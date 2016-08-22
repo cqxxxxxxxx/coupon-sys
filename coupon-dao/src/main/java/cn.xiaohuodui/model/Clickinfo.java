@@ -11,15 +11,15 @@ public class Clickinfo {
 
     private String browser;
 
-    private long sendTime;
+    private Long sendTime;
 
     private long created;
 
-    public long getSendTime() {
+    public Long getSendTime() {
         return sendTime;
     }
 
-    public void setSendTime(long sendTime) {
+    public void setSendTime(Long sendTime) {
         this.sendTime = sendTime;
     }
 

@@ -23,7 +23,7 @@
 <!--Aside Menu -->
 <jsp:include page="/WEB-INF/views/comp/siderbar.jsp">
     <jsp:param name="index" value="info"/>
-    <jsp:param name="index1" value="Clickinfo"/>
+    <jsp:param name="index1" value="clickInfo"/>
 </jsp:include>
 
 <div id="wrapper">
@@ -105,6 +105,7 @@
                                         </th>
                                         <th>点击时间
                                         </th>
+
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -221,6 +222,7 @@
             }
         }
 
+
         function loadIpData() {
             ipTable.dataTable({
                 "sDom": "<'row'<'col-sm-6'l><'col-sm-6'f>r><'row'<'col-sm-12't>><'row'<'col-sm-6'i><'col-sm-6'p>>",
@@ -235,6 +237,7 @@
                         "bSortable": false,
 
                     },
+
 
                 ],
                 "bFilter": true,
@@ -298,6 +301,7 @@
                             return renderDate(time);
                         }
                     },
+
                 ],
                 "bFilter": true,
                 "bServerSide": true,

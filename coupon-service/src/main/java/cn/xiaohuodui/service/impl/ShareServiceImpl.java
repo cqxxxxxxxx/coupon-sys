@@ -9,10 +9,12 @@ import cn.xiaohuodui.form.ViewsQueryForm;
 import cn.xiaohuodui.model.Clickinfo;
 import cn.xiaohuodui.model.Shareinfo;
 import cn.xiaohuodui.service.ShareService;
+import cn.xiaohuodui.util.ChartDataUtil;
 import cn.xiaohuodui.util.DateUtil;
 import cn.xiaohuodui.util.FormHelper;
 import cn.xiaohuodui.vo.InviteVo;
 import cn.xiaohuodui.vo.InviteinfoVo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -33,6 +35,9 @@ public class ShareServiceImpl implements ShareService {
 
     @Resource
     private OrganizationMapper organizationMapper;
+
+    @Autowired
+    ChartDataUtil chartDataUtil;
 
     @Resource
     private ActivityMapper activityMapper;
@@ -138,32 +143,46 @@ public class ShareServiceImpl implements ShareService {
         }
     }
 
+    /**
+     * 查询填了手机号的数量
+     * @param viewsQueryForm
+     * @return key为日期，全部统一   value为数量
+     * @throws ParseException
+     */
     public Map getRegistrations(ViewsQueryForm viewsQueryForm) throws ParseException {
         ViewsQueryForm vqf = FormHelper.validateViewsQueryForm(viewsQueryForm);
         String code = vqf.getCode();
         Long begin = vqf.getBegin();
-        Long  end = vqf.getEnd();
+        Long end = vqf.getEnd();
         List<Shareinfo> shareinfos = shareinfoMapper.getRegistrations(code, begin, end);
-        return mapTransfer(shareinfos);
+        Map originMap = chartDataUtil.getOriginMap(vqf);
+        return chartDataUtil.shareMapTransfer(originMap, shareinfos);
     }
 
+    /**
+     * 查询APP上注册了的数量
+     * @param viewsQueryForm
+     * @return key为日期，全都统一， value为数量
+     * @throws ParseException
+     */
     public Map getAppRegistrations(ViewsQueryForm viewsQueryForm) throws ParseException {
         ViewsQueryForm vqf = FormHelper.validateViewsQueryForm(viewsQueryForm);
         String code = vqf.getCode();
         Long begin = vqf.getBegin();
-        Long  end = vqf.getEnd();
+        Long end = vqf.getEnd();
         List<Shareinfo> shareinfos = shareinfoMapper.getAppRegistrations(code, begin, end);
-        return mapTransfer(shareinfos);
+        Map originMap = chartDataUtil.getOriginMap(vqf);
+        return chartDataUtil.shareMapTransfer(originMap, shareinfos);
 
     }
 
 
 
-    /**
+/*    *//**
      * 把list转为map  key为日期String   value为数量int
      * @param shareinfos
      * @return
-     */
+     *//*
     public Map mapTransfer(List<Shareinfo> shareinfos){
         Map<String, Integer> map = new LinkedHashMap<String, Integer>();
         Shareinfo theFirst = shareinfos.get(0);
@@ -183,6 +202,6 @@ public class ShareServiceImpl implements ShareService {
             }
         }
         return map;
-    }
+    }*/
 
 }

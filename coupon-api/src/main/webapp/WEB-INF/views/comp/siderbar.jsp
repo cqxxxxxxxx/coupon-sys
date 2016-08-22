@@ -51,10 +51,16 @@
             <li class="<c:if test="${param.index eq 'info'}">active</c:if>">
                 <a href="#"><span class="nav-label">查询管理</span><span class="fa arrow"></span> </a>
                 <ul class="nav nav-second-level collapse">
-                    <li class="<c:if test="${param.index1 eq 'Clickinfo'}">active</c:if>"><a
+                    <li class="<c:if test="${param.index1 eq 'clickInfo'}">active</c:if>"><a
                             href="<c:url value="/clickinfo"/> ">活动点击量信息查询</a></li>
-                    <li class="<c:if test="${param.index1 eq 'Shareinfo'}">active</c:if>"><a
+                    <li class="<c:if test="${param.index1 eq 'shareInfo'}">active</c:if>"><a
                             href="<c:url value="/shareinfo"/> ">已参加用户信息查询</a></li>
+                    <li class="<c:if test="${param.index1 eq 'chartInfo'}">active</c:if>"><a
+                            href="<c:url value="/chart"/> ">访问量查询</a>
+                    </li>
+                    <li class="<c:if test="${param.index1 eq 'personalInfo'}">active</c:if>"><a
+                            href="<c:url value="/chart/personal"/> ">分享数查询</a>
+                    </li>
                 </ul>
             </li>
     <li class="<c:if test="${param.index eq 'org'}">active</c:if>">

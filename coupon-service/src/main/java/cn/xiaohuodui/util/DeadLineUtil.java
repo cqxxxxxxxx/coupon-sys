@@ -1,6 +1,7 @@
 package cn.xiaohuodui.util;
 
 import cn.xiaohuodui.dao.ActivityMapper;
+import cn.xiaohuodui.dao.ClickinfoMapper;
 import cn.xiaohuodui.dao.OrganizationMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,9 @@ public class DeadLineUtil {
 
     @Resource(name="ActivityMapper")
     ActivityMapper activityMapper;
+
+    @Resource
+    ClickinfoMapper clickinfoMapper;
 
     @Resource(name="OrganizationMapper")
     OrganizationMapper organizationMapper;

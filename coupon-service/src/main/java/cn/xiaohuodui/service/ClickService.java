@@ -6,6 +6,7 @@ import cn.xiaohuodui.form.ViewsQueryForm;
 import cn.xiaohuodui.model.Clickinfo;
 import cn.xiaohuodui.model.IpGroup;
 
+import javax.swing.text.View;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +16,7 @@ import java.util.Map;
  */
 public interface ClickService {
 
-     void setInfo(String code, String ip, String browser);   //设置个人分享的点击者的信息
+     void setInfo(String code, String ip, String browser, Long timestamp);   //设置个人分享的点击者的信息
 
      List<Clickinfo> getClickInfos(ClickQueryForm form) throws ParseException;
 
@@ -29,6 +30,9 @@ public interface ClickService {
 
      Map getViews(ViewsQueryForm viewsQueryForm) throws ParseException;
 
+     Map getPersonalInvites(ViewsQueryForm viewsQueryForm) throws ParseException;
+
+     Map getDistinctPersonalInvites(ViewsQueryForm viewsQueryForm) throws ParseException;
 
 
 }
