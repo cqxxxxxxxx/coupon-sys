@@ -169,6 +169,17 @@
         "showMethod": "fadeIn",
         "hideMethod": "fadeOut"
     }
+
+    function checkCode(value) {
+        var Regx = /^[A-Za-z0-9]*$/;
+        if (Regx.test(value)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     $(document).ready(function () {
         console.log(prefix + $('#uptoken_url').val());
         console.log($('#preview').attr('src'));
@@ -319,6 +330,10 @@
         }
 
         function validForm() {
+            if(!checkCode($('#code').val().trim())){
+                toastr.error("编号必须为字母或者数字");
+                return false;
+            }
             if ($('#code').val().trim().length == 6) {
                 toastr.error('code长度不能6位');
                 return false;

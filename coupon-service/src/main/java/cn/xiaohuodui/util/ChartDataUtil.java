@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by cqxxxxx on 2016/8/19.
@@ -33,7 +31,7 @@ public class ChartDataUtil {
         //String code = vqf.getCode();
         Long begin = vqf.getBegin();
         Long end = vqf.getEnd();
-        Long size = (end-begin)/(60 * 60 * 24 * 1000);
+        Long size = (end - begin) / (60 * 60 * 24 * 1000);
         //List<Clickinfo> clickinfos = clickinfoMapper.getViews(code, begin, end);
         //Clickinfo theFirst = clickinfos.get(0);
         long unixTime = begin;
@@ -67,6 +65,58 @@ public class ChartDataUtil {
     }
 
     /**
+     * @param map
+     * @param clickinfos
+     * @return
+     * @throws ParseException
+     */
+    public Map clickMapTransfer1(Map<String, Integer> map, List<Clickinfo> clickinfos) throws ParseException {
+        //判断是否是同一天，是则num+1
+        for (Clickinfo clickinfo : clickinfos) {
+            String date = DateUtil.getMMdd(clickinfo.getSendTime());
+            if (map.containsKey(date)) {
+                int num = map.get(date);
+                map.put(date, num + 1);
+            }
+        }
+        return map;
+    }
+
+    /**
+     * @param map
+     * @param clickinfos
+     * @return
+     * @throws ParseException
+     */
+    public Map clickMapTransfer2(Map<String, Integer> map, List<Clickinfo> clickinfos) throws ParseException {
+        //判断是否是同一天，是则num+1
+        Map<String, Set<String>> stringSetMap = new HashMap<String, Set<String>>();
+
+        for (Clickinfo clickinfo : clickinfos) {
+            Set<String> codeSet = new HashSet<String>();
+            String code = clickinfo.getCode();
+            String date = DateUtil.getMMdd(clickinfo.getSendTime());
+            codeSet.add(code);
+            for (Clickinfo clickinfo1 : clickinfos) {
+                String date1 = DateUtil.getMMdd(clickinfo1.getSendTime());
+                String code1 = clickinfo1.getCode();
+                if (date1.equals(date)) {
+                    codeSet.add(code1);
+                }
+            }
+            stringSetMap.put(date, codeSet);
+        }
+
+        for (String key: stringSetMap.keySet()){
+            if (map.containsKey(key)){
+                map.put(key, stringSetMap.get(key).size());
+            }
+        }
+
+        return map;
+    }
+
+    /**
      * 把shareinfo的list转化为map
      * 把list转为map  key为日期String   value为访问数量
      *
@@ -78,6 +128,25 @@ public class ChartDataUtil {
         //判断是否是同一天，是则num+1
         for (Shareinfo shareinfo : shareinfos) {
             String date = DateUtil.getMMdd(shareinfo.getCreated());
+            if (map.containsKey(date)) {
+                int num = map.get(date);
+                map.put(date, num + 1);
+            }
+        }
+        return map;
+    }
+
+    /**
+     * @param map
+     * @param shareinfos
+     * @return
+     * @throws ParseException
+     */
+    public Map shareMapTransfer1(Map<String, Integer> map, List<Shareinfo> shareinfos) throws ParseException {
+
+        //判断是否是同一天，是则num+1
+        for (Shareinfo shareinfo : shareinfos) {
+            String date = DateUtil.getMMdd(shareinfo.getCheckedTime());
             if (map.containsKey(date)) {
                 int num = map.get(date);
                 map.put(date, num + 1);

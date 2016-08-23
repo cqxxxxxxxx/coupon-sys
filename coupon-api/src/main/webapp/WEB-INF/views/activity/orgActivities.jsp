@@ -109,10 +109,10 @@
 </head>
 <body class="fixed-navbar fixed-sidebar">
 <%--header--%>
-<jsp:include page="comp/header.jsp"/>
+<jsp:include page="/WEB-INF/views/comp/header.jsp"/>
 
 <%--Aside menu--%>
-<jsp:include page="comp/siderbar.jsp">
+<jsp:include page="/WEB-INF/views/comp/siderbar.jsp">
     <jsp:param name="index" value="org"/>
     <jsp:param name="index1" value="orginfo"/>
 </jsp:include>

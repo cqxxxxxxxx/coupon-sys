@@ -41,7 +41,7 @@ public class OrganizationController {
     public String organization(Model model) {
         model.addAttribute("domain", "7xl7mb.com1.z0.glb.clouddn.com");
         model.addAttribute("uptoken_url", "/uploadToken");
-        return "orgActivities";
+        return "activity/orgActivities";
     }
 
     //  分页
@@ -82,7 +82,7 @@ public class OrganizationController {
         System.out.println("7xl7mb.com1.z0.glb.clouddn.com");
         model.addAttribute("domain", "7xl7mb.com1.z0.glb.clouddn.com");
         model.addAttribute("uptoken_url", "/uploadToken");
-        return "addOrganization";
+        return "activity/addOrganization";
     }
 
 

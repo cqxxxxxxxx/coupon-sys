@@ -149,9 +149,9 @@ public class ClickServiceImpl implements ClickService {
         String code = vqf.getCode();
         Long begin = vqf.getBegin();
         Long end = vqf.getEnd();
-        List<Clickinfo> clickinfos = clickinfoMapper.getPersonalInvites(code, begin, end);
+        List<Clickinfo> clickinfos = clickinfoMapper.getDistinctPersonalInvites(code, begin, end);
         Map originMap = chartDataUtil.getOriginMap(vqf);
-        return chartDataUtil.clickMapTransfer(originMap, clickinfos);
+        return chartDataUtil.clickMapTransfer2(originMap, clickinfos);
     }
 
     /**
@@ -168,7 +168,7 @@ public class ClickServiceImpl implements ClickService {
         Long end = vqf.getEnd();
         List<Clickinfo> clickinfos = clickinfoMapper.getDistinctPersonalInvites(code, begin, end);
         Map originMap = chartDataUtil.getOriginMap(vqf);
-        return chartDataUtil.clickMapTransfer(originMap, clickinfos);
+        return chartDataUtil.clickMapTransfer1(originMap, clickinfos);
     }
 
 

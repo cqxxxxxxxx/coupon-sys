@@ -31,12 +31,12 @@ public class ChartController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String chartView() {
-        return "chartView";
+        return "chart/chartView";
     }
 
     @RequestMapping(value = "/personal", method = RequestMethod.GET)
     public String personalChartView() {
-        return "personalChartView";
+        return "chart/personalChartView";
     }
 
 

@@ -23,10 +23,10 @@
 </head>
 <body class="fixed-navbar fixed-sidebar">
 <%--header--%>
-<jsp:include page="comp/header.jsp"/>
+<jsp:include page="/WEB-INF/views/comp/header.jsp"/>
 
 <%--Aside menu--%>
-<jsp:include page="comp/siderbar.jsp">
+<jsp:include page="/WEB-INF/views/comp/siderbar.jsp">
     <jsp:param name="index" value="info"/>
     <jsp:param name="index1" value="personalInfo"/>
 </jsp:include>
@@ -97,7 +97,7 @@
 
 <script src="<c:url value="/resources/js/date/bootstrap-datepicker.min.js"/>"></script>
 <script src="<c:url value="/resources/js/date/bootstrap-datepicker.zh-CN.min.js"/>"></script>
-<script src="<c:url value="/resources/js/echarts.js"/>"></script>
+<script src="<c:url value="/resources/js/echarts.min.js"/>"></script>
 <script type="text/javascript">
 
     var myChart = echarts.init(document.getElementById('main'));
@@ -182,7 +182,13 @@
                         console.log(data);
                         myChart.setOption({
                             title: {
-                                text: '分享数统计图表'
+                                text: (function checkCode() {
+                                    if (code == ""){
+                                        return "分享数统计图表"
+                                    }else {
+                                        return  '编号' + code + '的统计图表'
+                                    }
+                                })()
                             },
                             tooltip: {
                                 trigger: 'axis',

@@ -172,7 +172,7 @@ public class ShareServiceImpl implements ShareService {
         Long end = vqf.getEnd();
         List<Shareinfo> shareinfos = shareinfoMapper.getAppRegistrations(code, begin, end);
         Map originMap = chartDataUtil.getOriginMap(vqf);
-        return chartDataUtil.shareMapTransfer(originMap, shareinfos);
+        return chartDataUtil.shareMapTransfer1(originMap, shareinfos);
 
     }
 

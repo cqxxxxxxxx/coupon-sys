@@ -204,6 +204,7 @@
             resetSearchForm();         //调用上面的方法，清空form
             var table = oTable.dataTable();
             table.fnDestroy();  //初始化datatable
+            loadData();
         });
 
         function renderDate(time) {     //改变下格式

@@ -23,10 +23,10 @@
 </head>
 <body class="fixed-navbar fixed-sidebar">
 <%--header--%>
-<jsp:include page="comp/header.jsp"/>
+<jsp:include page="/WEB-INF/views/comp/header.jsp"/>
 
 <%--Aside menu--%>
-<jsp:include page="comp/siderbar.jsp">
+<jsp:include page="/WEB-INF/views/comp/siderbar.jsp">
     <jsp:param name="index" value="info"/>
     <jsp:param name="index1" value="chartInfo"/>
 </jsp:include>
@@ -97,7 +97,7 @@
 
 <script src="<c:url value="/resources/js/date/bootstrap-datepicker.min.js"/>"></script>
 <script src="<c:url value="/resources/js/date/bootstrap-datepicker.zh-CN.min.js"/>"></script>
-<script src="<c:url value="/resources/js/echarts.js"/>"></script>
+<script src="<c:url value="/resources/js/echarts.min.js"/>"></script>
 <script type="text/javascript">
 
     var myChart = echarts.init(document.getElementById('main'));

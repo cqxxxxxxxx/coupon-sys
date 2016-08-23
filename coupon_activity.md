@@ -89,6 +89,8 @@ id | int | 唯一标识 auto_incre, PK
 code | varchar | 邀请码
 type | varchar | 0对应官方分享/1为个人分享/2为企业
 phone | varchar | 获得优惠券的用户的手机号
+checked | int | APP端是否注册 注册了为1  默认0
+checked_time | bigint | APP端注册时间
 created | bigint | 新建时间
 
 
@@ -101,6 +103,7 @@ code | varchar | 邀请码
 type | varchar |  0对应官方/1为个人/2为企业
 ip | varchar | 点击者的IP
 browser | varchar | 点击者使用的浏览器
+sendtime | bigint | 只针对个人邀请，记录个人邀请链接的发送时间
 created | bigint | 新建时间
 
 

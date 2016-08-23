@@ -31,7 +31,7 @@ public class ShareController {
     //  点击跳转
     @RequestMapping(method = RequestMethod.GET)
     public String jump() {
-        return "queryinfo1";
+        return "activity/queryinfo1";
     }
 
     //  datatables 的处理方法

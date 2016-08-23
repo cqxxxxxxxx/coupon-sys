@@ -36,7 +36,7 @@ public class ClickController {
     //  点击跳转
     @RequestMapping(method = RequestMethod.GET)
     public String jump() {
-        return "queryinfo";
+        return "activity/queryinfo";
     }
 
     //  datatables 的分页处理

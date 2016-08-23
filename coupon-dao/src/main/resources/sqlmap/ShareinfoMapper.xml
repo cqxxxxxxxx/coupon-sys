@@ -44,12 +44,12 @@
             AND code = #{code}
         </if>
         <if test="begin!=null">
-            AND created &gt;= #{begin, jdbcType=BIGINT}
+            AND checked_time &gt;= #{begin, jdbcType=BIGINT}
         </if>
         <if test="end!=null">
-            AND created &lt;= #{end, jdbcType=BIGINT}
+            AND checked_time &lt;= #{end, jdbcType=BIGINT}
         </if>
-        ORDER BY created ASC
+        ORDER BY checked_time ASC
     </select>
 
     <!--分页的SQL语句-->

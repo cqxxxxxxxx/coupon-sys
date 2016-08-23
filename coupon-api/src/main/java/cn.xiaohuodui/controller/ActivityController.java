@@ -42,7 +42,7 @@ public class ActivityController {
     //  跳转方法
     @RequestMapping(method = RequestMethod.GET)
     public String activities() {
-        return "activities";
+        return "activity/activities";
     }
 
     //  跳转方法
@@ -131,7 +131,7 @@ public class ActivityController {
     //  添加页面的跳转
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String addActivity() {
-        return "addActivity";
+        return "activity/addActivity";
     }
 
     //  进行活动添加操作

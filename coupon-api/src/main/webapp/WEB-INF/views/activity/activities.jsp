@@ -23,10 +23,10 @@
 </head>
 <body class="fixed-navbar fixed-sidebar">
 <%--header--%>
-<jsp:include page="comp/header.jsp"/>
+<jsp:include page="/WEB-INF/views/comp/header.jsp"/>
 
 <%--Aside menu--%>
-<jsp:include page="comp/siderbar.jsp">
+<jsp:include page="/WEB-INF/views/comp/siderbar.jsp">
     <jsp:param name="index" value="Activity"/>
     <jsp:param name="index1" value="activities"/>
 </jsp:include>
@@ -281,7 +281,21 @@
         return true;
     }
 
+    function checkCode(value) {
+        var Regx = /^[A-Za-z0-9]*$/;
+        if (Regx.test(value)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     function validForm1() {
+        if(!checkCode($('#code1').val().trim())){
+            toastr.error("编号必须为字母或者数字");
+            return false;
+        }
         if ($('#code1').val().trim().length == 6) {
             toastr.error("code长度不能为6位数");
             return false;

@@ -44,8 +44,8 @@
                     <li class="<c:if test="${param.index1 eq 'addActivity'}">active</c:if>"><a
                             href="<c:url value="/activities/add"/>">添加活动</a>
                     </li>
-                    <li class="<c:if test="${param.index1 eq 'updateActivity'}">active</c:if>"><a
-                            href="<c:url value="/activities/update"/>">修改活动</a></li>
+              <%--      <li class="<c:if test="${param.index1 eq 'updateActivity'}">active</c:if>"><a
+                            href="<c:url value="/activities/update"/>">修改活动</a></li>--%>
                 </ul>
             </li>
             <li class="<c:if test="${param.index eq 'info'}">active</c:if>">

@@ -24,7 +24,7 @@
 
 <!--Aside Menu -->
 <jsp:include page="/WEB-INF/views/comp/siderbar.jsp">
-    <jsp:param name="index" value="activity"/>
+    <jsp:param name="index" value="Activity"/>
     <jsp:param name="index1" value="addActivity"/>
 </jsp:include>
 
