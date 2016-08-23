@@ -50,7 +50,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-sm-7">
-                        <div id="main" style="width: 1200px;height:500px;"></div>
+                        <div id="main" style="width: 1000px;height:500px;"></div>
                     </div>
                 </div>
                 <div class="row">
@@ -128,6 +128,15 @@
                     legend: {
                         data: ['访问总量', '独立Ip访问量', '优惠券注册量', 'APP注册量']
                     },
+                  /*  dataZoom:[
+                        {
+                            id: 'dataZoomX',
+                            type:'slider',
+                            xAxisIndex:[0],
+                            filterMode:'filter'
+                        },
+                    ],*/
+
                     toolbox: {
                         show: true,
                         feature: {
@@ -151,25 +160,25 @@
                         {
                             name: '访问总量',
                             type: 'line',
-                            stack: '总量',
-                            data: data.vValues
+                        /*    stack: '总量',*/
+                            data: data.vValues,
                         },
                         {
                             name: '独立Ip访问量',
                             type: 'line',
-                            stack: '总量',
+                        /*    stack: '总量',*/
                             data: data.dValues
                         },
                         {
                             name: '优惠券注册量',
                             type: 'line',
-                            stack: '总量',
+                      /*      stack: '总量',*/
                             data: data.rValues
                         },
                         {
                             name: 'APP注册量',
                             type: 'line',
-                            stack: '总量',
+                        /*    stack: '总量',*/
                             data: data.aValues
                         },
                     ]
@@ -230,25 +239,25 @@
                             {
                                 name: '访问总量',
                                 type: 'line',
-                                stack: '总量',
+                            /*    stack: '总量',*/
                                 data: data.vValues
                             },
                             {
                                 name: '独立Ip访问量',
                                 type: 'line',
-                                stack: '总量',
+                            /*    stack: '总量',*/
                                 data: data.dValues
                             },
                             {
                                 name: '优惠券注册量',
                                 type: 'line',
-                                stack: '总量',
+                            /*    stack: '总量',*/
                                 data: data.rValues
                             },
                             {
                                 name: 'APP注册量',
                                 type: 'line',
-                                stack: '总量',
+                           /*     stack: '总量',*/
                                 data: data.aValues
                             },
                         ]

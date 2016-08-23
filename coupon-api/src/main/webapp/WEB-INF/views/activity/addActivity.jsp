@@ -185,6 +185,9 @@
         });
 
         function cleanForm() {
+            $('#code').val('');
+            $('#total_limit').val('');
+            $('#num').val('');
             $('#title').val('');
             $('#des').val('');
             $('#Starttime').val('');

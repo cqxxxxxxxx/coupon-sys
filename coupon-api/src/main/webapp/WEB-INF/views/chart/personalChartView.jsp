@@ -50,7 +50,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-sm-7">
-                        <div id="main" style="width: 1200px;height:500px;"></div>
+                        <div id="main" style="width: 1000px;height:500px;"></div>
                     </div>
                 </div>
                 <div class="row">
@@ -150,13 +150,13 @@
                         {
                             name: '分享数',
                             type: 'line',
-                            stack: '总量',
+                         /*   stack: '总量',*/
                             data: data.dValues
                         },
                         {
                             name: '分享者数',
                             type: 'line',
-                            stack: '总量',
+                        /*    stack: '总量',*/
                             data: data.pValues
                         },
 
@@ -219,13 +219,13 @@
                                 {
                                     name: '分享数',
                                     type: 'line',
-                                    stack: '总量',
+                                /*    stack: '总量',*/
                                     data: data.dValues
                                 },
                                 {
                                     name: '分享者数',
                                     type: 'line',
-                                    stack: '总量',
+                               /*     stack: '总量',*/
                                     data: data.pValues
                                 },
 
