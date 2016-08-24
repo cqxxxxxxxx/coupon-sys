@@ -66,7 +66,7 @@
 
                             <div class="form-group"><label class="col-sm-2 control-label">活动编号</label>
                                 <div class="col-sm-10">
-                                    <input id="code"  type="text" class="form-control m-b" placeholder="数字或字母，不能为6位">
+                                    <input id="code"  type="text" class="form-control m-b" placeholder="数字或字母，7位">
                                 </div>
                             </div>
 
@@ -126,8 +126,6 @@
                                     <button id="submit" class="btn btn-success">提交</button>
                                 </div>
                             </div>
-
-
                         </form>
                     </div>
                 </div>
@@ -328,14 +326,21 @@
             $('#Endtime').val('');
 
         }
-
+        function checkNum(value){
+            var Regx = /^[1-9]\d*$/;
+            if(Regx.test(value)){
+                return true;
+            }else {
+                return false;
+            }
+        }
         function validForm() {
             if(!checkCode($('#code').val().trim())){
                 toastr.error("编号必须为字母或者数字");
                 return false;
             }
-            if ($('#code').val().trim().length == 6) {
-                toastr.error('code长度不能6位');
+            if ($('#code').val().trim().length != 7) {
+                toastr.error('编号必须为7位');
                 return false;
             }
             if ($('#name').val().trim() == "") {
@@ -344,6 +349,22 @@
             }
             if ($('#des').val().trim() == "") {
                 toastr.error('简介不能为空');
+                return false;
+            }
+            if($('#total_limit').val().trim() == ""){
+                toastr.error('总数不能为空');
+                return false;
+            }
+            if(!checkNum($('#total_limit').val().trim())){
+                toastr.error("总数必须为数字");
+                return false;
+            }
+            if($('#num').val().trim() == ""){
+                toastr.error('单人券数不能为空');
+                return false;
+            }
+            if(!checkNum($('#num').val().trim())){
+                toastr.error("单人券数必须为数字");
                 return false;
             }
             if ($('#Starttime').val().trim() == "") {

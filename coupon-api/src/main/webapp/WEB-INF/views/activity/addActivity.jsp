@@ -60,7 +60,7 @@
 
                                 <div class="col-sm-10">
                                     <input id="code" type="text" class="form-control m-b" required="true"
-                                           placeholder="数字或字母，不能为6位">
+                                           placeholder="数字或字母，8位">
                                 </div>
                             </div>
                             <div class="form-group"><label class="col-sm-2 control-label">活动主题</label>
@@ -194,9 +194,30 @@
             $('#Endtime').val('');
         }
 
+        function checkCode(value) {
+            var Regx = /^[A-Za-z0-9]*$/;
+            if (Regx.test(value)) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        function checkNum(value){
+            var Regx = /^[1-9]\d*$/;
+            if(Regx.test(value)){
+                return true;
+            }else {
+                return false;
+            }
+        }
         function validForm() {
-            if ($('#code').val().trim().length==6) {
-                toastr.error('code长度不能6位');
+            if(!checkCode($('#code').val().trim())){
+                toastr.error("编号必须为字母或者数字");
+                return false;
+            }
+            if ($('#code').val().trim().length!=8) {
+                toastr.error('编号长度必须为8位');
                 return false;
             }
             if ($('#title').val().trim() == "") {
@@ -219,9 +240,16 @@
                 toastr.error('优惠券总数不能为空');
                 return false;
             }
-
+            if(!checkNum($('#total_limit').val().trim())){
+                toastr.error("优惠券总数必须为数字");
+                return false;
+            }
             if ($('#num').val().trim()=="") {
                 toastr.error('num不能为空');
+                return false;
+            }
+            if(!checkNum($('#num').val().trim())){
+                toastr.error("单人券数必须为数字");
                 return false;
             }
             return true;
