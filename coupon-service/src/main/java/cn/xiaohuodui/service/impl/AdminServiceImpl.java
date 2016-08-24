@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 /**
  * Created by cqxxxxx on 2016/8/3.
  */
-@Service(value = "AdminService")
+@Service
 public class AdminServiceImpl implements AdminService{
 
     @Autowired

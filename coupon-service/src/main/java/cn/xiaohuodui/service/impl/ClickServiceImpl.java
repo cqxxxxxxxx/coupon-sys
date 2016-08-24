@@ -22,7 +22,7 @@ import java.util.Map;
 /**
  * Created by cqxxxxx on 2016/7/20.
  */
-@Service("ClickService")
+@Service
 public class ClickServiceImpl implements ClickService {
 
     @Resource
@@ -139,6 +139,9 @@ public class ClickServiceImpl implements ClickService {
 
     /**
      * 查询每天有几个人分享，即一个人多次分享链接也只算一个
+     *
+     * 如果只是groupby code ，同一个code 前一天查到了，后一天就算有也不显示了，所有不对，
+     * 需要另外处理，即groupby code，sendtime 然后进行处理，统计每一天的不重复code数
      *
      * @param viewsQueryForm
      * @return

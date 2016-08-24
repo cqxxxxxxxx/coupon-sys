@@ -20,22 +20,23 @@ public class FormHelper {
     public static ViewsQueryForm validateViewsQueryForm(ViewsQueryForm viewsQueryForm) throws ParseException {
         Long beginDate = viewsQueryForm.getBegin();
         Long endDate = viewsQueryForm.getEnd();
-        if (beginDate == null && endDate != null) {  //开始日期没填，结束日期填了，则开始日期设为结束日期-7天
+        Long oneMonth = 60L * 60L * 24L * 30L * 1000L;
+        if (beginDate == null && endDate != null) {  //开始日期没填，结束日期填了，则开始日期设为结束日期-30天
             endDate = endDate + 60 * 60 * 24 * 1000;
-            beginDate = endDate - 60 * 60 * 24 * 7 * 1000;
+            beginDate = endDate - oneMonth;
             viewsQueryForm.setBegin(beginDate);
             viewsQueryForm.setEnd(endDate);
             return viewsQueryForm;
-        } else if (endDate == null && beginDate != null) { //结束日期没填，开始日期填了，则结束日期设为开始日期+7天
+        } else if (endDate == null && beginDate != null) { //结束日期没填，开始日期填了，则结束日期设为开始日期+30天
             //beginDate = beginDate - 60 * 60 * 24 * 1000;
-            endDate = beginDate + 60 * 60 * 24 * 7 * 1000;
+            endDate = beginDate + oneMonth;
             viewsQueryForm.setBegin(beginDate);
             viewsQueryForm.setEnd(endDate);
             return viewsQueryForm;
-        } else if (beginDate == null && endDate == null) { //如果两者都没填，则设结束日期为今天,开始日期为前7天
+        } else if (beginDate == null && endDate == null) { //如果两者都没填，则设结束日期为今天,开始日期为前30天
             Long today = new Date().getTime();
             endDate = DateUtil.stringToTimeStamp(DateUtil.timeStampToString(today)) + 60 * 60 * 24 * 1000;  //去除时分秒
-            beginDate = endDate - 60 * 60 * 24 * 7 * 1000;
+            beginDate = endDate - oneMonth;
             viewsQueryForm.setBegin(beginDate);
             viewsQueryForm.setEnd(endDate);
             return viewsQueryForm;

@@ -23,16 +23,16 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 @RequestMapping(value = "/m/invite")
 public class MInviteController {
-    @Resource(name = "ActivityService")
+    @Resource
     ActivityService activityService;
 
-    @Resource(name = "ClickService")
+    @Resource
     ClickService clickService;
 
-    @Resource(name = "ShareService")
+    @Resource
     ShareService shareService;
 
-    @Resource(name = "CouponService")
+    @Resource
     CouponService couponService;
 
     @Autowired

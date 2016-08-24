@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xiaohuodui.dao.IntermediateMapper">
+    <resultMap id="BaseResultMap" type="cn.xiaohuodui.model.Intermediate">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="code" property="code" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="date" property="date" jdbcType="VARCHAR"/>
+        <result column="num" property="num" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, code, name, date, num
+  </sql>
+
+    <!--根据name(6种类型,notNull)、 code(Null则代表所有活动访问量之和)、  开始结束日期查找-->
+    <select id="selectByNameCodeDate" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        from intermediate
+        WHERE
+        name = #{name, jdbcType=VARCHAR}
+        AND date &gt;= #{begin, jdbcType=VARCHAR}
+        AND date &lt;= #{end, jdbcType=VARCHAR}
+        <choose>
+            <when test="code!=null">
+                AND code = #{code, jdbcType=VARCHAR}
+            </when>
+            <otherwise>
+                AND code is null
+            </otherwise>
+        </choose>
+        ORDER BY date ASC
+    </select>
+
+    <insert id="insert" parameterType="cn.xiaohuodui.model.Intermediate">
+    insert into intermediate (id, code, name, 
+      date, num)
+    values (#{id,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{date,jdbcType=VARCHAR}, #{num,jdbcType=INTEGER})
+  </insert>
+
+
+    <update id="updateByPrimaryKey" parameterType="cn.xiaohuodui.model.Intermediate">
+    update intermediate
+    set code = #{code,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      date = #{date,jdbcType=VARCHAR},
+      num = #{num,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+</mapper>

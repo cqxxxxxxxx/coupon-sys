@@ -13,10 +13,10 @@ import javax.annotation.Resource;
 @Component("SendedUtil")
 public class SendedUtil {
 
-    @Resource(name = "ActivityMapper")
+    @Resource
     ActivityMapper activityMapper;
 
-    @Resource(name = "OrganizationMapper")
+    @Resource
     OrganizationMapper organizationMapper;
 
     /**

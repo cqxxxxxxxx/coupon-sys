@@ -121,6 +121,14 @@
                     title: {
                         text: '分享数统计图表'
                     },
+                    dataZoom:[
+                        {
+                            id: 'dataZoomX',
+                            type:'slider',
+                            xAxisIndex:[0],
+                            filterMode:'filter'
+                        },
+                    ],
                     tooltip: {
                         trigger: 'axis',
                     },
@@ -190,6 +198,14 @@
                                     }
                                 })()
                             },
+                            dataZoom:[
+                                {
+                                    id: 'dataZoomX',
+                                    type:'slider',
+                                    xAxisIndex:[0],
+                                    filterMode:'filter'
+                                },
+                            ],
                             tooltip: {
                                 trigger: 'axis',
                             },

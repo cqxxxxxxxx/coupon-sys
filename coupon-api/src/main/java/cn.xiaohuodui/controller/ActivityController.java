@@ -27,7 +27,7 @@ import java.util.Map;
 @RequestMapping("/activities")
 public class ActivityController {
 
-    @Resource(name = "ActivityService")
+    @Resource
     ActivityService activityService;
 
 

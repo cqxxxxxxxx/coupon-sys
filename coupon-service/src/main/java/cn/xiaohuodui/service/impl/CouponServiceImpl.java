@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 /**
  * Created by cqxxxxx on 2016/8/3.
  */
-@Service("CouponService")
+@Service
 public class CouponServiceImpl implements CouponService {
 
     @Autowired

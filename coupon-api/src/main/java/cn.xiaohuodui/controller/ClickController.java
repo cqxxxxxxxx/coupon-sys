@@ -27,10 +27,10 @@ import java.util.Map;
 @RequestMapping(value = "/clickinfo")
 public class ClickController {
 
-    @Resource(name = "ActivityService")
+    @Resource
     ActivityService activityService;
 
-    @Resource(name = "ClickService")
+    @Resource
     ClickService clickService;
 
     //  点击跳转

@@ -18,11 +18,11 @@ import java.util.List;
  * Created by cqxxxxx on 2016/7/20.
  */
 
-@Service("ActivityService")
+@Service
 public class ActivityServiceImpl implements ActivityService {
 
     //自动注入BEAN 默认byName 可以设定byType  Autowired默认byType
-    @Resource(name = "ActivityMapper")
+    @Resource
     private ActivityMapper activityMapper;
 
     @Autowired

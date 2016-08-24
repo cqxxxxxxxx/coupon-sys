@@ -14,13 +14,13 @@ import javax.annotation.Resource;
 @Component("DeadLineUtil")
 public class DeadLineUtil {
 
-    @Resource(name="ActivityMapper")
+    @Resource
     ActivityMapper activityMapper;
 
     @Resource
     ClickinfoMapper clickinfoMapper;
 
-    @Resource(name="OrganizationMapper")
+    @Resource
     OrganizationMapper organizationMapper;
 
     /**

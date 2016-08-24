@@ -27,7 +27,7 @@ import java.util.Map;
 /**
  * Created by cqxxxxx on 2016/7/20.
  */
-@Service("ShareService")
+@Service
 public class ShareServiceImpl implements ShareService {
 
     @Resource

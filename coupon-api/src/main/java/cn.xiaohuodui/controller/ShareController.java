@@ -25,7 +25,7 @@ import java.util.Map;
 public class ShareController {
 
 
-    @Resource(name = "ShareService")
+    @Resource
     ShareService shareService;
 
     //  点击跳转

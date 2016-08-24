@@ -22,11 +22,12 @@
     </bean>
 
     <!--自动扫描mapper对应的接口 并实现接口 注册BEAN 也可以手动写-->
-    <!--   <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+       <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
              <property name="basePackage" value="cn.xiaohuodui.dao"/>
-        </bean>-->
+        </bean>
 
-    <!--手写注册生成接口实现类-->
+<!--
+    &lt;!&ndash;手写注册生成接口实现类&ndash;&gt;
     <bean id="ActivityMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
         <property name="mapperInterface" value="cn.xiaohuodui.dao.ActivityMapper"/>
         <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
@@ -49,6 +50,7 @@
         <property name="mapperInterface" value="cn.xiaohuodui.dao.AdminMapper"/>
         <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
     </bean>
+-->
 
     <!--事务管理-->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

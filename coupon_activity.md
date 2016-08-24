@@ -106,6 +106,13 @@ browser | varchar | 点击者使用的浏览器
 sendtime | bigint | 只针对个人邀请，记录个人邀请链接的发送时间
 created | bigint | 新建时间
 
-
+#### 中间表(intermediate)
+参数 | 类型 |  描述
+--------- | ----------- | -----------   
+id | int | 唯一标识 auto_incre, PK  
+code | varchar | 邀请码  如果为null则为全部活动的访问量之和   
+name | varchar |  views/dviews/registrations/appRegistrations/pInvites/dpInvites  6个对应不同的需求
+date | varchar | yyyy-MM-dd格式 记录时间
+num | varchar | 对应name，可以表示访问量 或者 邀请数 或者 分享数之类的
 
 

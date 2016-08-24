@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Created by cqxxxxx on 2016/8/4.
  */
-@Service("OrganizationService")
+@Service
 public class OrganizationServiceImpl implements OrganizationService {
 
     @Autowired

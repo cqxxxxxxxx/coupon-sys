@@ -3,6 +3,7 @@ package cn.xiaohuodui.util;
 import cn.xiaohuodui.dao.ClickinfoMapper;
 import cn.xiaohuodui.form.ViewsQueryForm;
 import cn.xiaohuodui.model.Clickinfo;
+import cn.xiaohuodui.model.Intermediate;
 import cn.xiaohuodui.model.Shareinfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -37,7 +38,7 @@ public class ChartDataUtil {
         long unixTime = begin;
         //取第一个最小的日期，把他跟之后6天一共七天放到map的key中，把value置0
         for (int i = 0; i < size; i++) {
-            String date = DateUtil.getMMdd(unixTime);  //获取时间MM-dd的形式
+            String date = DateUtil.timeStampToString(unixTime);  //获取时间yyyy-MM-dd的形式
             map.put(date, 0);
             unixTime += 60 * 60 * 24 * 1000;
         }
@@ -55,7 +56,7 @@ public class ChartDataUtil {
 
         //判断是否是同一天，是则num+1
         for (Clickinfo clickinfo : clickinfos) {
-            String date = DateUtil.getMMdd(clickinfo.getCreated());
+            String date = DateUtil.timeStampToString(clickinfo.getCreated());
             if (map.containsKey(date)) {
                 int num = map.get(date);
                 map.put(date, num + 1);
@@ -73,7 +74,7 @@ public class ChartDataUtil {
     public Map clickMapTransfer1(Map<String, Integer> map, List<Clickinfo> clickinfos) throws ParseException {
         //判断是否是同一天，是则num+1
         for (Clickinfo clickinfo : clickinfos) {
-            String date = DateUtil.getMMdd(clickinfo.getSendTime());
+            String date = DateUtil.timeStampToString(clickinfo.getSendTime());
             if (map.containsKey(date)) {
                 int num = map.get(date);
                 map.put(date, num + 1);
@@ -83,6 +84,9 @@ public class ChartDataUtil {
     }
 
     /**
+     *
+     * 这个是分享数的
+     *
      * @param map
      * @param clickinfos
      * @return
@@ -95,10 +99,10 @@ public class ChartDataUtil {
         for (Clickinfo clickinfo : clickinfos) {
             Set<String> codeSet = new HashSet<String>();
             String code = clickinfo.getCode();
-            String date = DateUtil.getMMdd(clickinfo.getSendTime());
+            String date = DateUtil.timeStampToString(clickinfo.getSendTime());
             codeSet.add(code);
             for (Clickinfo clickinfo1 : clickinfos) {
-                String date1 = DateUtil.getMMdd(clickinfo1.getSendTime());
+                String date1 = DateUtil.timeStampToString(clickinfo1.getSendTime());
                 String code1 = clickinfo1.getCode();
                 if (date1.equals(date)) {
                     codeSet.add(code1);
@@ -106,13 +110,11 @@ public class ChartDataUtil {
             }
             stringSetMap.put(date, codeSet);
         }
-
         for (String key: stringSetMap.keySet()){
             if (map.containsKey(key)){
                 map.put(key, stringSetMap.get(key).size());
             }
         }
-
         return map;
     }
 
@@ -127,7 +129,7 @@ public class ChartDataUtil {
 
         //判断是否是同一天，是则num+1
         for (Shareinfo shareinfo : shareinfos) {
-            String date = DateUtil.getMMdd(shareinfo.getCreated());
+            String date = DateUtil.timeStampToString(shareinfo.getCreated());
             if (map.containsKey(date)) {
                 int num = map.get(date);
                 map.put(date, num + 1);
@@ -146,10 +148,23 @@ public class ChartDataUtil {
 
         //判断是否是同一天，是则num+1
         for (Shareinfo shareinfo : shareinfos) {
-            String date = DateUtil.getMMdd(shareinfo.getCheckedTime());
+            String date = DateUtil.timeStampToString(shareinfo.getCheckedTime());
             if (map.containsKey(date)) {
                 int num = map.get(date);
                 map.put(date, num + 1);
+            }
+        }
+        return map;
+    }
+
+    public Map IntermediateMapTransfer(Map<String, Integer> map, List<Intermediate> intermediates) throws ParseException{
+
+
+        //判断是否是同一天，是则把num作为Value放到map中
+        for (Intermediate intermediate : intermediates) {
+            String date = intermediate.getDate();
+            if (map.containsKey(date)) {
+                map.put(date, intermediate.getNum());
             }
         }
         return map;

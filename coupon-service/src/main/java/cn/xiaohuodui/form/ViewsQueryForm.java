@@ -4,9 +4,18 @@ package cn.xiaohuodui.form;
  * Created by cqxxxxx on 2016/8/18.
  */
 public class ViewsQueryForm {
+    String name;
     String code;
     Long begin;
     Long end;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getCode() {
         return code;

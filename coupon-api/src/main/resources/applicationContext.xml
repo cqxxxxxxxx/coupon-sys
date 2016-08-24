@@ -34,4 +34,39 @@
     <context:component-scan base-package="cn.xiaohuodui.controller"/>
     <context:component-scan base-package="cn.xiaohuodui.rest"/>
     <mvc:annotation-driven/>
+
+
+    <!--定时器配置-->
+    <!--注册任务bean-->
+    <bean id="taskList" class="cn.xiaohuodui.quartz.TaskList"/>
+
+    <!--配置要执行的方法-->
+    <bean id="setinfos" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject">
+            <ref bean="taskList"/>
+        </property>
+        <property name="targetMethod">
+            <value>setInfos</value>
+        </property>
+    </bean>
+
+    <!--配置触发器-->
+    <bean id="cronTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="setinfos"></property>
+        <property name="cronExpression">
+            <!--每天23.50进行任务-->
+            <value>0 50 23 * * ?</value>
+            <!--<value>0 0/2 * * * ?</value>  每五分钟执行一次-->
+        </property>
+    </bean>
+
+    <!--配置调度工厂-->
+    <bean id="springJobSchedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="cronTriggerBean"/>
+            </list>
+        </property>
+    </bean>
+
 </beans>

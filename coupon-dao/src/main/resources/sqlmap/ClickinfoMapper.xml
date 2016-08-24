@@ -20,7 +20,6 @@
     id, code, type, ip,sendtime, browser, created
   </sql>
 
-
     <!--查询每天个人分享数 包括一个人一天发了多条链接都算进去-->
     <select id="getDistinctPersonalInvites" resultMap="BaseResultMap" parameterType="map">
         SELECT

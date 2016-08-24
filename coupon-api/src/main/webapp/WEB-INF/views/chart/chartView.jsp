@@ -128,14 +128,14 @@
                     legend: {
                         data: ['访问总量', '独立Ip访问量', '优惠券注册量', 'APP注册量']
                     },
-                  /*  dataZoom:[
+                    dataZoom:[
                         {
                             id: 'dataZoomX',
                             type:'slider',
                             xAxisIndex:[0],
                             filterMode:'filter'
                         },
-                    ],*/
+                    ],
 
                     toolbox: {
                         show: true,
@@ -210,6 +210,14 @@
                                 }
                             })()
                         },
+                        dataZoom:[
+                            {
+                                id: 'dataZoomX',
+                                type:'slider',
+                                xAxisIndex:[0],
+                                filterMode:'filter'
+                            },
+                        ],
                         tooltip: {
                             trigger: 'axis',
                         },
