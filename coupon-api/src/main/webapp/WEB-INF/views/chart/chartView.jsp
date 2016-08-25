@@ -94,10 +94,10 @@
     <jsp:include page="/WEB-INF/views/comp/footer.jsp"/>
 </div>
 
-
+<script src="<c:url value="/resources/js/jquery.dataTables.js"/>"></script>
 <script src="<c:url value="/resources/js/date/bootstrap-datepicker.min.js"/>"></script>
 <script src="<c:url value="/resources/js/date/bootstrap-datepicker.zh-CN.min.js"/>"></script>
-<script src="<c:url value="/resources/js/echarts.min.js"/>"></script>
+<script src="<c:url value="/resources/js/echarts.js"/>"></script>
 <script type="text/javascript">
 
     var myChart = echarts.init(document.getElementById('main'));
@@ -141,10 +141,37 @@
                         show: true,
                         feature: {
                             mark: {show: true},
-                            dataView: {show: true, readOnly: false},
                             magicType: {show: true, type: ['line', 'bar', 'tiled']},
                             restore: {show: true},
-                            saveAsImage: {show: true}
+                            saveAsImage: {show: true},
+                            dataView: {show: true, readOnly: true,
+                                lang: ['数据视图', '关闭',''],
+                                optionToContent: function(opt) {
+                                    var axisData = opt.xAxis[0].data;
+                                    var series = opt.series;
+                                    var table = '<table id="datatable" class="table table-striped table-bordered  hover" style="width:100%;text-align:center">'
+                                            + '<thead><tr>'
+                                            + '<th>时间</th>'
+                                            + '<th>' + series[0].name + '</th>'
+                                            + '<th>' + series[1].name + '</th>'
+                                            + '<th>' + series[2].name + '</th>'
+                                            + '<th>' + series[3].name + '</th>'
+                                            + '</tr></thead>'
+                                            + '<tbody>';
+                                    for (var i = 0, l = axisData.length; i < l; i++) {
+                                        table += '<tr>'
+                                                + '<td>' + axisData[i] + '</td>'
+                                                + '<td>' + series[0].data[i] + '</td>'
+                                                + '<td>' + series[1].data[i] + '</td>'
+                                                + '<td>' + series[2].data[i] + '</td>'
+                                                + '<td>' + series[3].data[i] + '</td>'
+                                                + '</tr>';
+                                    }
+                                    table += '</tbody></table>';
+                                    return table;
+                                }
+
+                            }
                         }
                     },
                     calculable: true,
@@ -182,7 +209,7 @@
                             data: data.aValues
                         },
                     ]
-                })
+                });
             }
         });
 
@@ -228,10 +255,37 @@
                             show: true,
                             feature: {
                                 mark: {show: true},
-                                dataView: {show: true, readOnly: false},
                                 magicType: {show: true, type: ['line', 'bar', 'tiled']},
                                 restore: {show: true},
-                                saveAsImage: {show: true}
+                                saveAsImage: {show: true},
+                                dataView: {show: true, readOnly: true,
+                                    lang: ['数据视图', '关闭',''],
+                                    optionToContent: function(opt) {
+                                        var axisData = opt.xAxis[0].data;
+                                        var series = opt.series;
+                                        var table = '<table id="datatable" class="table table-striped table-bordered  hover" style="width:100%;text-align:center">'
+                                                + '<thead><tr>'
+                                                + '<th>时间</th>'
+                                                + '<th>' + series[0].name + '</th>'
+                                                + '<th>' + series[1].name + '</th>'
+                                                + '<th>' + series[2].name + '</th>'
+                                                + '<th>' + series[3].name + '</th>'
+                                                + '</tr></thead>'
+                                                + '<tbody>';
+                                        for (var i = 0, l = axisData.length; i < l; i++) {
+                                            table += '<tr>'
+                                                    + '<td>' + axisData[i] + '</td>'
+                                                    + '<td>' + series[0].data[i] + '</td>'
+                                                    + '<td>' + series[1].data[i] + '</td>'
+                                                    + '<td>' + series[2].data[i] + '</td>'
+                                                    + '<td>' + series[3].data[i] + '</td>'
+                                                    + '</tr>';
+                                        }
+                                        table += '</tbody></table>';
+                                        return table;
+                                    }
+
+                                }
                             }
                         },
                         calculable: true,
