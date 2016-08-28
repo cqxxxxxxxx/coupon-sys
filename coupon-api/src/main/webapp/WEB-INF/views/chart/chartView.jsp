@@ -120,7 +120,9 @@
                 console.log(data);
                 myChart.setOption({
                     title: {
-                        text: '系统统计图表'
+                        text: '访问量统计图表',
+                        subtext: '全部活动',
+
                     },
                     tooltip: {
                         trigger: 'axis',
@@ -229,13 +231,8 @@
                     console.log(data);
                     myChart.setOption({
                         title: {
-                            text: (function checkCode() {
-                                if (code == ""){
-                                    return "系统统计图表"
-                                }else {
-                                    return  '活动编号' + code + '的统计图表'
-                                }
-                            })()
+                            text: '访问量统计图表',
+                            subtext: '活动：'+code,
                         },
                         dataZoom:[
                             {

@@ -35,7 +35,10 @@
 <%--            <li class="<c:if test="${param.index eq 'dashboard'}">active</c:if>">
                 <a href="<c:url value="/"/>"> <span class="nav-label">控制面板</span>
                 </a>
-            </li>--%>
+                    </li>--%>
+            <li class="<c:if test="${param.index eq 'index'}">active</c:if>">
+                <a href="/chart/todayInfo"><span class="nav-label">首页</span><span class="fa arrow"></span> </a>
+            </li>
             <li class="<c:if test="${param.index eq 'Activity'}">active</c:if>">
                 <a href="#"><span class="nav-label">活动管理</span><span class="fa arrow"></span> </a>
                 <ul class="nav nav-second-level collapse">
@@ -61,6 +64,12 @@
                     <li class="<c:if test="${param.index1 eq 'personalInfo'}">active</c:if>"><a
                             href="<c:url value="/chart/personal"/> ">分享数查询</a>
                     </li>
+                   <%-- <li class="<c:if test="${param.index1 eq 'chartInfo'}">active</c:if>"><a
+                            href="<c:url value="/chart/today"/> ">今日访问量查询</a>
+                    </li>
+                    <li class="<c:if test="${param.index1 eq 'personalInfo'}">active</c:if>"><a
+                            href="<c:url value="/chart/today/personal"/> ">今日分享数查询</a>
+                    </li>--%>
                 </ul>
             </li>
     <li class="<c:if test="${param.index eq 'org'}">active</c:if>">

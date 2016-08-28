@@ -8,6 +8,8 @@ import cn.xiaohuodui.model.Shareinfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.text.ParseException;
 import java.util.*;
 
@@ -84,7 +86,6 @@ public class ChartDataUtil {
     }
 
     /**
-     *
      * 这个是分享数的
      *
      * @param map
@@ -110,8 +111,8 @@ public class ChartDataUtil {
             }
             stringSetMap.put(date, codeSet);
         }
-        for (String key: stringSetMap.keySet()){
-            if (map.containsKey(key)){
+        for (String key : stringSetMap.keySet()) {
+            if (map.containsKey(key)) {
                 map.put(key, stringSetMap.get(key).size());
             }
         }
@@ -157,7 +158,7 @@ public class ChartDataUtil {
         return map;
     }
 
-    public Map IntermediateMapTransfer(Map<String, Integer> map, List<Intermediate> intermediates) throws ParseException{
+    public Map IntermediateMapTransfer(Map<String, Integer> map, List<Intermediate> intermediates) throws ParseException {
 
 
         //判断是否是同一天，是则把num作为Value放到map中
@@ -171,4 +172,28 @@ public class ChartDataUtil {
     }
 
 
+    /**
+     * 尝试使用泛型+反射来处理不同的List<Object>，并将他转为Map
+     *不过这个环境中不太符合，因为不同的业务会调用不同的方法来获取Date，比如getDate，getCreated，getSended等等
+     * 不过可以在方法参数中加一个type来判断具体调用哪个方法。
+     * @param map
+     * @param list
+     * @param <T>
+     * @return
+     * @throws NoSuchMethodException
+     * @throws InvocationTargetException
+     * @throws IllegalAccessException
+     */
+    public <T> Map MapTransfer(Map<String, Integer> map, List<T> list) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        T t = list.get(0);
+        Method getDate = t.getClass().getDeclaredMethod("getDate");
+        Method getNum = t.getClass().getDeclaredMethod("getNum");
+        for (T t1 : list) {
+            String date = (String) getDate.invoke(t1);
+            if (map.containsKey(date)) {
+                map.put(date, (Integer) getNum.invoke(t1));
+            }
+        }
+        return map;
+    }
 }

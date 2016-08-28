@@ -7,15 +7,15 @@ import cn.xiaohuodui.service.ShareService;
 import cn.xiaohuodui.service.ViewsService;
 import cn.xiaohuodui.util.DateUtil;
 import cn.xiaohuodui.util.type.ViewsType;
+import cn.xiaohuodui.utils.ApplicationConstants;
 import cn.xiaohuodui.utils.JsonUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.util.*;
 
@@ -44,11 +44,20 @@ public class ChartController {
         return "chart/personalChartView";
     }
 
+    @RequestMapping(value = "/today", method = RequestMethod.GET)
+    public String todaychartView() {
+        return "chart/todayChartView";
+    }
 
-   /* @RequestMapping(value = "/data", method = RequestMethod.GET)
+    @RequestMapping(value = "/today/personal", method = RequestMethod.GET)
+    public String todaypersonalChartView() {
+        return "chart/todayPersonalChartView";
+    }
+
+   /* @RequestMapping(value = "/todayData", method = RequestMethod.GET)
     public
     @ResponseBody
-    String getViewsData(@RequestParam(value = "code", required = false) String code, @RequestParam(value = "begin", required = false) String begin, @RequestParam(value = "end", required = false) String end) throws ParseException {
+    String getViewsData(@RequestParam(value = "code", required = false) String code) throws ParseException {
         ViewsQueryForm viewsQueryForm = new ViewsQueryForm();
         ViewsQueryForm viewsQueryForm1 = new ViewsQueryForm();
         ViewsQueryForm viewsQueryForm2 = new ViewsQueryForm();
@@ -57,19 +66,14 @@ public class ChartController {
         Map<String, Integer> views, distinctIpViews, registrations, appRegistrations;
         Set<String> viewsKey, distinctIpViewsKey, registrationsKey, appRegistrationsKey;
         Collection<Integer> vValues, dValues, rValues, aValues;
-
+        beginDate = DateUtil.stringToTimeStamp(DateUtil.timeStampToString(new Date().getTime()));
+        endDate = beginDate + 60L * 60L * 24L * 1000L;
         if (code != null && !code.equals("")) {
             viewsQueryForm.setCode(code);
         }
 
-        if (begin != null && !begin.equals("")) {
-            beginDate = DateUtil.stringToTimeStamp(begin);
-            viewsQueryForm.setBegin(beginDate);
-        }
-        if (end != null && !end.equals("")) {
-            endDate = DateUtil.stringToTimeStamp(end);
-            viewsQueryForm.setEnd(endDate);
-        }
+        viewsQueryForm.setBegin(beginDate);
+        viewsQueryForm.setEnd(endDate);
 
         BeanUtils.copyProperties(viewsQueryForm, viewsQueryForm1);
         BeanUtils.copyProperties(viewsQueryForm, viewsQueryForm2);
@@ -214,7 +218,8 @@ public class ChartController {
     }
 
 
-  /*  @RequestMapping(value = "/data/personal", method = RequestMethod.GET)
+
+  /*  @RequestMapping(value = "/todayData/personal", method = RequestMethod.GET)
     public
     @ResponseBody
     String getPersonalInvitesData(@RequestParam(value = "code", required = false) String code, @RequestParam(value = "begin", required = false) String begin, @RequestParam(value = "end", required = false) String end) throws ParseException {
@@ -228,15 +233,10 @@ public class ChartController {
         if (code != null && !code.equals("")) {
             viewsQueryForm.setCode(code);
         }
-
-        if (begin != null && !begin.equals("")) {
-            beginDate = DateUtil.stringToTimeStamp(begin);
-            viewsQueryForm.setBegin(beginDate);
-        }
-        if (end != null && !end.equals("")) {
-            endDate = DateUtil.stringToTimeStamp(end);
-            viewsQueryForm.setEnd(endDate);
-        }
+        beginDate = DateUtil.stringToTimeStamp(DateUtil.timeStampToString(new Date().getTime()));
+        endDate = beginDate + 60L * 60L * 24L * 1000L;
+        viewsQueryForm.setBegin(beginDate);
+        viewsQueryForm.setEnd(endDate);
 
         BeanUtils.copyProperties(viewsQueryForm, viewsQueryForm1);
         pViews = clickService.getPersonalInvites(viewsQueryForm); //获取每天有几个人分享
@@ -256,5 +256,105 @@ public class ChartController {
         return JsonUtil.writeObjectAsString(results);
     }
 */
+    @RequestMapping(value = "/todayInfo", method = RequestMethod.GET)
+    public String todayInfo(HttpServletRequest request, Model model) throws ParseException {
+        ViewsQueryForm viewsQueryForm = new ViewsQueryForm();
+        ViewsQueryForm viewsQueryForm1 = new ViewsQueryForm();
+        ViewsQueryForm viewsQueryForm2 = new ViewsQueryForm();
+        ViewsQueryForm viewsQueryForm3 = new ViewsQueryForm();
+        ViewsQueryForm viewsQueryForm4 = new ViewsQueryForm();
+        ViewsQueryForm viewsQueryForm5 = new ViewsQueryForm();
+        Long beginDate, endDate;
+        Map<String, Integer> views, distinctIpViews, registrations, appRegistrations, pViews, distinctPViews;
+        Collection<Integer> vValues, dValues, rValues, aValues, pValues, dpValues;
+        beginDate = DateUtil.stringToTimeStamp(DateUtil.timeStampToString(new Date().getTime()));
+        endDate = beginDate + 60L * 60L * 24L * 1000L;
+        viewsQueryForm.setBegin(beginDate);
+        viewsQueryForm.setEnd(endDate);
+
+        BeanUtils.copyProperties(viewsQueryForm, viewsQueryForm1);
+        BeanUtils.copyProperties(viewsQueryForm, viewsQueryForm2);
+        BeanUtils.copyProperties(viewsQueryForm, viewsQueryForm3);
+        BeanUtils.copyProperties(viewsQueryForm, viewsQueryForm4);
+        BeanUtils.copyProperties(viewsQueryForm, viewsQueryForm5);
+
+        views = clickService.getViews(viewsQueryForm); //获取访问总量的map
+        distinctIpViews = clickService.getViewsDistinctIp(viewsQueryForm1); //获取IP不重复的访问量
+        registrations = shareService.getRegistrations(viewsQueryForm2); //获取注册数量
+        appRegistrations = shareService.getAppRegistrations(viewsQueryForm3); //获取APP上注册的数量
+        pViews = clickService.getPersonalInvites(viewsQueryForm); //获取每天有几个人分享
+        distinctPViews = clickService.getDistinctPersonalInvites(viewsQueryForm1); //获取每天分享的链接数
+
+        vValues = views.values();              //总访问量的value 即访问数 跟日期一起对应
+        dValues = distinctIpViews.values();
+        rValues = registrations.values();
+        aValues = appRegistrations.values();
+        pValues = pViews.values();
+        dpValues = distinctPViews.values();
+
+
+        model.addAttribute("views",vValues.toArray()[0]);
+        model.addAttribute("dviews",dValues.toArray()[0]);
+        model.addAttribute("rviews",rValues.toArray()[0]);
+        model.addAttribute("aviews",aValues.toArray()[0]);
+        model.addAttribute("pviews",pValues.toArray()[0]);
+        model.addAttribute("dpviews",dpValues.toArray()[0]);
+
+        return "/activity/dashboard";
+    }
+
+    @RequestMapping(value = "/todayInfo/{code}", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    String todayInfo(@PathVariable("code") String code) throws ParseException {
+        ViewsQueryForm viewsQueryForm = new ViewsQueryForm();
+        ViewsQueryForm viewsQueryForm1 = new ViewsQueryForm();
+        ViewsQueryForm viewsQueryForm2 = new ViewsQueryForm();
+        ViewsQueryForm viewsQueryForm3 = new ViewsQueryForm();
+        ViewsQueryForm viewsQueryForm4 = new ViewsQueryForm();
+        ViewsQueryForm viewsQueryForm5 = new ViewsQueryForm();
+        Long beginDate, endDate;
+        Map<String, Integer> views, distinctIpViews, registrations, appRegistrations, pViews, distinctPViews;
+        Collection<Integer> vValues, dValues, rValues, aValues, pValues, dpValues;
+        beginDate = DateUtil.stringToTimeStamp(DateUtil.timeStampToString(new Date().getTime()));
+        endDate = beginDate + 60L * 60L * 24L * 1000L;
+        if (code != null && !code.equals("")) {
+            viewsQueryForm.setCode(code);
+        }
+
+        viewsQueryForm.setBegin(beginDate);
+        viewsQueryForm.setEnd(endDate);
+
+        BeanUtils.copyProperties(viewsQueryForm, viewsQueryForm1);
+        BeanUtils.copyProperties(viewsQueryForm, viewsQueryForm2);
+        BeanUtils.copyProperties(viewsQueryForm, viewsQueryForm3);
+        BeanUtils.copyProperties(viewsQueryForm, viewsQueryForm4);
+        BeanUtils.copyProperties(viewsQueryForm, viewsQueryForm5);
+
+        views = clickService.getViews(viewsQueryForm); //获取访问总量的map
+        distinctIpViews = clickService.getViewsDistinctIp(viewsQueryForm1); //获取IP不重复的访问量
+        registrations = shareService.getRegistrations(viewsQueryForm2); //获取注册数量
+        appRegistrations = shareService.getAppRegistrations(viewsQueryForm3); //获取APP上注册的数量
+        pViews = clickService.getPersonalInvites(viewsQueryForm); //获取每天有几个人分享
+        distinctPViews = clickService.getDistinctPersonalInvites(viewsQueryForm1); //获取每天分享的链接数
+
+        vValues = views.values();              //总访问量的value 即访问数 跟日期一起对应
+        dValues = distinctIpViews.values();
+        rValues = registrations.values();
+        aValues = appRegistrations.values();
+        pValues = pViews.values();
+        dpValues = distinctPViews.values();
+
+        Map<String, Object> results = new HashMap<String, Object>();
+        results.put("views", vValues.toArray()[0]);
+        results.put("dviews", dValues.toArray()[0]);
+        results.put("rviews", rValues.toArray()[0]);
+        results.put("aviews", aValues.toArray()[0]);
+        results.put("pviews", pValues.toArray()[0]);
+        results.put("dpviews", dpValues.toArray()[0]);
+        System.out.println(JsonUtil.writeObjectAsString(results));
+
+        return JsonUtil.writeObjectAsString(results);
+    }
 
 }

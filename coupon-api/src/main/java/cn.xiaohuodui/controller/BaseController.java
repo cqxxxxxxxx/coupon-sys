@@ -89,7 +89,7 @@ public class BaseController {
             response.addCookie(username);
 
         }
-        return "redirect:/";
+        return "redirect:/chart/todayInfo";
     }
 
     /**
