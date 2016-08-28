@@ -6,6 +6,8 @@ import cn.xiaohuodui.util.DeadLineUtil;
 import cn.xiaohuodui.utils.ApplicationConstants;
 import cn.xiaohuodui.utils.IPUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mobile.device.Device;
+import org.springframework.mobile.device.DeviceUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,8 +56,9 @@ public class MInviteController {
     public String invite(HttpServletRequest request, String ref, String name, String timestamp, Model model) {
         String ip = IPUtil.getIpAddr(request);
         String browser = IPUtil.getBrowser(request);
+        Device device = DeviceUtils.getCurrentDevice(request);
         Long ts = null;
-        if (timestamp != null){
+        if (timestamp != null) {
             ts = Long.parseLong(timestamp.replace(",", ""));
         }
 
@@ -66,7 +69,11 @@ public class MInviteController {
             model.addAttribute("code", ref);
 
             clickService.setInfo(ref, ip, browser, ts);
-            return "m/invite";
+            if (device.isMobile()) {
+                return "m/invite";
+            } else {
+                return "m/web_invite";
+            }
         } else if (!activityService.checkCode(ref)) {  //官方活动URL进来的
             System.out.println(couponService.checkRemain(ref));
             long starttime = deadLineUtil.getStarttime(ref);
@@ -87,8 +94,12 @@ public class MInviteController {
             model.addAttribute("type", "0");    //官方的url进来的
             model.addAttribute("code", ref);
             clickService.setInfo(ref, ip, browser, ts);
-            return "m/officalInvite";
 
+            if (device.isMobile()) {
+                return "m/officalInvite";
+            } else {
+                return "m/web_officalInvite";
+            }
         } else {
             long starttime = deadLineUtil.getStarttime(ref);
             long endtime = deadLineUtil.getEndtime(ref);
@@ -109,7 +120,12 @@ public class MInviteController {
             model.addAttribute("type", "2");    //企业的url进来的
             model.addAttribute("code", ref);
             clickService.setInfo(ref, ip, browser, ts);
-            return "m/orgInvite";
+
+            if (device.isMobile()) {
+                return "m/orgInvite";
+            } else {
+                return "m/web_orgInvite";
+            }
         }
     }
 
@@ -147,15 +163,22 @@ public class MInviteController {
 
 
     @RequestMapping(value = "/finish", method = RequestMethod.GET)
-    public String redirect(@RequestParam(value = "type", required = false) String type, @RequestParam(value = "logo", required = false) String logo, Model model) {
+    public String redirect(HttpServletRequest request, @RequestParam(value = "type", required = false) String type, @RequestParam(value = "logo", required = false) String logo, Model model) {
+        Device device = DeviceUtils.getCurrentDevice(request);
         if (type == null) {
-            return "m/regFinish";
+            if (device.isMobile()) {
+                return "m/regFinish";
+            } else {
+                return "m/web_finish";
+            }
         } else {
             System.out.println(logo);
             model.addAttribute("logo", logo);
-            return "m/orgRegFinish";
+            if (device.isMobile()) {
+                return "m/orgRegFinish";
+            } else {
+                return "m/web_orgRegFinish";
+            }
         }
     }
-
-
 }
