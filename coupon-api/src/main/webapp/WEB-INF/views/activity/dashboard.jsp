@@ -135,7 +135,7 @@
                             <h1 class="m-xs" id="pviews">${pviews}</h1>
 
                             <h3>
-                                今日分享数
+                                今日分享者数
                             </h3>
                         </div>
                     </div>
@@ -148,7 +148,7 @@
                             <h1 class="m-xs" id="dpviews">${dpviews}</h1>
 
                             <h3>
-                                今日分享者数
+                                今日分享数
                             </h3>
                         </div>
                     </div>
