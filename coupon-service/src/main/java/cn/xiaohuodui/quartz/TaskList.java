@@ -13,10 +13,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.text.ParseException;
-import java.util.ArrayList;
-
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by cqxxxxx on 2016/8/24.
@@ -90,7 +87,7 @@ public class TaskList {
 /*--------------------------根据click表中created查询----------------------------------------------------------------------------------*/
 
             List<Clickinfo> clickinfos = clickinfoMapper.getViews(null, begin, end);
-            List<String> codes = new ArrayList<String>();
+            Set<String> codes = new HashSet<String>();
             for (Clickinfo clickinfo : clickinfos){
                 codes.add(clickinfo.getCode());
             }
